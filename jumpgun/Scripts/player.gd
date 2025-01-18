@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
 #replace direction to be rotation direction instead.
-#Do we aim with mouse or a/d? Need to clarify
-#
+#Do we aim with mouse or a/d? LEts try them both
+#Game speed modifier
+#Game over upon touching the ground?
+#add pausing
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0

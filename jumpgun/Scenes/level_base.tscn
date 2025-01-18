@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://yo74n18pbk7b"]
+[gd_scene load_steps=7 format=4 uid="uid://yo74n18pbk7b"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_geril"]
+[ext_resource type="PackedScene" uid="uid://cbjntngcsfkmj" path="res://Scenes/player.tscn" id="2_p20sl"]
 [ext_resource type="Texture2D" uid="uid://btq31pp3yfhde" path="res://Import/Textures/temp-tiles.png" id="2_tf3oq"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_jt5n0"]
@@ -9,14 +10,19 @@ tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 196
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wnpop"]
 texture = ExtResource("2_tf3oq")
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
 1:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_rpwxw"]
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_wnpop")
 pattern_0 = SubResource("TileMapPattern_jt5n0")
 
 [node name="Level_Base" type="Node2D"]
 script = ExtResource("1_geril")
 
+[node name="Player" parent="." instance=ExtResource("2_p20sl")]
+
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAADAAUAAAAAAAAAAAADAAQAAAAAAAAAAAADAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAAEAAAAAAAAAAAADAAAAAAAAAAAAAAADAP//AAAAAAAAAAADAP7/AAAAAAAAAAD8/w0AAAABAAAAAAD8/wwAAAABAAAAAAD8/wsAAAABAAAAAAD8/woAAAABAAAAAAD8/wkAAAABAAAAAAD8/wgAAAABAAAAAAD8/wcAAAABAAAAAAD8/wYAAAABAAAAAAADAAsAAAABAAAAAAACAAsAAAABAAAAAAABAAsAAAABAAAAAAAAAAsAAAABAAAAAAD//wsAAAABAAAAAAD+/wsAAAABAAAAAAD9/wsAAAABAAAAAAAEABQAAAAAAAAAAAADABQAAAAAAAAAAAACABQAAAAAAAAAAAD+/xQAAAAAAAAAAAD9/xQAAAAAAAAAAAD8/xQAAAAAAAAAAAD7/xQAAAAAAAAAAAABABQAAAAAAAAAAAAAABQAAAAAAAAAAAD//xQAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_rpwxw")
