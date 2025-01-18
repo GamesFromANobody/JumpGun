@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://o21od6vh5drk"]
+[gd_scene load_steps=2 format=3 uid="uid://o21od6vh5drk"]
+
+[ext_resource type="Script" path="res://Scenes/UI/level_select.gd" id="1_jk6qk"]
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
@@ -7,3 +9,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jk6qk")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Testing" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Testing"
+
+[node name="Back" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Testing" to="." method="_on_testing_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
