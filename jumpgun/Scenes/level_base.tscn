@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://yo74n18pbk7b"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_geril"]
+[ext_resource type="Texture2D" uid="uid://btq31pp3yfhde" path="res://Import/Textures/temp-tiles.png" id="2_tf3oq"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_jt5n0"]
+tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 1, 65536, 0, 65537, 65536, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 2, 65536, 0, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 0, 262146, 0, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 262147, 0, 0, 4, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wnpop"]
+texture = ExtResource("2_tf3oq")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_rpwxw"]
+sources/0 = SubResource("TileSetAtlasSource_wnpop")
+pattern_0 = SubResource("TileMapPattern_jt5n0")
+
+[node name="Level_Base" type="Node2D"]
+script = ExtResource("1_geril")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_rpwxw")
