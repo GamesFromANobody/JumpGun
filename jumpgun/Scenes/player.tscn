@@ -6,7 +6,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tlfx8"]
 size = Vector2(28, 22)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="RigidBody2D"]
+collision_mask = 63
+gravity_scale = 0.25
+angular_damp = 10.0
 script = ExtResource("1_dvgqa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,3 +20,6 @@ texture = ExtResource("1_1c3n6")
 shape = SubResource("RectangleShape2D_tlfx8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(14, -5)

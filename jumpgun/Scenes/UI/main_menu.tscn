@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://brsgfqlu8186t"]
 
-[ext_resource type="PackedScene" uid="uid://yo74n18pbk7b" path="res://Scenes/level_base.tscn" id="1_rdxus"]
+[ext_resource type="Script" path="res://Scripts/UI/main_menu.gd" id="1_4hpoi"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -9,5 +9,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_4hpoi")
 
-[node name="Level_Base" parent="." instance=ExtResource("1_rdxus")]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LevelSelect" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level Select"
+
+[node name="Options" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Credits" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/LevelSelect" to="." method="_on_level_select_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

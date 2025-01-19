@@ -1,28 +1,88 @@
-[gd_scene load_steps=7 format=4 uid="uid://yo74n18pbk7b"]
+[gd_scene load_steps=22 format=3 uid="uid://yo74n18pbk7b"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_geril"]
+[ext_resource type="Texture2D" uid="uid://dn7ptjt1ldmoa" path="res://Import/Textures/temp-BGtiles.png" id="2_022sy"]
 [ext_resource type="PackedScene" uid="uid://cbjntngcsfkmj" path="res://Scenes/player.tscn" id="2_p20sl"]
 [ext_resource type="Texture2D" uid="uid://btq31pp3yfhde" path="res://Import/Textures/temp-tiles.png" id="2_tf3oq"]
+[ext_resource type="Texture2D" uid="uid://e6tslwetn6xb" path="res://Import/Textures/temp-objects.png" id="4_34oqg"]
+[ext_resource type="Texture2D" uid="uid://cv185kyfkbp82" path="res://Import/Textures/temp-enemies.png" id="5_23b1i"]
+[ext_resource type="Script" path="res://Scripts/object_creation.gd" id="5_pixo4"]
+[ext_resource type="Texture2D" uid="uid://dwn6p66vlrwmh" path="res://Import/Textures/temp-FGtiles.png" id="5_v3tyw"]
+[ext_resource type="Script" path="res://Scripts/enemy_creation.gd" id="7_p0tcv"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_jt5n0"]
 tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 1, 65536, 0, 65537, 65536, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 2, 65536, 0, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 0, 262146, 0, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 262147, 0, 0, 4, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wnpop"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yjhyt"]
+texture = ExtResource("2_022sy")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_54gwe"]
+sources/0 = SubResource("TileSetAtlasSource_yjhyt")
+pattern_0 = SubResource("TileMapPattern_jt5n0")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewnqe"]
 texture = ExtResource("2_tf3oq")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
 1:0/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_rpwxw"]
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_wnpop")
+[sub_resource type="TileSet" id="TileSet_pgfi7"]
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 53
+sources/0 = SubResource("TileSetAtlasSource_ewnqe")
 pattern_0 = SubResource("TileMapPattern_jt5n0")
 
-[node name="Level_Base" type="Node2D"]
+[sub_resource type="TileMapPattern" id="TileMapPattern_3b5fg"]
+tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 1, 65536, 0, 65537, 65536, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 2, 65536, 0, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 0, 262146, 0, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 262147, 0, 0, 4, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mqb3i"]
+texture = ExtResource("4_34oqg")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_77nwm"]
+sources/0 = SubResource("TileSetAtlasSource_mqb3i")
+pattern_0 = SubResource("TileMapPattern_3b5fg")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wqxwj"]
+texture = ExtResource("5_23b1i")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_u1vo5"]
+sources/0 = SubResource("TileSetAtlasSource_wqxwj")
+pattern_0 = SubResource("TileMapPattern_3b5fg")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8vw4t"]
+texture = ExtResource("5_v3tyw")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_5hvw6"]
+sources/0 = SubResource("TileSetAtlasSource_8vw4t")
+pattern_0 = SubResource("TileMapPattern_jt5n0")
+
+[node name="Level_Base" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_geril")
+player = NodePath("Player")
+
+[node name="BackGround" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_54gwe")
+
+[node name="Level" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_pgfi7")
+
+[node name="Objects" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_77nwm")
+script = ExtResource("5_pixo4")
+
+[node name="Enemies" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_u1vo5")
+script = ExtResource("7_p0tcv")
 
 [node name="Player" parent="." instance=ExtResource("2_p20sl")]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAADAAUAAAAAAAAAAAADAAQAAAAAAAAAAAADAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAAEAAAAAAAAAAAADAAAAAAAAAAAAAAADAP//AAAAAAAAAAADAP7/AAAAAAAAAAD8/w0AAAABAAAAAAD8/wwAAAABAAAAAAD8/wsAAAABAAAAAAD8/woAAAABAAAAAAD8/wkAAAABAAAAAAD8/wgAAAABAAAAAAD8/wcAAAABAAAAAAD8/wYAAAABAAAAAAADAAsAAAABAAAAAAACAAsAAAABAAAAAAABAAsAAAABAAAAAAAAAAsAAAABAAAAAAD//wsAAAABAAAAAAD+/wsAAAABAAAAAAD9/wsAAAABAAAAAAAEABQAAAAAAAAAAAADABQAAAAAAAAAAAACABQAAAAAAAAAAAD+/xQAAAAAAAAAAAD9/xQAAAAAAAAAAAD8/xQAAAAAAAAAAAD7/xQAAAAAAAAAAAABABQAAAAAAAAAAAAAABQAAAAAAAAAAAD//xQAAAAAAAAAAAA=")
-tile_set = SubResource("TileSet_rpwxw")
+[node name="ForeGround" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_5hvw6")
