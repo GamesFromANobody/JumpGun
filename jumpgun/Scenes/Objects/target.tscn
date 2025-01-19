@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://svdwkte1gs7t"]
+
+[ext_resource type="Texture2D" uid="uid://e6tslwetn6xb" path="res://Import/Textures/temp-objects.png" id="1_e2ali"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwmfy"]
+radius = 8.0
+
+[node name="Target" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jwmfy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_e2ali")
+hframes = 2
