@@ -15,5 +15,5 @@ func _ready() -> void:
 
 func createObject(index, pos):
 	var newObj = enemies[index].instantiate()
-	newObj.position = pos * 16
+	newObj.position = pos * 16 + Vector2i(8, 8)
 	add_child(newObj)
