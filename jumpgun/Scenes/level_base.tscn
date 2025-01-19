@@ -67,24 +67,34 @@ sources/0 = SubResource("TileSetAtlasSource_8vw4t")
 pattern_0 = SubResource("TileMapPattern_jt5n0")
 
 [node name="Level_Base" type="Node2D" node_paths=PackedStringArray("player")]
+process_mode = 3
 script = ExtResource("1_geril")
 player = NodePath("Player")
 
 [node name="BackGround" type="TileMapLayer" parent="."]
+process_mode = 1
 tile_set = SubResource("TileSet_54gwe")
 
 [node name="Level" type="TileMapLayer" parent="."]
+process_mode = 1
 tile_set = SubResource("TileSet_pgfi7")
 
 [node name="Objects" type="TileMapLayer" parent="."]
+process_mode = 1
 tile_set = SubResource("TileSet_77nwm")
 script = ExtResource("5_pixo4")
 
 [node name="Enemies" type="TileMapLayer" parent="."]
+process_mode = 1
 tile_set = SubResource("TileSet_u1vo5")
 script = ExtResource("7_p0tcv")
 
 [node name="Player" parent="." instance=ExtResource("2_p20sl")]
 
 [node name="ForeGround" type="TileMapLayer" parent="."]
+process_mode = 1
 tile_set = SubResource("TileSet_5hvw6")
+
+[connection signal="pause" from="." to="Player" method="_on_level_base_pause"]
+[connection signal="unpause" from="." to="Player" method="_on_level_base_unpause"]
+[connection signal="unpause" from="Player" to="." method="Unpause"]

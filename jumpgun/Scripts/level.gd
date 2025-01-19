@@ -6,7 +6,7 @@ signal unpause()
 
 
 var isPaused : bool = false
-
+var prevTimeScale = 1.0
 
 @export var player : Player
 
@@ -26,11 +26,17 @@ func _input(event: InputEvent) -> void:
 
 func Pause():
 	isPaused = true
+	prevTimeScale = Engine.time_scale
+	Engine.time_scale = 0
 	pause.emit()
+	set_process_input(true)
+	print("Pausing")
 
 func Unpause():
 	isPaused = false
+	Engine.time_scale = prevTimeScale
 	unpause.emit()
+	print("Unpausing")
 
 func ChangeLevel():
-	pass
+	isPaused = true
