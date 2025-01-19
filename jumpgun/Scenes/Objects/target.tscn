@@ -6,6 +6,8 @@
 radius = 8.0
 
 [node name="Target" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 21
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jwmfy")
