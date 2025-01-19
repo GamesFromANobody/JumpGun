@@ -12,6 +12,10 @@ const JUMP_VELOCITY = -400.0
 
 @export var knockback : float = 1.0
 @export var player_rotation : float = 1.0
+#@export var bullet_scene : PackedScene
+
+var bullet_scene = preload("res://Scenes/bullet.tscn")
+
 var recoil = Vector2(-30000, 0)
 var torque = 20000
 
@@ -27,7 +31,14 @@ func _integrate_forces(state):
 		
 	#shoot (force alone for now)
 	if Input.is_action_just_pressed("shoot"):
+		shoot()
 		state.apply_force(recoil.rotated(rotation))
-		print("shoot!")
+		
 	
 	state.apply_torque(rotation_dir * torque)
+	
+func shoot():
+	var b = bullet_scene.instantiate()
+	b.transform = $Muzzle.global_transform
+	get_parent().call_deferred("add_child" ,b)
+	print("shoot!")

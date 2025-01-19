@@ -19,3 +19,6 @@ texture = ExtResource("1_1c3n6")
 shape = SubResource("RectangleShape2D_tlfx8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(14, -5)
