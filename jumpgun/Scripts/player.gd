@@ -6,14 +6,26 @@ class_name Player
 #Game over upon touching the ground?
 #add pausing
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+enum ShotTypes {
+	Pistol,
+	TODO_Shotgun,
+	TODO_Sniper,
+	TODO_SMG,
+	TODO_LMG,
+}
+@export var shotType : ShotTypes
+@export_range(1, 5, 1.0) var gun_model
+@export_range(1, 5, 1.0) var bullet_model
+@export_range(100, 3000, 100) var bullet_velocity = 800
 
-@export var knockback : float = 1.0
-@export var player_rotation : float = 1.0
-@export var max_slowdown : float = 0.25
-@export var slowdown_seconds : float = 2.5
-@export var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge than the active duration 
+
+
+@export_range(0, 10, 0.01) var knockback : float = 1.0
+@export_range(0, 10, 0.01) var player_rotation : float = 1.0
+@export_range(0.05, 1, 0.01) var max_slowdown : float = 0.25
+@export_range(0, 15, 0.25) var slowdown_seconds : float = 2.5
+@export_range(0, 4, 0.05) var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge than the active duration 
+
 
 var bullet_scene = preload("res://Scenes/bullet.tscn")
 
@@ -33,6 +45,8 @@ var allowSlowdown = true
 func _ready() -> void:
 	$Gun/LaserSight.self_modulate = Color(1, 0, 0, 0)
 	slowdown = slowdown_seconds
+	#TODO Implement gun model different collision boxes
+	#
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
@@ -78,9 +92,9 @@ func _integrate_forces(state):
 	prevMouseVelocity = Input.get_last_mouse_velocity()
 	
 	if usingController:
-		set_angular_velocity((get_angle_to(controllerInput + position)) * -((get_angle_to(controllerInput + position)) -3.14) * 5)
+		set_angular_velocity((get_angle_to(controllerInput + position)) * -((get_angle_to(controllerInput + position)) -3.14) * 5 * player_rotation)
 	else:
-		set_angular_velocity((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5)
+		set_angular_velocity((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * player_rotation)
 	
 	
 		
@@ -92,7 +106,8 @@ func _integrate_forces(state):
 		
 	
 func shoot():
-	var b = bullet_scene.instantiate()
+	var b = bullet_scene.instantiate() as Bullet
 	b.transform = $Muzzle.global_transform
+	b.speed = bullet_velocity
 	get_parent().call_deferred("add_child" ,b)
-	print("shoot!")
+	#print("shoot!")
