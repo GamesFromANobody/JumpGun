@@ -3,9 +3,11 @@ class_name Level
 #This node should control pausing and game speed (if we want to change it)
 signal pause()
 signal unpause()
-signal changeGameSpeed(newSpeed : float) #Setter, the recieving node should just apply this value
+
 
 var isPaused : bool = false
+
+
 @export var player : Player
 
 func _ready() -> void:
