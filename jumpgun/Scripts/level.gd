@@ -6,9 +6,11 @@ signal unpause()
 signal changeGameSpeed(newSpeed : float) #Setter, the recieving node should just apply this value
 
 var isPaused : bool = false
+@export var player : Player
 
 func _ready() -> void:
 	pass
+
 
 func _process(_delta: float) -> void:
 	pass
