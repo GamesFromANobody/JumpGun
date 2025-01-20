@@ -17,3 +17,7 @@ func _on_back_pressed() -> void:
 
 func _on_testing_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/level_test.tscn")
+
+
+func _on_testing_2_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis1.tscn")
