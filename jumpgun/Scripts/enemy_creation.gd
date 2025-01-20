@@ -1,20 +1,58 @@
-#@tool
+@tool
 extends TileMapLayer
-
+#WARNING DON'T fuck with anything in _process() _on_changed() and functions called EDITOR
+#Actually, Dont fuck with anything at all, talk with me first @tool is quite dangerous here.
 var enemies = [
 	preload("res://Scenes/mob_enemy.tscn"),
-	"GARBAGE",
+	preload("res://Scenes/mob_enemy.tscn"),
 	preload("res://Scenes/Objects/acid_pit.tscn")
 ]
 
-#@export var  = false
+@export var instantiate_enemies = false
+var list_of_enemies : Array[MobEnemy] = []
+var listOfEnemyCoordinates : Array[Vector2i] = []
+var testCooldown = 10.0
+func _process(delta: float) -> void:
+	testCooldown -= delta
+	if not Engine.is_editor_hint(): #if we are not in the editor, return
+		return
+	if instantiate_enemies == false and list_of_enemies.size() > 0:
+		EDITOR_clearInstances()
+	if instantiate_enemies == true:
+		testCooldown -= delta
+		if testCooldown < 0:
+			EDITOR_updateInstances()
+			testCooldown = 10
+			print("update")
+	
+func EDITOR_clearInstances():
+	for child in get_children():
+		child.queue_free()
+	list_of_enemies.clear()
+	listOfEnemyCoordinates.clear()
+
+func EDITOR_updateInstances():
+	for cell in get_used_cells_by_id(0, Vector2i(0, 0)): #Ordo ^2, but should be no issue
+		if listOfEnemyCoordinates.find(cell) == -1:
+			createObject(0, cell)
+	var i = 0
+	for cord in listOfEnemyCoordinates:
+		if get_cell_atlas_coords(cord) == Vector2i(-1, -1):
+			listOfEnemyCoordinates.remove_at(i)
+			list_of_enemies[i].queue_free()
+			list_of_enemies.remove_at(i)
+		i += 1
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if Engine.is_editor_hint(): #Since @tool is used, use this as safty measure
+		return
 	print("Creating Enemies")
 	for cell in get_used_cells_by_id(0, Vector2i(0, 0)):
 		print("Creating enemy0 at " + str(cell)) #create target
-		createObject(0, cell)
+		if instantiate_enemies == false:
+			createObject(0, cell)
 		set_cell(cell, 0, Vector2i(-1, -1))
 	for cell in get_used_cells_by_id(0, Vector2i(2, 0)):
 		print("Creating enemy1 at " + str(cell)) #create target
@@ -29,8 +67,13 @@ func _ready() -> void:
 func createObject(index, pos):
 	var newObj = enemies[index].instantiate()
 	newObj.position = pos * 16 + Vector2i(8, 8)
+	
 	add_child(newObj)
+	if Engine.is_editor_hint():
+		listOfEnemyCoordinates.append(pos)
+		list_of_enemies.append(newObj)
+		newObj.set_owner(get_tree().get_edited_scene_root())
 
 
 func _on_changed() -> void:
-	pass # Replace with function body.
+	print("tiles changed")

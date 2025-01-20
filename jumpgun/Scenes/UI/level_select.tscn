@@ -29,9 +29,14 @@ alignment = 1
 layout_mode = 2
 text = "Testing"
 
+[node name="Testing2" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Testing 2"
+
 [node name="Back" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
 [connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Testing" to="." method="_on_testing_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Testing2" to="." method="_on_testing_2_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
