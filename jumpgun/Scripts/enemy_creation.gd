@@ -12,6 +12,7 @@ var enemies = [
 var list_of_enemies : Array[MobEnemy] = []
 var listOfEnemyCoordinates : Array[Vector2i] = []
 var testCooldown = 10.0
+
 func _process(delta: float) -> void:
 	testCooldown -= delta
 	if not Engine.is_editor_hint(): #if we are not in the editor, return
@@ -23,8 +24,8 @@ func _process(delta: float) -> void:
 		if testCooldown < 0:
 			EDITOR_updateInstances()
 			testCooldown = 10
-			print("update")
 	
+
 func EDITOR_clearInstances():
 	for child in get_children():
 		child.queue_free()
@@ -46,7 +47,12 @@ func EDITOR_updateInstances():
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if Engine.is_editor_hint(): #Since @tool is used, use this as safty measure
+	if Engine.is_editor_hint(): #@tool needs this
+		listOfEnemyCoordinates.clear()
+		list_of_enemies.clear()
+		for child in get_children():
+			list_of_enemies.append(child)
+			listOfEnemyCoordinates.append((Vector2i(child.position) - Vector2i(8, 8)) / 16)
 		return
 	print("Creating Enemies")
 	for cell in get_used_cells_by_id(0, Vector2i(0, 0)):
