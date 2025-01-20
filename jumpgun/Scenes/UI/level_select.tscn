@@ -37,6 +37,11 @@ text = "Testing 2"
 layout_mode = 2
 text = "Back"
 
+[node name="ItemList" type="ItemList" parent="AspectRatioContainer"]
+layout_mode = 2
+item_count = 1
+
 [connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Testing" to="." method="_on_testing_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Testing2" to="." method="_on_testing_2_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="item_clicked" from="AspectRatioContainer/ItemList" to="." method="_on_item_list_item_clicked"]
