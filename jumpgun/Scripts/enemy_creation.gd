@@ -1,3 +1,4 @@
+#@tool
 extends TileMapLayer
 
 var enemies = [
@@ -5,6 +6,8 @@ var enemies = [
 	"GARBAGE",
 	preload("res://Scenes/Objects/acid_pit.tscn")
 ]
+
+#@export var  = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,3 +30,7 @@ func createObject(index, pos):
 	var newObj = enemies[index].instantiate()
 	newObj.position = pos * 16 + Vector2i(8, 8)
 	add_child(newObj)
+
+
+func _on_changed() -> void:
+	pass # Replace with function body.
