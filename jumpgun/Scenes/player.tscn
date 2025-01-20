@@ -30,6 +30,7 @@ polygon = PackedVector2Array(-5, 11, -14, 11, -14, -10, 14, -10, 14, 0, 1, 0, 1,
 position = Vector2(14, -5)
 
 [node name="PauseMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

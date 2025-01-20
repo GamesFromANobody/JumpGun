@@ -361,4 +361,5 @@ tile_set = SubResource("TileSet_5hvw6")
 
 [connection signal="pause" from="." to="Player" method="_on_level_base_pause"]
 [connection signal="unpause" from="." to="Player" method="_on_level_base_unpause"]
+[connection signal="changed" from="Enemies" to="Enemies" method="_on_changed"]
 [connection signal="unpause" from="Player" to="." method="Unpause"]
