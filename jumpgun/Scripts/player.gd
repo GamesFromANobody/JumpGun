@@ -128,7 +128,7 @@ func shoot():
 	b.transform = $Muzzle.global_transform
 	b.speed = bullet_velocity
 	get_parent().call_deferred("add_child" ,b)
-	#print("Ammo Left: " str(currentMag))
+	print("Ammo Left: ", str(currentMag))
 
 func Hit():
 	if god_mode != true:
@@ -136,6 +136,14 @@ func Hit():
 		#TODO, implement game over screen, possibly adding HP?
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/level_select.tscn")
 
+func reloadAmmo():
+	var bReloaded = false as bool
+	if currentMag < max_ammo:
+		currentMag = max_ammo
+		# question: do we wish for ammo to only be the max or for existing ammo to be preserved?
+		print("Ammo refilled!")
+		bReloaded = true
+	return bReloaded
 
 func _on_level_base_pause() -> void:
 	isPaused = true
