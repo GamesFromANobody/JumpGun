@@ -10,7 +10,7 @@ signal unpause()
 
 enum ShotTypes {
 	Pistol,
-	TODO_Shotgun,
+	Shotgun,
 	TODO_Sniper,
 	TODO_SMG,
 	TODO_LMG,
@@ -112,7 +112,7 @@ func _integrate_forces(state):
 	
 		
 	
-	#shoot (force alone for now)
+	#shoot
 	if Input.is_action_just_pressed("shoot"):
 		if currentMag > 0:
 			#TODO implemet gunshot sound
@@ -124,10 +124,22 @@ func _integrate_forces(state):
 		
 	
 func shoot():
-	var b = bullet_scene.instantiate() as Bullet
-	b.transform = $Muzzle.global_transform
-	b.speed = bullet_velocity
-	get_parent().call_deferred("add_child" ,b)
+	#var b = bullet_scene.instantiate() as Bullet
+	#b.transform = $Muzzle.global_transform
+	#b.speed = bullet_velocity
+	#get_parent().call_deferred("add_child" ,b)
+	#print("Ammo Left: ", str(currentMag))
+	#test shotgun code.
+	var spreadAngle = 0.2
+	var bArray = [bullet_scene.instantiate() as Bullet,
+	 bullet_scene.instantiate() as Bullet,
+	 bullet_scene.instantiate() as Bullet,
+	 bullet_scene.instantiate() as Bullet]
+	for b in bArray:
+		b.transform = $Muzzle.global_transform.rotated_local(spreadAngle)
+		spreadAngle -= 0.1
+		b.speed = bullet_velocity
+		get_parent().call_deferred("add_child" ,b)
 	print("Ammo Left: ", str(currentMag))
 
 func Hit():
