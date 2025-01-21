@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://q0np3vt3mogq"]
+
+[ext_resource type="Script" path="res://Scripts/gun_selection.gd" id="1_t72fu"]
+
+[node name="GunSelection" type="Node"]
+script = ExtResource("1_t72fu")

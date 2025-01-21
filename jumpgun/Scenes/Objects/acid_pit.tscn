@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmowv7q2bk5d1"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/acid_pit.gd" id="1_gc2ir"]
+[ext_resource type="Texture2D" uid="uid://cv185kyfkbp82" path="res://Import/Textures/temp-enemies.png" id="1_jq7yh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_algea"]
+size = Vector2(16, 14)
+
+[node name="Acid Pit" type="Area2D"]
+collision_mask = 5
+script = ExtResource("1_gc2ir")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_algea")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("1_jq7yh")
+hframes = 3
+frame = 2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

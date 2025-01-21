@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://f56aant2k387"]
+
+[ext_resource type="Script" path="res://Scripts/UI/weapon_select.gd" id="1_ppelg"]
+[ext_resource type="Texture2D" uid="uid://cjsko6mhgu607" path="res://Import/Textures/temp-gun.png" id="2_gmsfw"]
+[ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="3_ptrt1"]
+
+[node name="WeaponSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ppelg")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Pistol" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_gmsfw")
+icon_alignment = 1
+
+[node name="Shotgun" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("3_ptrt1")
+icon_alignment = 1
+
+[node name="Back" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Pistol" to="." method="_on_select_pistol_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Shotgun" to="." method="_on_select_shotgun_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
