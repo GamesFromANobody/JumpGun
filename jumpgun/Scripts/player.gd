@@ -59,7 +59,7 @@ func _ready() -> void:
 	if GunSelection.gun_resource != null:
 		gun_resource = GunSelection.gun_resource
 	if gun_resource != null:
-		pass
+		reloadResource()
 	$Gun/LaserSight.self_modulate = Color(1, 0, 0, 0)
 	$PauseMenu.hide()
 	slowdown = slowdown_seconds
@@ -199,7 +199,32 @@ func reloadAmmo():
 	return bReloaded
 
 
-
+func reloadResource():
+	gun_type = int(gun_resource.gun_type)
+	gun_model = gun_resource.gun_model
+	$Gun.texture = gun_model
+	full_auto = gun_resource.full_auto
+	shotCooldown = gun_resource.shot_cooldown
+	starting_ammo = gun_resource.starting_ammo
+	max_ammo = gun_resource.max_ammo
+	if currentMag > max_ammo:
+		currentMag = max_ammo
+	rotation_force = gun_resource.rotation_force
+	
+	$CollisionBox.polygon = gun_resource.gun_hitbox
+	
+	bullet_model = gun_resource.bullet_model
+	bullet_velocity = gun_resource.bullet_velocity
+	knockback = gun_resource.knockback
+	
+	max_slowdown = gun_resource.max_slowdown
+	slowdown_seconds = gun_resource.slowdown_seconds
+	if slowdown > slowdown_seconds:
+		slowdown = slowdown_seconds
+	slowdown_recharge_rate = gun_resource.slowdown_recharge_rate
+	
+	
+	
 
 
 #Pausing/unpausing Functions

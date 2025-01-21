@@ -2,6 +2,10 @@ extends Control
 
 var fileToLoad = "res://Scenes/Levels/level_test.tscn"
 
+var gunResources : Array[PlayerGunTypes] = [
+	preload("res://Resources/Player/Resource_player_pistol.tres"),
+	preload("res://Resources/Player/Resource_player_shotgun.tres"),
+]
 
 var levelList : Array[String] = []
 # Called when the node enters the scene tree for the first time.
@@ -41,11 +45,11 @@ func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_i
 
 
 func _on_pistol_pressed() -> void:
-	GunSelection.gun_model = load("res://Resources/Player/Resource_player_pistol.tres")
+	GunSelection.gun_resource = gunResources[0]
 	get_tree().change_scene_to_file(fileToLoad)
 
 func _on_shotgun_pressed() -> void:
-	GunSelection.gun_model = load("res://Resources/Player/Resource_player_shotgun.tres")
+	GunSelection.gun_resource = gunResources[1]
 	get_tree().change_scene_to_file(fileToLoad)
 
 func _on_default_weapon_pressed() -> void:
