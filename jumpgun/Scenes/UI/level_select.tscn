@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://o21od6vh5drk"]
+[gd_scene load_steps=4 format=3 uid="uid://o21od6vh5drk"]
 
-[ext_resource type="Script" path="res://Scenes/UI/level_select.gd" id="1_jk6qk"]
+[ext_resource type="Script" path="res://Scripts/UI/level_select.gd" id="1_jk6qk"]
+[ext_resource type="Texture2D" uid="uid://cjsko6mhgu607" path="res://Import/Textures/temp-gun.png" id="2_gm3fs"]
+[ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="3_qg8ba"]
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
@@ -17,24 +19,24 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+[node name="LevelSelect" type="HBoxContainer" parent="AspectRatioContainer"]
 visible = false
 layout_mode = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/LevelSelect"]
 layout_mode = 2
 alignment = 1
 
-[node name="Testing" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+[node name="Testing" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
 layout_mode = 2
 text = "Testing"
 
-[node name="Testing2" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+[node name="Testing2" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
 layout_mode = 2
 text = "Testing 2"
 
-[node name="Back" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+[node name="Back" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
@@ -42,7 +44,37 @@ text = "Back"
 layout_mode = 2
 item_count = 1
 
-[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Testing" to="." method="_on_testing_pressed"]
-[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Testing2" to="." method="_on_testing_2_pressed"]
-[connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[node name="GunSelect" type="HBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/GunSelect"]
+layout_mode = 2
+alignment = 1
+
+[node name="DefaultWeapon" type="Button" parent="AspectRatioContainer/GunSelect/VBoxContainer"]
+layout_mode = 2
+text = "Default"
+
+[node name="Pistol" type="Button" parent="AspectRatioContainer/GunSelect/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_gm3fs")
+icon_alignment = 1
+
+[node name="Shotgun" type="Button" parent="AspectRatioContainer/GunSelect/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("3_qg8ba")
+icon_alignment = 1
+
+[node name="Back" type="Button" parent="AspectRatioContainer/GunSelect/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Testing" to="." method="_on_testing_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Testing2" to="." method="_on_testing_2_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="item_clicked" from="AspectRatioContainer/ItemList" to="." method="_on_item_list_item_clicked"]
+[connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/DefaultWeapon" to="." method="_on_default_weapon_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Pistol" to="." method="_on_pistol_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Shotgun" to="." method="_on_shotgun_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Back" to="." method="_on_weapon_back_pressed"]

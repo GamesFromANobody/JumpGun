@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bveoc7n1kdqjv"]
+[gd_scene load_steps=4 format=3 uid="uid://f56aant2k387"]
 
-[ext_resource type="Script" path="res://Scenes/UI/weapon_select.gd" id="1_ppelg"]
+[ext_resource type="Script" path="res://Scripts/UI/weapon_select.gd" id="1_ppelg"]
 [ext_resource type="Texture2D" uid="uid://cjsko6mhgu607" path="res://Import/Textures/temp-gun.png" id="2_gmsfw"]
 [ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="3_ptrt1"]
 

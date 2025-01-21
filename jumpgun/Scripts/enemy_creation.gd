@@ -3,8 +3,8 @@ extends TileMapLayer
 #WARNING DON'T fuck with anything in _process() _on_changed() and functions called EDITOR
 #Actually, Dont fuck with anything at all, talk with me first @tool is quite dangerous here.
 var enemies = [
-	preload("res://Scenes/mob_enemy.tscn"),
-	preload("res://Scenes/mob_enemy.tscn"),
+	preload("res://Scenes/Enemies/mob_enemy.tscn"),
+	preload("res://Scenes/Enemies/mob_enemy.tscn"),
 	preload("res://Scenes/Objects/acid_pit.tscn")
 ]
 

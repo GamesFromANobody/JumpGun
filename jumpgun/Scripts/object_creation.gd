@@ -13,7 +13,7 @@ enum targetsMandatory {
 var objects = [
 	preload("res://Scenes/Objects/target.tscn"),
 	preload("res://Scenes/Objects/ammo.tscn"),
-	preload("res://Scenes/door.tscn"),
+	preload("res://Scenes/Objects/door.tscn"),
 ]
 var targetCount = 0
 var listOfDoors = []

@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cv185kyfkbp82" path="res://Import/Textures/temp-enemies.png" id="6_kxgnm"]
 [ext_resource type="Script" path="res://Scripts/enemy_creation.gd" id="7_pqn3u"]
 [ext_resource type="PackedScene" uid="uid://cbjntngcsfkmj" path="res://Scenes/player.tscn" id="8_diim4"]
-[ext_resource type="PackedScene" uid="uid://vgd1xojc04hf" path="res://Scenes/mob_enemy.tscn" id="8_omqxd"]
+[ext_resource type="PackedScene" uid="uid://vgd1xojc04hf" path="res://Scenes/Enemies/mob_enemy.tscn" id="8_omqxd"]
 [ext_resource type="Texture2D" uid="uid://dwn6p66vlrwmh" path="res://Import/Textures/temp-FGtiles.png" id="9_u4pv2"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_jt5n0"]
