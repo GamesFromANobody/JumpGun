@@ -33,4 +33,5 @@ func _on_testing_2_pressed() -> void:
 func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	var fileToLoad = "res://Scenes/Levels/" + levelList[index - 1]
 	print(fileToLoad)
-	get_tree().change_scene_to_file(fileToLoad)
+	Global.set_level(fileToLoad)
+	get_tree().change_scene_to_file("res://Scenes/UI/weapon_select.tscn")

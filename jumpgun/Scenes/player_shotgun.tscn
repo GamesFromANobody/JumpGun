@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://s2y5o040dcd7"]
 
 [ext_resource type="PackedScene" uid="uid://cbjntngcsfkmj" path="res://Scenes/player.tscn" id="1_psohe"]
-[ext_resource type="Script" path="res://Scenes/player_shotgun.gd" id="1_x81ol"]
+[ext_resource type="Script" path="res://Scripts/player_shotgun.gd" id="1_x81ol"]
 [ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_n3yap"]
 
 [node name="PlayerShotgun" instance=ExtResource("1_psohe")]

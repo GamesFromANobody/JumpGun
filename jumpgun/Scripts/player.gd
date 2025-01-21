@@ -124,22 +124,21 @@ func _integrate_forces(state):
 		
 	
 func shoot():
-	#var b = bullet_scene.instantiate() as Bullet
-	#b.transform = $Muzzle.global_transform
-	#b.speed = bullet_velocity
-	#get_parent().call_deferred("add_child" ,b)
-	#print("Ammo Left: ", str(currentMag))
+	var b = bullet_scene.instantiate() as Bullet
+	b.transform = $Muzzle.global_transform
+	b.speed = bullet_velocity
+	get_parent().call_deferred("add_child" ,b)
 	#test shotgun code.
-	var spreadAngle = 0.2
-	var bArray = [bullet_scene.instantiate() as Bullet,
-	 bullet_scene.instantiate() as Bullet,
-	 bullet_scene.instantiate() as Bullet,
-	 bullet_scene.instantiate() as Bullet]
-	for b in bArray:
-		b.transform = $Muzzle.global_transform.rotated_local(spreadAngle)
-		spreadAngle -= 0.1
-		b.speed = bullet_velocity
-		get_parent().call_deferred("add_child" ,b)
+	#var spreadAngle = 0.2
+	#var bArray = [bullet_scene.instantiate() as Bullet,
+	# bullet_scene.instantiate() as Bullet,
+	# bullet_scene.instantiate() as Bullet,
+	# bullet_scene.instantiate() as Bullet]
+	#for b in bArray:
+	#	b.transform = $Muzzle.global_transform.rotated_local(spreadAngle)
+	#	spreadAngle -= 0.1
+	#	b.speed = bullet_velocity
+	#	get_parent().call_deferred("add_child" ,b)
 	print("Ammo Left: ", str(currentMag))
 
 func Hit():
