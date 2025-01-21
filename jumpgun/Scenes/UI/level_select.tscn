@@ -18,6 +18,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+visible = false
 layout_mode = 2
 alignment = 1
 

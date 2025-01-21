@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dn8ndt7nfwclj"]
+[gd_scene load_steps=23 format=4 uid="uid://dn8ndt7nfwclj"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_25wts"]
 [ext_resource type="Texture2D" uid="uid://dn7ptjt1ldmoa" path="res://Import/Textures/temp-BGtiles.png" id="2_sn62g"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://cbjntngcsfkmj" path="res://Scenes/player.tscn" id="8_diim4"]
 [ext_resource type="PackedScene" uid="uid://vgd1xojc04hf" path="res://Scenes/mob_enemy.tscn" id="8_omqxd"]
 [ext_resource type="Texture2D" uid="uid://dwn6p66vlrwmh" path="res://Import/Textures/temp-FGtiles.png" id="9_u4pv2"]
-[ext_resource type="Script" path="res://Scripts/mob_enemy.gd" id="9_vom73"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_jt5n0"]
 tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 1, 65536, 0, 65537, 65536, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 2, 65536, 0, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 0, 262146, 0, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 262147, 0, 0, 4, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0)
@@ -374,17 +373,11 @@ tile_set = SubResource("TileSet_u1vo5")
 script = ExtResource("7_pqn3u")
 instantiate_enemies = true
 
-[node name="MobEnemy" type="CharacterBody2D" parent="Enemies" groups=["Enemies"] instance=ExtResource("8_omqxd")]
+[node name="MobEnemy" parent="Enemies" instance=ExtResource("8_omqxd")]
 position = Vector2(776, -408)
-collision_layer = 4
-collision_mask = 87
-script = ExtResource("9_vom73")
 
-[node name="@CharacterBody2D@26533" type="CharacterBody2D" parent="Enemies" groups=["Enemies"] instance=ExtResource("8_omqxd")]
+[node name="@CharacterBody2D@26533" parent="Enemies" instance=ExtResource("8_omqxd")]
 position = Vector2(520, 56)
-collision_layer = 4
-collision_mask = 87
-script = ExtResource("9_vom73")
 starting_direction = 2
 flying = true
 

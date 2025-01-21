@@ -11,7 +11,11 @@ var prevTimeScale = 1.0
 @export var player : Player
 
 func _ready() -> void:
-	pass
+	 #var oldPlayer = player
+	#player = load(Global.playerSelect).instantiate()
+	#oldPlayer.replace_by(player, true)
+	print(Global.playerSelect)
+	print("Level_Base start")
 
 
 func _process(_delta: float) -> void:
