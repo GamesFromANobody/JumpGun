@@ -1,3 +1,3 @@
 extends Node
 
-@export var gun_model = 1
+@export var gun_resource : PlayerGunTypes

@@ -41,15 +41,14 @@ func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_i
 
 
 func _on_pistol_pressed() -> void:
-	GunSelection.gun_model = 1
+	GunSelection.gun_model = load("res://Resources/Player/Resource_player_pistol.tres")
 	get_tree().change_scene_to_file(fileToLoad)
 
 func _on_shotgun_pressed() -> void:
-	GunSelection.gun_model = 2
+	GunSelection.gun_model = load("res://Resources/Player/Resource_player_shotgun.tres")
 	get_tree().change_scene_to_file(fileToLoad)
 
 func _on_default_weapon_pressed() -> void:
-	GunSelection.gun_model = -1
 	get_tree().change_scene_to_file(fileToLoad)
 
 func _on_weapon_back_pressed() -> void:

@@ -15,46 +15,29 @@ enum ShotTypes {
 	SMG,
 	TODO_LMG,
 }
-@export_group("Gun")
-@export var gun_type : ShotTypes
-@export_range(1, 5, 1.0) var gun_model = 1
-@export var full_auto = false
-@export_range(0, 3, 0.005) var shot_cooldown = 0.1 #not used in code, shotCooldown is used
-@export_range(0, 200, 1.0) var starting_ammo = 18
-@export_range(0, 200, 1.0) var max_ammo = 18
-@export_range(0, 10, 0.01) var rotation_force : float = 1.0
-@export_group("")
+#Gun
+var gun_type : ShotTypes = ShotTypes.PISTOL
+var gun_model : Texture2D = preload("res://Import/Textures/temp-gun.png")
+var full_auto = false
+var shot_cooldown = 0.1 #not used in code, shotCooldown is used
+var starting_ammo = 18
+var max_ammo = 18
+var rotation_force : float = 1.0
 
-@export_group("Bullets")
-@export_range(1, 5, 1.0) var bullet_model
-@export_range(100, 3000, 100) var bullet_velocity = 800
-@export_range(0, 10, 0.01) var knockback : float = 1.0
-@export_group("")
+#Bullets
+var bullet_model
+var bullet_velocity = 800
+var knockback : float = 1.0
 
-@export_group("Aiming")
-@export_range(0.05, 1, 0.01) var max_slowdown : float = 0.25
-@export_range(0, 15, 0.25) var slowdown_seconds : float = 2.5
-@export_range(0, 4, 0.05) var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge than the active duration 
-@export_group("")
+#Aiming
+var max_slowdown : float = 0.25
+var slowdown_seconds : float = 2.5
+var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge than the active duration 
+
 @export var god_mode = false
-
+@export var gun_resource : PlayerGunTypes
 
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
-
-var bulletInstances = [
-	preload("res://Scenes/Projectiles/bullet.tscn"),
-	preload("res://Scenes/Projectiles/bullet.tscn"), #TODO, replace with updated textures
-	preload("res://Scenes/Projectiles/bullet.tscn"),
-	preload("res://Scenes/Projectiles/bullet.tscn"),
-	preload("res://Scenes/Projectiles/bullet.tscn"),
-]
-var gunTextures = [
-	preload("res://Import/Textures/temp-gun.png"),
-	preload("res://Import/Textures/temp-shotgun.png"),
-	preload("res://Import/Textures/temp-gun.png"), #TODO, replace with updated textures
-	preload("res://Import/Textures/temp-gun.png"),
-	preload("res://Import/Textures/temp-gun.png"),
-]
 
 #Control scheme
 var prevMouseVelocity : Vector2
@@ -66,35 +49,25 @@ var torque = 20000
 
 #Slowdown
 var gameSpeed = 1.0
-var shotCooldown = 1.0
+var shotCooldown = 0.5
 var slowdown : float
 var allowSlowdown = true
 var isPaused = false
 var currentMag : int
 
 func _ready() -> void:
-	if GunSelection.gun_model != -1:
-		gun_model = GunSelection.gun_model
+	if GunSelection.gun_resource != null:
+		gun_resource = GunSelection.gun_resource
+	if gun_resource != null:
+		pass
 	$Gun/LaserSight.self_modulate = Color(1, 0, 0, 0)
 	$PauseMenu.hide()
 	slowdown = slowdown_seconds
 	currentMag = starting_ammo
 	#TODO Implement gun model different collision boxes
-	$CollisionPistol.disabled = true
-	$CollisionShotgun.disabled = true
-	print(gun_model)
-	match gun_model: #Enable which collision box
-		1:
-			$CollisionPistol.disabled = false
-		2:
-			$CollisionShotgun.disabled = false
-		3:
-			pass
-		4:
-			pass
-		5:
-			pass
-	$Gun.texture = gunTextures[gun_model - 1]
+
+
+	$Gun.texture = gun_model
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
