@@ -1,5 +1,7 @@
 extends TileMapLayer
 
+#signal targetUpdate(left : int, total : int)
+
 enum targetsMandatory {
 	YES,
 	NO,
@@ -16,6 +18,7 @@ var objects = [
 	preload("res://Scenes/Objects/door.tscn"),
 ]
 var targetCount = 0
+var startingTargets = 0
 var listOfDoors = []
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +41,11 @@ func _ready() -> void:
 	#delete all tiles in the set
 	for cell in get_used_cells():
 		set_cell(cell, 0, Vector2i(-1, -1))
+	
+	# finally, set our starting targets count
+	# which will probably lead to removing the local one later on...
+	startingTargets = targetCount
+	Global.update_targets(targetCount, startingTargets)
 
 
 func CreateObject(index, pos):
@@ -50,6 +58,8 @@ func CreateObject(index, pos):
 
 func TargetDestroyed():
 	targetCount -= 1
+	#targetUpdate.emit(targetCount, startingTargets)
+	Global.update_targets(targetCount, startingTargets)
 	print("Targets Left: " + str(targetCount))
 	if targetCount == 0:
 		print("Doors Opening!")
