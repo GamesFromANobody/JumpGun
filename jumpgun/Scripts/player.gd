@@ -59,6 +59,7 @@ var currentMag : int
 var HUDLayer : CanvasLayer
 
 func _ready() -> void:
+	contact_monitor = true
 	if GunSelection.gun_resource != null:
 		gun_resource = GunSelection.gun_resource
 	if gun_resource != null:
@@ -77,6 +78,11 @@ func _ready() -> void:
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
+
+	#ATTENTION Max speed, this prevents wall collisions
+	if abs(linear_velocity.length()) > 1000:
+		linear_velocity *= 1000 / linear_velocity.length()
+	$Velocity.target_position = linear_velocity.rotated(-rotation) * 0.25
 	if isPaused:
 		return
 	shotCooldown -= delta
@@ -127,7 +133,9 @@ func _integrate_forces(state):
 		set_angular_velocity((get_angle_to(controllerInput + position)) * -((get_angle_to(controllerInput + position)) -3.14) * 5 * rotation_force)
 	else:
 		set_angular_velocity((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
-	
+		#ATTENTION We might want to use state.apply_torque() instead of set_angular_velocity(),
+		#played around with it and it seemed to snap less, but requires different parameters
+		#state.apply_torque((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
 	
 	#shoot
 	if (Input.is_action_just_pressed("shoot") and full_auto == false) or \
@@ -138,14 +146,29 @@ func _integrate_forces(state):
 			shotCooldown = shot_cooldown
 			#TODO implemet gunshot sound
 			currentMag -= 1
-			shoot()
-			state.apply_force(recoil.rotated(rotation) / gameSpeed * knockback)
+			Shoot()
+			#state.apply_force(recoil.rotated(rotation) / gameSpeed * knockback)
+			ApplyKnockback(state)
 		else:
 			pass #TODO implement clicking sound
 		
 	updateHUD()
-	
-func shoot():
+
+
+
+
+
+
+
+func ApplyKnockback(state : PhysicsDirectBodyState2D):
+	var wallReduction = 1.0
+	if $Back.is_colliding() and get_contact_count() == 0:
+		wallReduction *= ($Back.get_collision_point() - global_position).length() / 100
+		print(wallReduction)
+	state.apply_force(recoil.rotated(rotation) / gameSpeed * knockback * wallReduction)
+
+func Shoot():
+	$ShotSmoke.emitting = true
 	match gun_type:
 		ShotTypes.PISTOL:
 			ShootPistol()
@@ -157,9 +180,7 @@ func shoot():
 			ShootSMG()
 		#ShotTypes.LMG:
 			#ShootLMG()
-
 	print("Ammo Left: ", str(currentMag))
-
 
 func ShootPistol():
 	var b = bullet_scene.instantiate() as Bullet
