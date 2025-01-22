@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://counsjax6jdx4"]
+
+[ext_resource type="Texture2D" uid="uid://d3rpmn2dapjw4" path="res://Import/Textures/Effects - Particles/circle.png" id="1_2rf3g"]
+
+[sub_resource type="Gradient" id="Gradient_1almv"]
+offsets = PackedFloat32Array(0, 0.0967742, 0.354839, 1)
+colors = PackedColorArray(0.686275, 0.686275, 0.686275, 0.392157, 0.686275, 0.686275, 0.686275, 0.392157, 0.756863, 0.756863, 0.756863, 0.0392157, 1, 1, 1, 0)
+
+[node name="ShotgunSmoke" type="CPUParticles2D"]
+emitting = false
+amount = 10
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.95
+texture = ExtResource("1_2rf3g")
+spread = 15.0
+gravity = Vector2(0, -50)
+initial_velocity_min = 700.0
+initial_velocity_max = 800.0
+color = Color(0.629675, 0.629675, 0.629675, 1)
+color_ramp = SubResource("Gradient_1almv")
