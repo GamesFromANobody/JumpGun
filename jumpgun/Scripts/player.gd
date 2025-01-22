@@ -55,6 +55,9 @@ var allowSlowdown = true
 var isPaused = false
 var currentMag : int
 
+#HUD
+var HUDLayer : CanvasLayer
+
 func _ready() -> void:
 	if GunSelection.gun_resource != null:
 		gun_resource = GunSelection.gun_resource
@@ -64,6 +67,9 @@ func _ready() -> void:
 	$PauseMenu.hide()
 	slowdown = slowdown_seconds
 	currentMag = starting_ammo
+	HUDLayer = get_node("HUD")
+	updateHUD()
+	
 	#TODO Implement gun model different collision boxes
 
 
@@ -100,6 +106,7 @@ func _physics_process(delta: float) -> void:
 		allowSlowdown = false
 	if slowdown > 0.6:
 		allowSlowdown = true
+	
 	#print(slowdown)
 
 func _integrate_forces(state):
@@ -136,6 +143,7 @@ func _integrate_forces(state):
 		else:
 			pass #TODO implement clicking sound
 		
+	updateHUD()
 	
 func shoot():
 	match gun_type:
@@ -226,6 +234,14 @@ func reloadResource():
 	
 	
 
+#Update the HUD at the end of processing physics, or upon _ready().
+#Rather, later on each of these will be updated only when needed.
+func updateHUD():
+	if HUDLayer == null:
+		HUDLayer = get_node("HUD")
+	HUDLayer.updateSlowdown(slowdown, slowdown_seconds)
+	HUDLayer.updateAmmo(currentMag)
+	HUDLayer.updateTargetsLeft(Global.targetsLeft, Global.targetsStarting)
 
 #Pausing/unpausing Functions
 func _on_level_base_pause() -> void:
