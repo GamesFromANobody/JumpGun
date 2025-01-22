@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbjntngcsfkmj"]
+[gd_scene load_steps=6 format=3 uid="uid://cbjntngcsfkmj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_dvgqa"]
 [ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_fp8t6"]
+[ext_resource type="PackedScene" uid="uid://b726t2ao5hblb" path="res://Scenes/Particles/shotgun_smoke.tscn" id="2_xtojg"]
 [ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="3_q0t7m"]
 [ext_resource type="PackedScene" uid="uid://ck8fw6x7e6mjo" path="res://Scenes/UI/hud.tscn" id="4_01w15"]
 
@@ -11,6 +12,12 @@ collision_mask = 63
 gravity_scale = 0.25
 angular_damp = 10.0
 script = ExtResource("1_dvgqa")
+
+[node name="ShotSmoke" parent="." instance=ExtResource("2_xtojg")]
+self_modulate = Color(0.470076, 0.470076, 0.470076, 1)
+position = Vector2(30, -5)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.0
 
 [node name="Gun" type="Sprite2D" parent="."]
 position = Vector2(1, -1)
@@ -30,6 +37,12 @@ zoom = Vector2(2, 2)
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(14, -5)
+
+[node name="Velocity" type="RayCast2D" parent="."]
+
+[node name="Back" type="RayCast2D" parent="."]
+target_position = Vector2(-100, 0)
+collision_mask = 2
 
 [node name="PauseMenu" type="Control" parent="."]
 visible = false
