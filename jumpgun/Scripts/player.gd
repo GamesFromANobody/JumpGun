@@ -11,9 +11,9 @@ signal unpause()
 enum ShotTypes {
 	PISTOL,
 	SHOTGUN,
-	TODO_SNIPER,
+	SNIPER,
 	SMG,
-	TODO_LMG,
+	LMG,
 }
 #Gun
 var gun_type : ShotTypes = ShotTypes.PISTOL
@@ -44,7 +44,7 @@ var prevMouseVelocity : Vector2
 var usingController = false
 
 #controls
-var recoil = Vector2(-30000, 0)
+var recoil = Vector2(-10000, 0)
 var torque = 20000
 
 #Slowdown
@@ -65,7 +65,7 @@ func _ready() -> void:
 	if gun_resource != null:
 		reloadResource()
 	$Gun/LaserSight.self_modulate = Color(1, 0, 0, 0)
-	$HUD/PauseMenu.hide()
+	$PauseMenu.hide()
 	slowdown = slowdown_seconds
 	currentMag = starting_ammo
 	HUDLayer = get_node("HUD")
@@ -174,12 +174,12 @@ func Shoot():
 			ShootPistol()
 		ShotTypes.SHOTGUN:
 			ShootShotgun()
-		#ShotTypes.SNIPER:
-			#ShootSniper()
+		ShotTypes.SNIPER:
+			ShootSniper()
 		ShotTypes.SMG:
 			ShootSMG()
-		#ShotTypes.LMG:
-			#ShootLMG()
+		ShotTypes.LMG:
+			ShootLMG()
 	print("Ammo Left: ", str(currentMag))
 
 func ShootPistol():
@@ -202,13 +202,13 @@ func ShootShotgun():
 	print("Ammo Left: ", str(currentMag))
 
 func ShootSniper():
-	pass
+	ShootPistol()
 
 func ShootSMG():
 	ShootPistol() #temporary, until we decide if SMG's should have their own bullet models
 
 func ShootLMG():
-	pass
+	ShootPistol()
 
 
 
@@ -233,7 +233,7 @@ func reloadResource():
 	gun_model = gun_resource.gun_model
 	$Gun.texture = gun_model
 	full_auto = gun_resource.full_auto
-	shotCooldown = gun_resource.shot_cooldown
+	shot_cooldown = gun_resource.shot_cooldown
 	starting_ammo = gun_resource.starting_ammo
 	max_ammo = gun_resource.max_ammo
 	if currentMag > max_ammo:
@@ -267,10 +267,10 @@ func updateHUD():
 #Pausing/unpausing Functions
 func _on_level_base_pause() -> void:
 	isPaused = true
-	$HUD/PauseMenu.show()
+	$PauseMenu.show()
 func _on_level_base_unpause() -> void:
 	isPaused = false
-	$HUD/PauseMenu.hide()
+	$PauseMenu.hide()
 func _on_resume_btn_pressed() -> void:
 	unpause.emit()
 func _on_return_btn_pressed() -> void:
