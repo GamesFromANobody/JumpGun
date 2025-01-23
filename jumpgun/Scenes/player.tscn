@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_dvgqa"]
 [ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_fp8t6"]
-[ext_resource type="PackedScene" uid="uid://b726t2ao5hblb" path="res://Scenes/Particles/shotgun_smoke.tscn" id="2_xtojg"]
+[ext_resource type="PackedScene" uid="uid://counsjax6jdx4" path="res://Scenes/Particles/shotgun_smoke.tscn" id="2_xtojg"]
 [ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="3_q0t7m"]
 [ext_resource type="PackedScene" uid="uid://ck8fw6x7e6mjo" path="res://Scenes/UI/hud.tscn" id="4_01w15"]
 
@@ -44,8 +44,9 @@ position = Vector2(14, -5)
 target_position = Vector2(-100, 0)
 collision_mask = 2
 
-[node name="PauseMenu" type="Control" parent="."]
-visible = false
+[node name="HUD" parent="." instance=ExtResource("4_01w15")]
+
+[node name="PauseMenu" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,36 +60,34 @@ offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PauseMenu"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HUD/PauseMenu"]
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/AspectRatioContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PauseMenu/AspectRatioContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/AspectRatioContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PauseMenu/AspectRatioContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="PauseLBL" type="Label" parent="PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer"]
+[node name="PauseLBL" type="Label" parent="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 48
 text = "PAUSED"
 
-[node name="ResumeBTN" type="Button" parent="PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer"]
+[node name="ResumeBTN" type="Button" parent="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
 
-[node name="ReturnBTN" type="Button" parent="PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer"]
+[node name="ReturnBTN" type="Button" parent="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Return to Level Select"
 
-[node name="HUD" parent="." instance=ExtResource("4_01w15")]
-
-[connection signal="pressed" from="PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN" to="." method="_on_resume_btn_pressed"]
-[connection signal="pressed" from="PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ReturnBTN" to="." method="_on_return_btn_pressed"]
+[connection signal="pressed" from="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN" to="." method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ReturnBTN" to="." method="_on_return_btn_pressed"]

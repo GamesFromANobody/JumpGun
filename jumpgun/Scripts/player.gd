@@ -65,7 +65,7 @@ func _ready() -> void:
 	if gun_resource != null:
 		reloadResource()
 	$Gun/LaserSight.self_modulate = Color(1, 0, 0, 0)
-	$PauseMenu.hide()
+	$HUD/PauseMenu.hide()
 	slowdown = slowdown_seconds
 	currentMag = starting_ammo
 	HUDLayer = get_node("HUD")
@@ -267,10 +267,10 @@ func updateHUD():
 #Pausing/unpausing Functions
 func _on_level_base_pause() -> void:
 	isPaused = true
-	$PauseMenu.show()
+	$HUD/PauseMenu.show()
 func _on_level_base_unpause() -> void:
 	isPaused = false
-	$PauseMenu.hide()
+	$HUD/PauseMenu.hide()
 func _on_resume_btn_pressed() -> void:
 	unpause.emit()
 func _on_return_btn_pressed() -> void:
