@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=4 format=3 uid="uid://bbojqpj4fpn3j"]
+
+[ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="1_0glbt"]
+[ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_hqmuq"]
+[ext_resource type="Script" path="res://Scripts/ResourceScript/player_gun_types.gd" id="3_ntgjr"]
+
+[resource]
+script = ExtResource("3_ntgjr")
+gun_type = 4
+gun_model = ExtResource("2_hqmuq")
+gun_hitbox = PackedVector2Array(-27, 6, -30, 0, -31, -5, -20, -6, -17, -5, -10, -7, 32, -7, 32, -4, -3, -4, -13, 2, -18, 2, -25, 6)
+muzzle_location = Vector2(14, -5)
+full_auto = true
+shot_cooldown = 0.15
+starting_ammo = 100
+max_ammo = 100
+rotation_force = 1.0
+bullet_model = ExtResource("1_0glbt")
+bullet_velocity = 1200
+knockback = 0.4
+max_slowdown = 0.9
+slowdown_seconds = 2.0
+slowdown_recharge_rate = 1.0
