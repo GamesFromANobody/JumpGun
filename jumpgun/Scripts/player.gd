@@ -35,6 +35,7 @@ var slowdown_seconds : float = 2.5
 var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge than the active duration 
 
 @export var god_mode = false
+@export var aim_zooming = true
 @export var gun_resource : PlayerGunTypes
 
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
@@ -65,7 +66,7 @@ func _ready() -> void:
 	if gun_resource != null:
 		reloadResource()
 	$Gun/LaserSight.self_modulate = Color(1, 0, 0, 0)
-	$PauseMenu.hide()
+	$HUD/PauseMenu.hide()
 	slowdown = slowdown_seconds
 	currentMag = starting_ammo
 	HUDLayer = get_node("HUD")
@@ -78,7 +79,6 @@ func _ready() -> void:
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
-
 	#ATTENTION Max speed, this prevents wall collisions
 	if abs(linear_velocity.length()) > 1000:
 		linear_velocity *= 1000 / linear_velocity.length()
@@ -91,17 +91,26 @@ func _physics_process(delta: float) -> void:
 		gameSpeed -= delta * 2
 		if gameSpeed < max_slowdown:
 			gameSpeed = max_slowdown
+		
+		if usingController == false and aim_zooming == true:
+			moveCamera((get_local_mouse_position() - $Camera2D.position) * 0.6, 0.4)
+		elif aim_zooming == true:
+			var hor = Input.get_axis("controllerLEFT", "controllerRIGHT")
+			var ver = Input.get_axis("controllerDOWN", "controllerUP")
+			var controllerInput = Vector2(hor * 320, ver * 180)
+			print(controllerInput)
+			moveCamera(controllerInput.rotated(rotation), 2)
 	elif gameSpeed < 1.0:
 		gameSpeed += delta * 6
 		if gameSpeed > 1.0:
 			gameSpeed = 1.0
 	else:
+		moveCamera(Vector2(0, 0), 0.4)
 		slowdown += delta * slowdown_recharge_rate
 		if slowdown > slowdown_seconds:
 			slowdown = slowdown_seconds
 	if prevGameSpeed != gameSpeed:
 		Engine.time_scale = gameSpeed
-		#print(gameSpeed)
 		var alpha = (gameSpeed - 0.25) / 0.75 #To correct for game speed being 0.25-1.0
 		$Gun/LaserSight.self_modulate = Color(1, 0, 0, 1 - alpha)
 	if gameSpeed < 1:
@@ -130,7 +139,7 @@ func _integrate_forces(state):
 	prevMouseVelocity = Input.get_last_mouse_velocity()
 	
 	if usingController:
-		set_angular_velocity((get_angle_to(controllerInput + position)) * -((get_angle_to(controllerInput + position)) -3.14) * 5 * rotation_force)
+		set_angular_velocity((get_angle_to(controllerInput + position)) * -((get_angle_to(controllerInput + position)) -3.14) * 3 * rotation_force)
 	else:
 		set_angular_velocity((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
 		#ATTENTION We might want to use state.apply_torque() instead of set_angular_velocity(),
@@ -157,7 +166,10 @@ func _integrate_forces(state):
 
 
 
-
+func moveCamera(localLocation : Vector2, smoothing : float):
+	var tween = create_tween()
+	tween.tween_property($Camera2D, "position", localLocation, smoothing)
+	tween.play()
 
 
 func ApplyKnockback(state : PhysicsDirectBodyState2D):
@@ -202,13 +214,13 @@ func ShootShotgun():
 	print("Ammo Left: ", str(currentMag))
 
 func ShootSniper():
-	ShootPistol()
+	ShootPistol() #temporary, until we decide if SMG's should have their own bullet models
 
 func ShootSMG():
 	ShootPistol() #temporary, until we decide if SMG's should have their own bullet models
 
 func ShootLMG():
-	ShootPistol()
+	ShootPistol() #temporary, until we decide if SMG's should have their own bullet models
 
 
 
@@ -233,7 +245,7 @@ func reloadResource():
 	gun_model = gun_resource.gun_model
 	$Gun.texture = gun_model
 	full_auto = gun_resource.full_auto
-	shot_cooldown = gun_resource.shot_cooldown
+	shotCooldown = gun_resource.shot_cooldown
 	starting_ammo = gun_resource.starting_ammo
 	max_ammo = gun_resource.max_ammo
 	if currentMag > max_ammo:
@@ -267,10 +279,10 @@ func updateHUD():
 #Pausing/unpausing Functions
 func _on_level_base_pause() -> void:
 	isPaused = true
-	$PauseMenu.show()
+	$HUD/PauseMenu.show()
 func _on_level_base_unpause() -> void:
 	isPaused = false
-	$PauseMenu.hide()
+	$HUD/PauseMenu.hide()
 func _on_resume_btn_pressed() -> void:
 	unpause.emit()
 func _on_return_btn_pressed() -> void:

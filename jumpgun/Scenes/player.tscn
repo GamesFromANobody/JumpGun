@@ -47,6 +47,7 @@ collision_mask = 2
 [node name="HUD" parent="." instance=ExtResource("4_01w15")]
 
 [node name="PauseMenu" type="Control" parent="HUD"]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
