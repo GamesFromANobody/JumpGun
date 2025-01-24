@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://d3rpmn2dapjw4" path="res://Import/Textures/Effects - Particles/circle.png" id="1_2rf3g"]
 
 [sub_resource type="Gradient" id="Gradient_1almv"]
-offsets = PackedFloat32Array(0, 0.0967742, 0.354839, 1)
-colors = PackedColorArray(0.686275, 0.686275, 0.686275, 0.392157, 0.686275, 0.686275, 0.686275, 0.392157, 0.756863, 0.756863, 0.756863, 0.0392157, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.870968, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="ShotgunSmoke" type="CPUParticles2D"]
 emitting = false

@@ -10,4 +10,5 @@ class_name BulletTypes
 @export var stops_at_0_speed = false
 @export_group("")
 @export var bullet_texture : Texture2D
+@export var casing_texture : Texture2D = preload("res://Import/Textures/Projectiles/casing-glock.png")
 @export var hitbox : Shape2D

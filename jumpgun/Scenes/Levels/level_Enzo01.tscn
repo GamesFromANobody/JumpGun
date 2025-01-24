@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://yo74n18pbk7b" path="res://Scenes/level_base.tscn" id="1_vimh3"]
 [ext_resource type="PackedScene" uid="uid://vgd1xojc04hf" path="res://Scenes/Enemies/mob_enemy.tscn" id="2_k1q15"]
-[ext_resource type="Resource" uid="uid://ckwf82khe36yc" path="res://Resources/Player/Resource_player_pistol_glock18_v1.tres" id="4_76mh2"]
+[ext_resource type="Resource" uid="uid://bu85wpm47qosw" path="res://Resources/Player/Resource_player_pistol.tres" id="3_o6s11"]
 
 [node name="LevelEnzo01" type="Node2D"]
 
@@ -56,7 +56,7 @@ timer = 5.0
 flying = true
 
 [node name="Player" parent="Level_Base" index="4"]
-gun_resource = ExtResource("4_76mh2")
+gun_resource = ExtResource("3_o6s11")
 
 [node name="ForeGround" parent="Level_Base" index="5"]
 tile_map_data = PackedByteArray("AAD8/8z/AAAAAAAAAAD8/83/AAAAAAAAAAD+/8L/AAAAAAAAAAD//8L/AAAAAAAAAAAAAML/AAAAAAAAAAABAML/AAAAAAAAAAABAMP/AAAAAAAAAAAAAMP/AAAAAAAAAAD//8P/AAAAAAAAAAD+/8P/AAAAAAAAAAD+/8T/AAAAAAAAAAD//8T/AAAAAAAAAAAAAMT/AAAAAAAAAAABAMT/AAAAAAAAAAA=")

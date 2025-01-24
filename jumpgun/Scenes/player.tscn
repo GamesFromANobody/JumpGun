@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbjntngcsfkmj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_dvgqa"]
-[ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_fp8t6"]
 [ext_resource type="PackedScene" uid="uid://counsjax6jdx4" path="res://Scenes/Particles/shotgun_smoke.tscn" id="2_xtojg"]
-[ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="3_q0t7m"]
+[ext_resource type="Texture2D" uid="uid://bf8wik7pjp7ho" path="res://Import/Textures/Characters/gun-shoot.png" id="3_j0ax0"]
 [ext_resource type="PackedScene" uid="uid://ck8fw6x7e6mjo" path="res://Scenes/UI/hud.tscn" id="4_01w15"]
+[ext_resource type="Texture2D" uid="uid://2qy753ggpfnh" path="res://Import/Textures/Lights/laserSight.png" id="4_y8v18"]
 
 [node name="Player" type="RigidBody2D"]
 process_mode = 1
@@ -20,23 +20,27 @@ initial_velocity_min = 600.0
 initial_velocity_max = 700.0
 
 [node name="Gun" type="Sprite2D" parent="."]
-position = Vector2(1, -1)
-texture = ExtResource("2_fp8t6")
+position = Vector2(0, -1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_j0ax0")
+hframes = 3
 
 [node name="LaserSight" type="Sprite2D" parent="Gun"]
 self_modulate = Color(1, 0, 0, 1)
-position = Vector2(173.185, -4)
-scale = Vector2(40, 1.042)
-texture = ExtResource("3_q0t7m")
+position = Vector2(152, -11)
+texture = ExtResource("4_y8v18")
 
 [node name="CollisionBox" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-5, 11, -14, 11, -14, -10, 14, -10, 14, 0, 1, 0, 1, 3, -1, 5, -3, 6, -5, 6)
+polygon = PackedVector2Array(-6, 11, -12, 11, -15, 8, -15, 6, -11, 0, -11, -5, -13, -6, -13, -11, -11, -12, 14, -12, 17, -10, 17, -6, 14, -4, 7, -4, 7, 0, 5, 1, -3, 1, -5, 6)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(14, -5)
+position = Vector2(18, -9)
+
+[node name="Chamber" type="Marker2D" parent="."]
+position = Vector2(2, -8)
 
 [node name="Velocity" type="RayCast2D" parent="."]
 

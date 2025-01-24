@@ -8,11 +8,19 @@ enum ShotTypes {
 	SMG,
 	TODO_LMG,
 }
-@export_group("Gun")
-@export var gun_type : ShotTypes = ShotTypes.PISTOL
+@export_group("Sprite")
 @export var gun_model : Texture2D = preload("res://Import/Textures/temp-gun.png")
 @export var gun_hitbox : PackedVector2Array
 @export var muzzle_location : Vector2 = Vector2(14, -5)
+@export var chamber_location : Vector2 = Vector2(3, -8)
+@export var sprite_position : Vector2 = Vector2(0, 0)
+@export var sprite_scale : Vector2 = Vector2(1, 1)
+@export var laser_location : Vector2 = Vector2(0, 0)
+@export var frames : Vector2 = Vector2(3, 1)
+@export_group("")
+
+@export_group("Gun")
+@export var gun_type : ShotTypes = ShotTypes.PISTOL
 @export var full_auto = false
 @export_range(0, 3, 0.005) var shot_cooldown = 0.1 #not used in code, shotCooldown is used
 @export_range(0, 200, 1.0) var starting_ammo = 18

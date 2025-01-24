@@ -41,6 +41,8 @@ var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge tha
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
 var bullet_resource : BulletTypes
 
+var casing_scene = preload("res://Scenes/Particles/casing.tscn")
+
 #Control scheme
 var prevMouseVelocity : Vector2
 var usingController = false
@@ -56,7 +58,6 @@ var slowdown : float
 var allowSlowdown = true
 var isPaused = false
 var currentMag : int
-
 #HUD
 var HUDLayer : CanvasLayer
 
@@ -183,6 +184,7 @@ func ApplyKnockback(state : PhysicsDirectBodyState2D):
 
 func Shoot():
 	$ShotSmoke.emitting = true
+	animateGun()
 	match gun_type:
 		ShotTypes.PISTOL:
 			ShootPistol()
@@ -195,6 +197,22 @@ func Shoot():
 		ShotTypes.LMG:
 			ShootLMG()
 	print("Ammo Left: ", str(currentMag))
+	
+
+func animateGun():
+	bullet_resource.casing_texture
+	var tween = create_tween()
+	var frames = $Gun.hframes * $Gun.vframes - 1 #Frames in the animation
+	tween.tween_property($Gun, "frame", frames, 0.033333 * frames ) #30 FPS
+	tween.tween_property($Gun, "frame", 0, 0.033333)
+	tween.play()
+	var casing = casing_scene.instantiate()
+	casing.global_position = global_position
+	casing.rotation = rotation
+	casing.scale = $Gun.scale
+	casing.scaleSet = $Gun.scale * 0.8
+	casing.apply_central_impulse(Vector2(0, 3 * -randf_range(100, 120)))
+	get_parent().call_deferred("add_child", casing)
 
 func ShootPistol():
 	var b = bullet_scene.instantiate() as Bullet
@@ -250,6 +268,15 @@ func reloadResource():
 	gun_type = int(gun_resource.gun_type)
 	gun_model = gun_resource.gun_model
 	$Gun.texture = gun_model
+	$CollisionBox.polygon = gun_resource.gun_hitbox
+	$Muzzle.position = gun_resource.muzzle_location
+	$Chamber.position = gun_resource.chamber_location
+	$Gun.position = gun_resource.sprite_position
+	$Gun.scale = gun_resource.sprite_scale
+	$Gun/LaserSight.position = gun_resource.laser_location
+	$Gun.hframes = gun_resource.frames.x
+	$Gun.vframes = gun_resource.frames.y
+	
 	full_auto = gun_resource.full_auto
 	shotCooldown = gun_resource.shot_cooldown
 	starting_ammo = gun_resource.starting_ammo
@@ -258,7 +285,7 @@ func reloadResource():
 		currentMag = max_ammo
 	rotation_force = gun_resource.rotation_force
 	
-	$CollisionBox.polygon = gun_resource.gun_hitbox
+
 	bullet_resource = gun_resource.bullet_resource
 	knockback = gun_resource.knockback
 	
