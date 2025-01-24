@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=4 format=3 uid="uid://dgf7220xtb1he"]
 
-[ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="1_bnqkw"]
+[ext_resource type="Resource" uid="uid://6qsf6p0y4grk" path="res://Resources/Bullets/bullet_01.tres" id="1_0epwu"]
 [ext_resource type="Script" path="res://Scripts/ResourceScript/player_gun_types.gd" id="1_lb1lt"]
 [ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_50a0d"]
 
@@ -15,8 +15,7 @@ shot_cooldown = 0.8
 starting_ammo = 6
 max_ammo = 6
 rotation_force = 1.0
-bullet_model = ExtResource("1_bnqkw")
-bullet_velocity = 800
+bullet_resource = ExtResource("1_0epwu")
 knockback = 2.0
 max_slowdown = 0.25
 slowdown_seconds = 2.5

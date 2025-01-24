@@ -39,6 +39,7 @@ var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge tha
 @export var gun_resource : PlayerGunTypes
 
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
+var bullet_resource : BulletTypes
 
 #Control scheme
 var prevMouseVelocity : Vector2
@@ -61,6 +62,7 @@ var HUDLayer : CanvasLayer
 
 func _ready() -> void:
 	contact_monitor = true
+	print(gun_resource.bullet_resource)
 	if GunSelection.gun_resource != null:
 		gun_resource = GunSelection.gun_resource
 	if gun_resource != null:
@@ -197,7 +199,10 @@ func Shoot():
 func ShootPistol():
 	var b = bullet_scene.instantiate() as Bullet
 	b.transform = $Muzzle.global_transform
-	b.speed = bullet_velocity
+	b.bullet_resource = bullet_resource
+	print(bullet_resource)
+	b.LoadResource(bullet_resource)
+	
 	get_parent().call_deferred("add_child" ,b)
 
 func ShootShotgun():
@@ -209,7 +214,8 @@ func ShootShotgun():
 	for b in bArray:
 		b.transform = $Muzzle.global_transform.rotated_local(spreadAngle)
 		spreadAngle -= 0.1
-		b.speed = bullet_velocity
+		b.bullet_resource = bullet_resource
+		b.LoadResource(bullet_resource)
 		get_parent().call_deferred("add_child" ,b)
 	print("Ammo Left: ", str(currentMag))
 
@@ -253,9 +259,7 @@ func reloadResource():
 	rotation_force = gun_resource.rotation_force
 	
 	$CollisionBox.polygon = gun_resource.gun_hitbox
-	
-	bullet_model = gun_resource.bullet_model
-	bullet_velocity = gun_resource.bullet_velocity
+	bullet_resource = gun_resource.bullet_resource
 	knockback = gun_resource.knockback
 	
 	max_slowdown = gun_resource.max_slowdown
