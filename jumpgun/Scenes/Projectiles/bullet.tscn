@@ -1,10 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1aklefwgm50r"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_duyxu"]
-[ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="1_tm6pu"]
+[ext_resource type="Texture2D" uid="uid://bye8cmsl2f7oc" path="res://Import/Textures/Projectiles/bullet_glock.png" id="2_fbt4a"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_68yjn"]
-size = Vector2(8, 2)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ygnhe"]
+radius = 4.0
+height = 10.0
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
@@ -12,10 +13,11 @@ collision_mask = 14
 script = ExtResource("1_duyxu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_tm6pu")
+texture = ExtResource("2_fbt4a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_68yjn")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ygnhe")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-5, 0)

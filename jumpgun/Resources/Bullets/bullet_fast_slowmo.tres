@@ -1,17 +1,21 @@
-[gd_resource type="Resource" script_class="BulletTypes" load_steps=4 format=3 uid="uid://dqwicjybjtohu"]
+[gd_resource type="Resource" script_class="BulletTypes" load_steps=5 format=3 uid="uid://dqwicjybjtohu"]
 
-[ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="1_h5h7k"]
+[ext_resource type="Texture2D" uid="uid://bye8cmsl2f7oc" path="res://Import/Textures/Projectiles/bullet_glock.png" id="1_1cacw"]
+[ext_resource type="Texture2D" uid="uid://f5m4sq28bekt" path="res://Import/Textures/Projectiles/casing-glock.png" id="2_g0l1o"]
 [ext_resource type="Script" path="res://Scripts/ResourceScript/bullet_types.gd" id="2_kklfq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_68yjn"]
-size = Vector2(8, 2)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ygnhe"]
+radius = 4.0
+height = 10.0
 
 [resource]
 script = ExtResource("2_kklfq")
 speed = 400
 bounces = 0
 piercing_amount = 0
-acceleration_per_frame = 0
+acceleration = 0
 ignores_slowdown = true
-bullet_texture = ExtResource("1_h5h7k")
-hitbox = SubResource("RectangleShape2D_68yjn")
+stops_at_0_speed = false
+bullet_texture = ExtResource("1_1cacw")
+casing_texture = ExtResource("2_g0l1o")
+hitbox = SubResource("CapsuleShape2D_ygnhe")

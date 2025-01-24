@@ -1,11 +1,21 @@
-[gd_resource type="Resource" script_class="BulletTypes" load_steps=2 format=3 uid="uid://6qsf6p0y4grk"]
+[gd_resource type="Resource" script_class="BulletTypes" load_steps=5 format=3 uid="uid://6qsf6p0y4grk"]
 
+[ext_resource type="Texture2D" uid="uid://bye8cmsl2f7oc" path="res://Import/Textures/Projectiles/bullet_glock.png" id="1_a5xu1"]
 [ext_resource type="Script" path="res://Scripts/ResourceScript/bullet_types.gd" id="1_v5ffw"]
+[ext_resource type="Texture2D" uid="uid://f5m4sq28bekt" path="res://Import/Textures/Projectiles/casing-glock.png" id="2_lu55w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ygnhe"]
+radius = 4.0
+height = 10.0
 
 [resource]
 script = ExtResource("1_v5ffw")
 speed = 800
 bounces = 0
 piercing_amount = 0
-acceleration_per_frame = 0
+acceleration = 0
 ignores_slowdown = false
+stops_at_0_speed = false
+bullet_texture = ExtResource("1_a5xu1")
+casing_texture = ExtResource("2_lu55w")
+hitbox = SubResource("CapsuleShape2D_ygnhe")

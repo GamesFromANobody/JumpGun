@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://dlm3wm16584jx"]
+[gd_scene load_steps=23 format=4 uid="uid://dlm3wm16584jx"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_4mr4v"]
 [ext_resource type="Texture2D" uid="uid://dn7ptjt1ldmoa" path="res://Import/Textures/temp-BGtiles.png" id="1_la02e"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/object_creation.gd" id="4_h2bnh"]
 [ext_resource type="Texture2D" uid="uid://cv185kyfkbp82" path="res://Import/Textures/temp-enemies.png" id="5_f2crb"]
 [ext_resource type="Script" path="res://Scripts/enemy_creation.gd" id="6_l6xij"]
+[ext_resource type="Resource" uid="uid://bu85wpm47qosw" path="res://Resources/Player/Resource_player_pistol.tres" id="9_x0fsf"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_jt5n0"]
 tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 1, 65536, 0, 65537, 65536, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 2, 65536, 0, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 0, 262146, 0, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 262147, 0, 0, 4, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0)
@@ -94,6 +95,7 @@ script = ExtResource("6_l6xij")
 
 [node name="Player" parent="." instance=ExtResource("3_p1ivc")]
 position = Vector2(2, -74)
+gun_resource = ExtResource("9_x0fsf")
 
 [node name="ForeGround" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD+/xMAAAABAAAAAAD+/xIAAAABAAAAAAD9/xIAAAABAAAAAAD9/xEAAAABAAAAAAD9/xAAAAABAAAAAAD+/xAAAAABAAAAAAD+/xEAAAABAAAAAAD9/xMAAAABAAAAAAD8/xMAAAABAAAAAAD7/xMAAAABAAAAAAD6/xMAAAABAAAAAAD6/xIAAAABAAAAAAD6/xEAAAABAAAAAAD7/xEAAAABAAAAAAD8/xEAAAABAAAAAAD8/xIAAAABAAAAAAD8/xAAAAABAAAAAAD7/xIAAAABAAAAAAD6/xAAAAABAAAAAAD7/xAAAAABAAAAAAD3/xMAAAAAAAAAAAD3/xIAAAAAAAAAAAD3/xEAAAAAAAAAAAD2/xEAAAAAAAAAAAD1/xEAAAAAAAAAAAD1/xIAAAAAAAAAAAD2/xIAAAAAAAAAAAD2/xMAAAAAAAAAAAD1/xMAAAAAAAAAAAD0/xMAAAAAAAAAAAD0/xIAAAAAAAAAAADz/xIAAAAAAAAAAADz/xEAAAAAAAAAAAD0/xEAAAAAAAAAAADz/xMAAAAAAAAAAADy/xMAAAAAAAAAAADy/xIAAAAAAAAAAADy/xEAAAAAAAAAAADi/xEAAAAAAAAAAADi/xIAAAAAAAAAAADj/xIAAAAAAAAAAADi/xMAAAAAAAAAAADj/xMAAAAAAAAAAADj/xEAAAAAAAAAAADh/xEAAAAAAAAAAADh/xIAAAAAAAAAAADh/xMAAAAAAAAAAADg/xEAAAAAAAAAAADg/xIAAAAAAAAAAADg/xMAAAAAAAAAAADc/xMAAAAAAAAAAADc/xIAAAAAAAAAAADb/xIAAAAAAAAAAADb/xEAAAAAAAAAAADa/xEAAAAAAAAAAADa/xIAAAAAAAAAAADZ/xIAAAAAAAAAAADa/xMAAAAAAAAAAADZ/xMAAAAAAAAAAADb/xMAAAAAAAAAAADc/xEAAAAAAAAAAADZ/xEAAAAAAAAAAAA=")
