@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=4 format=3 uid="uid://gdyb0hjnoxtw"]
 
-[ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="1_me6mn"]
+[ext_resource type="Resource" uid="uid://cqvynhfxrfhfc" path="res://Resources/Bullets/bullet_reverser.tres" id="1_ptvx5"]
 [ext_resource type="Texture2D" uid="uid://cjsko6mhgu607" path="res://Import/Textures/temp-gun.png" id="2_l2dvk"]
 [ext_resource type="Script" path="res://Scripts/ResourceScript/player_gun_types.gd" id="3_t6wd3"]
 
@@ -15,8 +15,7 @@ shot_cooldown = 0.1
 starting_ammo = 25
 max_ammo = 25
 rotation_force = 1.0
-bullet_model = ExtResource("1_me6mn")
-bullet_velocity = 800
+bullet_resource = ExtResource("1_ptvx5")
 knockback = 0.6
 max_slowdown = 0.6
 slowdown_seconds = 7.0

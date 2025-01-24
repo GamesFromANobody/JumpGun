@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=4 format=3 uid="uid://bbojqpj4fpn3j"]
 
-[ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="1_0glbt"]
+[ext_resource type="Resource" uid="uid://b7bo0xpgtnkgo" path="res://Resources/Bullets/bullet_hover.tres" id="1_bmyya"]
 [ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_hqmuq"]
 [ext_resource type="Script" path="res://Scripts/ResourceScript/player_gun_types.gd" id="3_ntgjr"]
 
@@ -15,9 +15,8 @@ shot_cooldown = 0.15
 starting_ammo = 100
 max_ammo = 100
 rotation_force = 1.0
-bullet_model = ExtResource("1_0glbt")
-bullet_velocity = 1200
-knockback = 0.4
+bullet_resource = ExtResource("1_bmyya")
+knockback = 1.0
 max_slowdown = 0.9
 slowdown_seconds = 2.0
 slowdown_recharge_rate = 1.0

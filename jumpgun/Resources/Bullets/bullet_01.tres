@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BulletTypes" load_steps=2 format=3 uid="uid://6qsf6p0y4grk"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScript/bullet_types.gd" id="1_v5ffw"]
+
+[resource]
+script = ExtResource("1_v5ffw")
+speed = 800
+bounces = 0
+piercing_amount = 0
+acceleration_per_frame = 0
+ignores_slowdown = false

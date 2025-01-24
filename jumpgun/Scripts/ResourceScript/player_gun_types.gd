@@ -21,8 +21,7 @@ enum ShotTypes {
 @export_group("")
 
 @export_group("Bullets")
-@export var bullet_model : Texture2D #Eventually replace this with different bullet scenes instead of just textures
-@export_range(100, 3000, 100) var bullet_velocity = 800
+@export var bullet_resource: BulletTypes 
 @export_range(0, 10, 0.01) var knockback : float = 1.0
 @export_group("")
 

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BulletTypes" load_steps=4 format=3 uid="uid://c5fmq6vj1pcle"]
+
+[ext_resource type="Texture2D" uid="uid://ye4d0xhwryv4" path="res://Import/Textures/bullet.png" id="1_eww32"]
+[ext_resource type="Script" path="res://Scripts/ResourceScript/bullet_types.gd" id="2_yeici"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_68yjn"]
+size = Vector2(8, 2)
+
+[resource]
+script = ExtResource("2_yeici")
+speed = 2400
+bounces = 0
+piercing_amount = 5
+acceleration = 0
+ignores_slowdown = false
+stops_at_0_speed = false
+bullet_texture = ExtResource("1_eww32")
+hitbox = SubResource("RectangleShape2D_68yjn")
