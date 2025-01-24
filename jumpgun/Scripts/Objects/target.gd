@@ -2,7 +2,10 @@ extends StaticBody2D
 class_name Target
 
 signal targetHit()
+var isHit = false
 
 func Hit():
-	targetHit.emit()
-	queue_free()
+	if isHit == false:
+		isHit = true
+		targetHit.emit()
+		queue_free()
