@@ -16,6 +16,7 @@ var objects = [
 	preload("res://Scenes/Objects/target.tscn"),
 	preload("res://Scenes/Objects/ammo.tscn"),
 	preload("res://Scenes/Objects/door.tscn"),
+	preload("res://Scenes/Objects/bullet_powerup.tscn")
 ]
 var targetCount = 0
 var startingTargets = 0
@@ -36,7 +37,11 @@ func _ready() -> void:
 	for cell in get_used_cells_by_id(0, Vector2i(2, 0)):
 		print("Creating Door at " + str(cell))
 		listOfDoors.append(CreateObject(2, cell))
-		
+	
+	for i in 6:
+		for cell in get_used_cells_by_id(0, Vector2i(i, 1)):
+			print("Creating PowerUp " + str(i) + " at " + str(cell))
+			CreatePowerup(3, cell, i)
 	
 	#delete all tiles in the set
 	for cell in get_used_cells():
@@ -47,6 +52,13 @@ func _ready() -> void:
 	startingTargets = targetCount
 	Global.update_targets(targetCount, startingTargets)
 
+func CreatePowerup(index, pos, powerup):
+	var newObj = objects[index].instantiate()
+	newObj.position = pos * 16 + Vector2i(8, 8)
+	newObj.bulletType = powerup
+	newObj.UpdateTexture(powerup)
+	add_child(newObj)
+	return newObj
 
 func CreateObject(index, pos):
 	var newObj = objects[index].instantiate()

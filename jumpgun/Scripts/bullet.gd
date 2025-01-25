@@ -13,6 +13,9 @@ var acceleration = 0
 var ignores_slowdown = false
 var stops_at_0_speed = false
 var explodes = false
+var respects_gravity = false
+var gravity_dir = Vector2(0, 0)
+var current_gravity = Vector2(0, 0)
 var lifetime = 10.0
 
 func _ready() -> void:
@@ -26,9 +29,12 @@ func _physics_process(delta):
 	speed += acceleration * delta * 100
 	if speed < 0 and stops_at_0_speed == true:
 		speed = 0
-	position += transform.x * speed * delta
-	#if $RayCast2D.is_colliding() and bounces > 0:
-		#bounces -= 1
+	if respects_gravity == true:
+		current_gravity += gravity_dir * delta
+	if ignores_slowdown == true:
+		position += transform.x * speed * delta / Engine.time_scale
+	else:
+		position += transform.x * speed * delta
 
 func LoadResource(res : BulletTypes):
 	speed = res.speed
