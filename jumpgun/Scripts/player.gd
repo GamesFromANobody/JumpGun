@@ -41,6 +41,7 @@ var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge tha
 
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
 var bullet_resource : BulletTypes
+var base_bullet_resource : BulletTypes
 
 var casing_scene = preload("res://Scenes/Particles/casing.tscn")
 
@@ -79,6 +80,7 @@ func _ready() -> void:
 	$Gun.texture = gun_model_base
 	$Gun/Color.texture = gun_model_color
 	Engine.time_scale = 1.0
+	bullet_resource = base_bullet_resource
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
@@ -267,6 +269,8 @@ func Hit():
 
 func reloadAmmo():
 	var bReloaded = false as bool
+	if currentMag == 0:
+		bullet_resource = base_bullet_resource
 	if currentMag < max_ammo:
 		currentMag = max_ammo
 		# question: do we wish for ammo to only be the max or for existing ammo to be preserved?
@@ -278,10 +282,8 @@ func reloadAmmo():
 func reloadResource():
 	gun_type = int(gun_resource.gun_type)
 	gun_model_base = gun_resource.gun_model_base
-
 	
 	$Gun.texture = gun_model_base
-
 	$CollisionBox.polygon = gun_resource.gun_hitbox
 	$Muzzle.position = gun_resource.muzzle_location
 	$ShotSmoke.position = $Muzzle.position + Vector2(12, 1)
@@ -308,8 +310,7 @@ func reloadResource():
 		currentMag = max_ammo
 	rotation_force = gun_resource.rotation_force
 	
-
-	bullet_resource = gun_resource.bullet_resource
+	base_bullet_resource = gun_resource.bullet_resource
 	knockback = gun_resource.knockback
 	
 	max_slowdown = gun_resource.max_slowdown
@@ -317,9 +318,13 @@ func reloadResource():
 	if slowdown > slowdown_seconds:
 		slowdown = slowdown_seconds
 	slowdown_recharge_rate = gun_resource.slowdown_recharge_rate
-	
-	
-	
+
+func SetBulletResource(resource : BulletTypes, applyToBase : bool):
+	bullet_resource = resource
+	if applyToBase == true:
+		base_bullet_resource = resource
+
+
 
 #Update the HUD at the end of processing physics, or upon _ready().
 #Rather, later on each of these will be updated only when needed.
