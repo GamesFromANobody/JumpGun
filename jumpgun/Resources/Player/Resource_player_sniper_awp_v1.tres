@@ -6,10 +6,17 @@
 
 [resource]
 script = ExtResource("3_2ocfv")
-gun_type = 2
-gun_model = ExtResource("2_07c7f")
+gun_model_base = ExtResource("2_07c7f")
+gun_model_colors = ExtResource("2_07c7f")
+gun_color = Color(0.113725, 0.560784, 0.141176, 1)
 gun_hitbox = PackedVector2Array(-27, 6, -30, 0, -31, -5, -20, -6, -17, -5, -10, -7, 32, -7, 32, -4, -3, -4, -13, 2, -18, 2, -25, 6)
 muzzle_location = Vector2(32, -6)
+chamber_location = Vector2(3, -8)
+sprite_position = Vector2(0, 0)
+sprite_scale = Vector2(1, 1)
+laser_location = Vector2(0, 0)
+frames = Vector2(1, 1)
+gun_type = 2
 full_auto = false
 shot_cooldown = 3.0
 starting_ammo = 5

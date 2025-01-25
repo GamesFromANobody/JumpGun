@@ -1,19 +1,22 @@
-[gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=4 format=3 uid="uid://bjkqu53maxead"]
+[gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=5 format=3 uid="uid://bjkqu53maxead"]
 
 [ext_resource type="Resource" uid="uid://6qsf6p0y4grk" path="res://Resources/Bullets/bullet_01.tres" id="1_uyk6y"]
-[ext_resource type="Texture2D" uid="uid://cjsko6mhgu607" path="res://Import/Textures/temp-gun.png" id="2_d01st"]
+[ext_resource type="Texture2D" uid="uid://dhn4rk3vndth8" path="res://Import/Textures/Characters/Pistols/glock18-base.png" id="2_cypp4"]
 [ext_resource type="Script" path="res://Scripts/ResourceScript/player_gun_types.gd" id="3_3mr5m"]
+[ext_resource type="Texture2D" uid="uid://b8025fuyrfmib" path="res://Import/Textures/Characters/Pistols/glock18-greyscale.png" id="3_ktg3s"]
 
 [resource]
 script = ExtResource("3_3mr5m")
-gun_type = 3
-gun_model = ExtResource("2_d01st")
+gun_model_base = ExtResource("2_cypp4")
+gun_model_colors = ExtResource("3_ktg3s")
 gun_hitbox = PackedVector2Array(-5, 11, -14, 11, -14, -10, 14, -10, 14, 0, 1, 0, 1, 3, -1, 5, -3, 6, -5, 6)
 muzzle_location = Vector2(14, -5)
 chamber_location = Vector2(3, -8)
 sprite_position = Vector2(0, 0)
 sprite_scale = Vector2(1, 1)
 laser_location = Vector2(0, 0)
+frames = Vector2(3, 3)
+gun_type = 3
 full_auto = true
 shot_cooldown = 0.07
 starting_ammo = 30

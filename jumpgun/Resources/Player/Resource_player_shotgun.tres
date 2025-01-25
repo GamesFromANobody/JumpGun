@@ -6,7 +6,9 @@
 
 [resource]
 script = ExtResource("1_lb1lt")
-gun_model = ExtResource("2_50a0d")
+gun_model_base = ExtResource("2_50a0d")
+gun_model_colors = ExtResource("2_50a0d")
+gun_color = Color(0.113725, 0.560784, 0.141176, 1)
 gun_hitbox = PackedVector2Array(-27, 6, -30, 0, -31, -5, -20, -6, -17, -5, -10, -7, 32, -7, 32, -4, -3, -4, -13, 2, -18, 2, -25, 6)
 muzzle_location = Vector2(32, -6)
 chamber_location = Vector2(-3, -7)

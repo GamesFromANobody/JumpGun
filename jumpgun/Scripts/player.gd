@@ -17,7 +17,8 @@ enum ShotTypes {
 }
 #Gun
 var gun_type : ShotTypes = ShotTypes.PISTOL
-var gun_model : Texture2D = preload("res://Import/Textures/temp-gun.png")
+var gun_model_base : Texture2D = preload("res://Import/Textures/Characters/Pistols/glock18-base.png")
+var gun_model_color : Texture2D = preload("res://Import/Textures/Characters/Pistols/glock18-greyscale.png")
 var full_auto = false
 var shot_cooldown = 0.1 #not used in code, shotCooldown is used
 var starting_ammo = 18
@@ -63,7 +64,6 @@ var HUDLayer : CanvasLayer
 
 func _ready() -> void:
 	contact_monitor = true
-	print(gun_resource.bullet_resource)
 	if GunSelection.gun_resource != null:
 		gun_resource = GunSelection.gun_resource
 	if gun_resource != null:
@@ -74,14 +74,15 @@ func _ready() -> void:
 	currentMag = starting_ammo
 	HUDLayer = get_node("HUD")
 	updateHUD()
-	
-	#TODO Implement gun model different collision boxes
-
-
-	$Gun.texture = gun_model
+	if $Gun.hframes * $Gun.vframes < 6:
+		$Gun/Color.hide()
+	$Gun.texture = gun_model_base
+	$Gun/Color.texture = gun_model_color
+	Engine.time_scale = 1.0
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
+	TasteTheRainbow()
 	#ATTENTION Max speed, this prevents wall collisions
 	if abs(linear_velocity.length()) > 1000:
 		linear_velocity *= 1000 / linear_velocity.length()
@@ -91,6 +92,8 @@ func _physics_process(delta: float) -> void:
 	shotCooldown -= delta
 	var prevGameSpeed = gameSpeed
 	if Input.is_action_pressed("aimSlowdown") and allowSlowdown and slowdown > 0:
+		if $GunAnimations.is_playing() == false and $Gun.hframes * $Gun.vframes > 7:
+			$GunAnimations.play("Aim_Generic")
 		gameSpeed -= delta * 2
 		if gameSpeed < max_slowdown:
 			gameSpeed = max_slowdown
@@ -108,12 +111,15 @@ func _physics_process(delta: float) -> void:
 		if gameSpeed > 1.0:
 			gameSpeed = 1.0
 	else:
+		if $GunAnimations.is_playing() == false and $Gun.hframes * $Gun.vframes > 7:
+			$GunAnimations.play("Idle_Generic")
 		moveCamera(Vector2(0, 0), 0.4)
 		slowdown += delta * slowdown_recharge_rate
 		if slowdown > slowdown_seconds:
 			slowdown = slowdown_seconds
 	if prevGameSpeed != gameSpeed:
 		Engine.time_scale = gameSpeed
+		#$GunAnimations.speed_scale = Engine.time_scale
 		var alpha = (gameSpeed - 0.25) / 0.75 #To correct for game speed being 0.25-1.0
 		$Gun/LaserSight.self_modulate = Color(1, 0, 0, 1 - alpha)
 	if gameSpeed < 1:
@@ -178,7 +184,8 @@ func _integrate_forces(state):
 		
 	updateHUD()
 
-
+func TasteTheRainbow():
+	$Gun/Color.modulate = Color.from_hsv((sin(Time.get_ticks_msec() * 0.002) + 1) * 0.5, 0.74, 0.58, 1.0)
 
 
 func moveCamera(localLocation : Vector2, smoothing : float):
@@ -195,8 +202,8 @@ func ApplyKnockback(state : PhysicsDirectBodyState2D):
 	state.apply_force(recoil.rotated(rotation) / gameSpeed * knockback * wallReduction)
 
 func Shoot():
-	$ShotSmoke.emitting = true
-	animateGun()
+	if $Gun.hframes * $Gun.vframes > 7:
+		$GunAnimations.play("Shoot_Generic")
 	match gun_type:
 		ShotTypes.PISTOL:
 			ShootPistol()
@@ -211,15 +218,9 @@ func Shoot():
 	print("Ammo Left: ", str(currentMag))
 	
 
-func animateGun():
-	bullet_resource.casing_texture
-	var tween = create_tween()
-	var frames = $Gun.hframes * $Gun.vframes - 1 #Frames in the animation
-	tween.tween_property($Gun, "frame", frames, 0.033333 * frames ) #30 FPS
-	tween.tween_property($Gun, "frame", 0, 0.033333)
-	tween.play()
+func spawnCasing():
 	var casing = casing_scene.instantiate()
-	casing.global_position = global_position
+	casing.global_position = $Chamber.global_position
 	casing.rotation = rotation
 	casing.scale = $Gun.scale
 	casing.scaleSet = $Gun.scale * 0.8
@@ -230,9 +231,7 @@ func ShootPistol():
 	var b = bullet_scene.instantiate() as Bullet
 	b.transform = $Muzzle.global_transform
 	b.bullet_resource = bullet_resource
-	print(bullet_resource)
 	b.LoadResource(bullet_resource)
-	
 	get_parent().call_deferred("add_child" ,b)
 
 func ShootShotgun():
@@ -278,16 +277,28 @@ func reloadAmmo():
 
 func reloadResource():
 	gun_type = int(gun_resource.gun_type)
-	gun_model = gun_resource.gun_model
-	$Gun.texture = gun_model
+	gun_model_base = gun_resource.gun_model_base
+
+	
+	$Gun.texture = gun_model_base
+
 	$CollisionBox.polygon = gun_resource.gun_hitbox
 	$Muzzle.position = gun_resource.muzzle_location
+	$ShotSmoke.position = $Muzzle.position + Vector2(12, 1)
 	$Chamber.position = gun_resource.chamber_location
 	$Gun.position = gun_resource.sprite_position
 	$Gun.scale = gun_resource.sprite_scale
 	$Gun/LaserSight.position = gun_resource.laser_location
 	$Gun.hframes = gun_resource.frames.x
 	$Gun.vframes = gun_resource.frames.y
+	if gun_resource.gun_model_colors != null:
+		gun_model_color = gun_resource.gun_model_colors
+		$Gun/Color.texture = gun_model_color
+		$Gun/Color.hframes = gun_resource.frames.x
+		$Gun/Color.vframes = gun_resource.frames.y
+		$Gun/Color.modulate = gun_resource.gun_color
+	else:
+		$Gun/Color.hide()
 	
 	full_auto = gun_resource.full_auto
 	shotCooldown = gun_resource.shot_cooldown

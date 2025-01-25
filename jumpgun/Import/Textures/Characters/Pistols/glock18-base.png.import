@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6g0hkwie4oam"
-path="res://.godot/imported/glock18-Sheet.png-282619c39e3fca992cf06d6f4ef257e9.ctex"
+uid="uid://dhn4rk3vndth8"
+path="res://.godot/imported/glock18-base.png-8750ee25494e90db1e399f8602d31739.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Import/Textures/Characters/glock18-Sheet.png"
-dest_files=["res://.godot/imported/glock18-Sheet.png-282619c39e3fca992cf06d6f4ef257e9.ctex"]
+source_file="res://Import/Textures/Characters/Pistols/glock18-base.png"
+dest_files=["res://.godot/imported/glock18-base.png-8750ee25494e90db1e399f8602d31739.ctex"]
 
 [params]
 
