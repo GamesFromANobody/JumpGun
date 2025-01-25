@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1aklefwgm50r"]
+[gd_scene load_steps=5 format=3 uid="uid://d1aklefwgm50r"]
 
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_duyxu"]
 [ext_resource type="Texture2D" uid="uid://bye8cmsl2f7oc" path="res://Import/Textures/Projectiles/bullet_glock.png" id="2_fbt4a"]
@@ -6,6 +6,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ygnhe"]
 radius = 4.0
 height = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x67gn"]
+radius = 20.0
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
@@ -23,5 +26,12 @@ shape = SubResource("CapsuleShape2D_ygnhe")
 position = Vector2(-5, 0)
 target_position = Vector2(20, 0)
 collision_mask = 2
+
+[node name="AOE" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AOE"]
+shape = SubResource("CircleShape2D_x67gn")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
