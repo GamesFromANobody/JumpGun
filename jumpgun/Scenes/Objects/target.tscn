@@ -16,4 +16,5 @@ shape = SubResource("CircleShape2D_jwmfy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_e2ali")
-hframes = 3
+hframes = 8
+vframes = 8
