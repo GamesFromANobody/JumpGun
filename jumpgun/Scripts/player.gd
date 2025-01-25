@@ -134,6 +134,7 @@ func _integrate_forces(state):
 	var ver = Input.get_axis("controllerUP", "controllerDOWN")
 	var controllerInput = Vector2(hor, ver) * 100
 	var mouseInput = get_global_mouse_position()
+	var dir = 0.0
 	
 	if hor != 0 or ver != 0:
 		usingController = true
@@ -144,10 +145,21 @@ func _integrate_forces(state):
 	if usingController:
 		set_angular_velocity((get_angle_to(controllerInput + position)) * -((get_angle_to(controllerInput + position)) -3.14) * 3 * rotation_force)
 	else:
-		set_angular_velocity((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
-		#ATTENTION We might want to use state.apply_torque() instead of set_angular_velocity(),
-		#played around with it and it seemed to snap less, but requires different parameters
-		#state.apply_torque((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
+		#ATTENTION: trying out a hybrid of the old aiming (for precision) and a new way using constant_torque.
+		# the old method was good for precise shots, while the new method allows CW and CCW turning
+		# to be more equal.
+		# When dir is high, use torque itself to rotate the gun.
+		# Lets us still fling ourselves, but with "effort".
+		# When dir is low, set the angular velocity as-necessary for more precise aim.
+		# This has lower force, however.
+		dir = transform.y.dot(position.direction_to(mouseInput))
+		if abs(dir) > 0.1:
+			constant_torque = dir * torque
+		else:
+			constant_torque = 0
+			set_angular_velocity(dir * 10 * rotation_force)
+		#NOTE older code: set_angular_velocity((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
+		#older apply_torque suggestion: #state.apply_torque((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
 	
 	#shoot
 	if (Input.is_action_just_pressed("shoot") and full_auto == false) or \
