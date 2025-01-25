@@ -6,10 +6,15 @@
 
 [resource]
 script = ExtResource("3_41u8s")
-gun_type = 1
 gun_model = ExtResource("2_f71br")
 gun_hitbox = PackedVector2Array(-27, 6, -30, 0, -31, -5, -20, -6, -17, -5, -10, -7, 32, -7, 32, -4, -3, -4, -13, 2, -18, 2, -25, 6)
 muzzle_location = Vector2(32, -6)
+chamber_location = Vector2(-3, -7)
+sprite_position = Vector2(0, -1)
+sprite_scale = Vector2(1, 1)
+laser_location = Vector2(160, -5)
+frames = Vector2(1, 1)
+gun_type = 1
 full_auto = true
 shot_cooldown = 0.3
 starting_ammo = 12
