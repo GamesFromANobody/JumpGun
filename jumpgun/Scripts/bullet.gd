@@ -12,6 +12,7 @@ var piercing_amount = 0
 var acceleration = 0
 var ignores_slowdown = false
 var stops_at_0_speed = false
+var explodes = false
 var lifetime = 10.0
 
 func _ready() -> void:
@@ -36,6 +37,9 @@ func LoadResource(res : BulletTypes):
 	acceleration = res.acceleration
 	ignores_slowdown = res.ignores_slowdown
 	stops_at_0_speed = res.stops_at_0_speed
+	explodes = res.explodes
+	lifetime = res.lifetime_seconds
+	$AOE/CollisionShape2D.shape.radius = res.explosion_radius
 
 func _on_body_entered(body: Node2D) -> void:
 	print("bullet hit: " + body.name)
@@ -44,14 +48,23 @@ func _on_body_entered(body: Node2D) -> void:
 		body.Hit()
 		piercing_amount -= 1
 		if piercing_amount < 0:
+			if explodes == true:
+				Explode()
 			queue_free()
 	elif bounces > 0:
-		bounce()
+		Bounce()
 	else :
+		if explodes == true:
+			Explode()
 		queue_free()
 
+func Explode():
+	for body in $AOE.get_overlapping_bodies():
+		if body.has_method("Hit"):
+			body.Hit()
+
 #NOT DONE, might abandon and implement this inside a "reflection" object
-func bounce():
+func Bounce():
 	var normal = $RayCast2D.get_collision_normal()
 	assert(normal != Vector2(0, 0))
 	print(normal)

@@ -9,14 +9,16 @@ enum ShotTypes {
 	TODO_LMG,
 }
 @export_group("Sprite")
-@export var gun_model : Texture2D = preload("res://Import/Textures/temp-gun.png")
+@export var gun_model_base : Texture2D = preload("res://Import/Textures/Characters/Pistols/glock18-base.png")
+@export var gun_model_colors : Texture2D = preload("res://Import/Textures/Characters/Pistols/glock18-greyscale.png")
+@export var gun_color : Color = Color("1d8f24")
 @export var gun_hitbox : PackedVector2Array
 @export var muzzle_location : Vector2 = Vector2(14, -5)
 @export var chamber_location : Vector2 = Vector2(3, -8)
 @export var sprite_position : Vector2 = Vector2(0, 0)
 @export var sprite_scale : Vector2 = Vector2(1, 1)
 @export var laser_location : Vector2 = Vector2(0, 0)
-@export var frames : Vector2 = Vector2(3, 1)
+@export var frames : Vector2 = Vector2(3, 3)
 @export_group("")
 
 @export_group("Gun")
