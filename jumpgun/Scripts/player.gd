@@ -154,7 +154,7 @@ func _integrate_forces(state):
 		# This has lower force, however.
 		dir = transform.y.dot(position.direction_to(mouseInput))
 		if abs(dir) > 0.1:
-			constant_torque = dir * torque
+			constant_torque = dir * torque * rotation_force
 		else:
 			constant_torque = 0
 			set_angular_velocity(dir * 10 * rotation_force)
