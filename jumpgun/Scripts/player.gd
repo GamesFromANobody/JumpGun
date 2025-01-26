@@ -182,7 +182,8 @@ func _integrate_forces(state):
 			#state.apply_force(recoil.rotated(rotation) / gameSpeed * knockback)
 			ApplyKnockback(state)
 		else:
-			pass #TODO implement clicking sound
+			$ClickSFX.pitch_scale = Engine.time_scale
+			$ClickSFX.play()
 		
 	updateHUD()
 
@@ -206,6 +207,8 @@ func ApplyKnockback(state : PhysicsDirectBodyState2D):
 func Shoot():
 	if $Gun.hframes * $Gun.vframes > 7:
 		$GunAnimations.play("Shoot_Generic")
+		$ShotSFX.pitch_scale = pow(Engine.time_scale, 0.8)
+		$ShotSFX.play(0.1)
 	match gun_type:
 		ShotTypes.PISTOL:
 			ShootPistol()

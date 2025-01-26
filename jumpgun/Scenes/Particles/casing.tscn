@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjkhc2jn241sh"]
+[gd_scene load_steps=5 format=3 uid="uid://cjkhc2jn241sh"]
 
 [ext_resource type="Texture2D" uid="uid://f5m4sq28bekt" path="res://Import/Textures/Projectiles/casing-glock.png" id="1_tfka1"]
 [ext_resource type="Script" path="res://Scripts/casing.gd" id="1_vis4g"]
+[ext_resource type="AudioStream" uid="uid://y1juady0uus2" path="res://Import/Audio/FX/temp/casing_collision.mp3" id="3_1qhrc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3mqk"]
 size = Vector2(7, 5)
@@ -16,3 +17,6 @@ texture = ExtResource("1_tfka1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_b3mqk")
+
+[node name="ClinkSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1qhrc")

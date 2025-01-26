@@ -13,9 +13,10 @@ var acceleration = 0
 var ignores_slowdown = false
 var stops_at_0_speed = false
 var explodes = false
-var respects_gravity = false
-var gravity_dir = Vector2(0, 0)
-var current_gravity = Vector2(0, 0)
+var degrees_per_second = 0.0
+#var respects_gravity = false #couldnt get this to work
+#var gravity_dir = Vector2(0, 0)
+#var current_gravity = Vector2(0, 0)
 var lifetime = 10.0
 
 func _ready() -> void:
@@ -29,8 +30,9 @@ func _physics_process(delta):
 	speed += acceleration * delta * 100
 	if speed < 0 and stops_at_0_speed == true:
 		speed = 0
-	if respects_gravity == true:
-		current_gravity += gravity_dir * delta
+	rotate(deg_to_rad(degrees_per_second * delta))
+	#if respects_gravity == true:
+		#current_gravity += gravity_dir * delta
 	if ignores_slowdown == true:
 		position += transform.x * speed * delta / Engine.time_scale
 	else:
@@ -45,6 +47,7 @@ func LoadResource(res : BulletTypes):
 	stops_at_0_speed = res.stops_at_0_speed
 	explodes = res.explodes
 	lifetime = res.lifetime_seconds
+	degrees_per_second = res.degrees_per_second
 	$AOE/CollisionShape2D.shape.radius = res.explosion_radius
 
 func _on_body_entered(body: Node2D) -> void:
