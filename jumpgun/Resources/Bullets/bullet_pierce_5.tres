@@ -15,6 +15,7 @@ lifetime_seconds = 10.0
 bounces = 0
 piercing_amount = 5
 acceleration = 0
+degrees_per_second = 0.0
 ignores_slowdown = false
 stops_at_0_speed = false
 explodes = false

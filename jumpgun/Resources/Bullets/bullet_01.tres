@@ -11,11 +11,15 @@ height = 10.0
 [resource]
 script = ExtResource("1_v5ffw")
 speed = 800
+lifetime_seconds = 10.0
 bounces = 0
 piercing_amount = 0
 acceleration = 0
+degrees_per_second = 0.0
 ignores_slowdown = false
 stops_at_0_speed = false
+explodes = false
+explosion_radius = 20.0
 bullet_texture = ExtResource("1_a5xu1")
 casing_texture = ExtResource("2_lu55w")
 hitbox = SubResource("CapsuleShape2D_ygnhe")
