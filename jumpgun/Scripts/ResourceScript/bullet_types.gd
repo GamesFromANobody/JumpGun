@@ -7,10 +7,9 @@ class_name BulletTypes
 @export var bounces = 0
 @export var piercing_amount = 0
 @export var acceleration = 0
+@export var degrees_per_second = 0.0
 @export var ignores_slowdown = false
 @export var stops_at_0_speed = false
-@export var respects_gravity = false
-@export var gravity_direction = Vector2(0, 0)
 @export var explodes = false
 @export_range(5, 100, 1) var explosion_radius = 20.0
 @export_group("")
