@@ -306,7 +306,7 @@ func reloadResource():
 		$Gun/Color.hide()
 	
 	full_auto = gun_resource.full_auto
-	shotCooldown = gun_resource.shot_cooldown
+	shot_cooldown = gun_resource.shot_cooldown
 	starting_ammo = gun_resource.starting_ammo
 	max_ammo = gun_resource.max_ammo
 	if currentMag > max_ammo:

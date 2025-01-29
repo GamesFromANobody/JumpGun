@@ -50,6 +50,12 @@ func _ready() -> void:
 	# finally, set our starting targets count
 	# which will probably lead to removing the local one later on...
 	startingTargets = targetCount
+	if customTargetsRequried != 0:
+		startingTargets = customTargetsRequried
+	if startingTargets == 0:
+		print("Doors start open!")
+		for door in listOfDoors:
+			door.Open()
 	Global.update_targets(targetCount, startingTargets)
 
 func CreatePowerup(index, pos, powerup):
