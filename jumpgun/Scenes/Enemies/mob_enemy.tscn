@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cv185kyfkbp82" path="res://Import/Textures/temp-enemies.png" id="2_pigm3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vdhlj"]
-size = Vector2(15, 14)
+size = Vector2(13, 12)
 
 [node name="MobEnemy" type="CharacterBody2D" groups=["Enemies"]]
 collision_layer = 4

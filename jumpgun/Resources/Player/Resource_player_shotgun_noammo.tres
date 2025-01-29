@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=4 format=3 uid="uid://dblhm685dtkqv"]
+
+[ext_resource type="Resource" uid="uid://6qsf6p0y4grk" path="res://Resources/Bullets/bullet_01.tres" id="1_j0bim"]
+[ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_o80c0"]
+[ext_resource type="Script" path="res://Scripts/ResourceScript/player_gun_types.gd" id="3_s1vqu"]
+
+[resource]
+script = ExtResource("3_s1vqu")
+gun_model_base = ExtResource("2_o80c0")
+gun_model_colors = ExtResource("2_o80c0")
+gun_color = Color(0.113725, 0.560784, 0.141176, 1)
+gun_hitbox = PackedVector2Array(-27, 6, -30, 0, -31, -5, -20, -6, -17, -5, -10, -7, 32, -7, 32, -4, -3, -4, -13, 2, -18, 2, -25, 6)
+muzzle_location = Vector2(32, -6)
+chamber_location = Vector2(-3, -7)
+sprite_position = Vector2(0, -1)
+sprite_scale = Vector2(1, 1)
+laser_location = Vector2(160, -5)
+frames = Vector2(1, 1)
+gun_type = 1
+full_auto = false
+shot_cooldown = 0.8
+starting_ammo = 0
+max_ammo = 6
+rotation_force = 2.0
+bullet_resource = ExtResource("1_j0bim")
+knockback = 2.0
+max_slowdown = 0.25
+slowdown_seconds = 2.5
+slowdown_recharge_rate = 0.25

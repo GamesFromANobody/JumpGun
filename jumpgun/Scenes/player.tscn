@@ -202,7 +202,7 @@ hframes = 3
 vframes = 3
 
 [node name="Color" type="Sprite2D" parent="Gun"]
-modulate = Color(0.58, 0.1508, 0.1508, 1)
+modulate = Color(0.58, 0.39672, 0.1218, 1)
 texture = ExtResource("4_a1548")
 hframes = 3
 vframes = 3

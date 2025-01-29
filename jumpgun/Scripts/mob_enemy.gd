@@ -112,7 +112,7 @@ func StatePatrolling(delta : float):
 	if walks_off_cliffs == false and \
 	($EdgeDetectionLeft.is_colliding() == false or $EdgeDetectionRight.is_colliding() == false):
 		direction = -direction
-	if is_on_wall() and flying == false:
+	if is_on_wall() and (starting_direction == directionEditor.LEFT or starting_direction == directionEditor.RIGHT):
 		direction = -direction
 	
 	if (is_on_ceiling() or is_on_floor()) and flying == true:
