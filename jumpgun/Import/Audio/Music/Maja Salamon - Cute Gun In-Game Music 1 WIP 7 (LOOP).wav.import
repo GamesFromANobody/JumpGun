@@ -2,7 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://xkxp8x15eciy"
+uid="uid://bqsvjb1y1y7fr"
 path="res://.godot/imported/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav-2dc0acad3f97ba11c58cca61220f81a0.sample"
 
 [deps]
@@ -18,7 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop_mode=0
+edit/loop_mode=2
 edit/loop_begin=0
-edit/loop_end=-1
+edit/loop_end=6011000
 compress/mode=0

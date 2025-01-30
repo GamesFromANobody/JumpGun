@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://p55p5umav4vx"]
 
-[ext_resource type="AudioStream" uid="uid://xkxp8x15eciy" path="res://Import/Audio/Music/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav" id="1_f2tnv"]
+[ext_resource type="AudioStream" uid="uid://bqsvjb1y1y7fr" path="res://Import/Audio/Music/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav" id="1_f2tnv"]
 [ext_resource type="Script" path="res://Scripts/music_controller.gd" id="1_i7po4"]
 
 [node name="MusicController" type="AudioStreamPlayer"]
