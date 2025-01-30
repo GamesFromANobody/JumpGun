@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=5 format=3 uid="uid://r1av60gljfj1"]
+
+[ext_resource type="Resource" uid="uid://js2b86ea7hxx" path="res://Resources/Bullets/bullet_slow.tres" id="1_0uhqp"]
+[ext_resource type="Texture2D" uid="uid://dhn4rk3vndth8" path="res://Import/Textures/Characters/Pistols/glock18-base.png" id="2_eqdky"]
+[ext_resource type="Texture2D" uid="uid://b8025fuyrfmib" path="res://Import/Textures/Characters/Pistols/glock18-greyscale.png" id="3_j2dts"]
+[ext_resource type="Script" path="res://Scripts/ResourceScript/player_gun_types.gd" id="4_rbpbr"]
+
+[resource]
+script = ExtResource("4_rbpbr")
+gun_model_base = ExtResource("2_eqdky")
+gun_model_colors = ExtResource("3_j2dts")
+gun_color = Color(0.113725, 0.560784, 0.141176, 1)
+gun_hitbox = PackedVector2Array(-6, 11, -12, 11, -15, 8, -15, 6, -11, 0, -11, -5, -13, -6, -13, -11, -11, -12, 14, -12, 17, -10, 17, -6, 14, -4, 7, -4, 7, 0, 5, 1, -3, 1, -5, 6)
+muzzle_location = Vector2(18, -9)
+chamber_location = Vector2(2, -8)
+sprite_position = Vector2(0, -1)
+sprite_scale = Vector2(0.7, 0.7)
+laser_location = Vector2(152, -11)
+frames = Vector2(3, 3)
+gun_type = 0
+full_auto = false
+shot_cooldown = 0.1
+starting_ammo = 18
+max_ammo = 18
+rotation_force = 1.0
+bullet_resource = ExtResource("1_0uhqp")
+knockback = 0.8
+max_slowdown = 0.25
+slowdown_seconds = 4.0
+slowdown_recharge_rate = 0.35
