@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://187rlitbnekh"]
+[gd_scene load_steps=4 format=4 uid="uid://187rlitbnekh"]
 
 [ext_resource type="PackedScene" uid="uid://yo74n18pbk7b" path="res://Scenes/level_base.tscn" id="1_xnaw4"]
 [ext_resource type="Resource" uid="uid://dblhm685dtkqv" path="res://Resources/Player/Resource_player_shotgun_noammo.tres" id="2_ax13m"]
 [ext_resource type="PackedScene" uid="uid://vgd1xojc04hf" path="res://Scenes/Enemies/mob_enemy.tscn" id="2_du0vn"]
-[ext_resource type="Script" path="res://Scripts/mob_enemy.gd" id="3_2ekkx"]
 
 [node name="level_godis_03_noammo" type="Node2D"]
 
@@ -19,36 +18,21 @@ tile_map_data = PackedByteArray("AABIABUAAAABAAAAAABFAAAAAAABAAAAAAA=")
 tile_map_data = PackedByteArray("AAAKAAIAAAAAAAAAAAAzAAIAAAAAAAAAAAAfAAIAAAAAAAAAAABGAAcAAAAAAAAAAABFAA8AAAAAAAAAAABJABoAAAACAAAAAABIABoAAAACAAAAAABHABoAAAACAAAAAAA=")
 instantiate_enemies = true
 
-[node name="MobEnemy" type="CharacterBody2D" parent="Level_Base/Enemies" index="0" groups=["Enemies"] instance=ExtResource("2_du0vn")]
+[node name="MobEnemy" parent="Level_Base/Enemies" index="0" instance=ExtResource("2_du0vn")]
 position = Vector2(168, 40)
-collision_layer = 4
-collision_mask = 87
-script = ExtResource("3_2ekkx")
 
-[node name="@CharacterBody2D@31780" type="CharacterBody2D" parent="Level_Base/Enemies" index="1" groups=["Enemies"] instance=ExtResource("2_du0vn")]
+[node name="@CharacterBody2D@31780" parent="Level_Base/Enemies" index="1" instance=ExtResource("2_du0vn")]
 position = Vector2(824, 40)
-collision_layer = 4
-collision_mask = 87
-script = ExtResource("3_2ekkx")
 
-[node name="@CharacterBody2D@31781" type="CharacterBody2D" parent="Level_Base/Enemies" index="2" groups=["Enemies"] instance=ExtResource("2_du0vn")]
+[node name="@CharacterBody2D@31781" parent="Level_Base/Enemies" index="2" instance=ExtResource("2_du0vn")]
 position = Vector2(504, 40)
-collision_layer = 4
-collision_mask = 87
-script = ExtResource("3_2ekkx")
 
-[node name="@CharacterBody2D@31782" type="CharacterBody2D" parent="Level_Base/Enemies" index="3" groups=["Enemies"] instance=ExtResource("2_du0vn")]
+[node name="@CharacterBody2D@31782" parent="Level_Base/Enemies" index="3" instance=ExtResource("2_du0vn")]
 position = Vector2(1128, 120)
-collision_layer = 4
-collision_mask = 87
-script = ExtResource("3_2ekkx")
 flying = true
 
-[node name="@CharacterBody2D@39640" type="CharacterBody2D" parent="Level_Base/Enemies" index="4" groups=["Enemies"] instance=ExtResource("2_du0vn")]
+[node name="@CharacterBody2D@39640" parent="Level_Base/Enemies" index="4" instance=ExtResource("2_du0vn")]
 position = Vector2(1112, 248)
-collision_layer = 4
-collision_mask = 87
-script = ExtResource("3_2ekkx")
 flying = true
 
 [node name="Player" parent="Level_Base" index="4"]

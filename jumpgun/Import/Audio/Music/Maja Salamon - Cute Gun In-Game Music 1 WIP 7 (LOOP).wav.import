@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://xkxp8x15eciy"
+path="res://.godot/imported/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav-2dc0acad3f97ba11c58cca61220f81a0.sample"
+
+[deps]
+
+source_file="res://Import/Audio/Music/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav"
+dest_files=["res://.godot/imported/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav-2dc0acad3f97ba11c58cca61220f81a0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -178,10 +178,12 @@ script = ExtResource("1_dvgqa")
 stream = ExtResource("2_v80sv")
 volume_db = 6.0
 max_polyphony = 10
+bus = &"Sounds"
 
 [node name="ClickSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_v0axf")
 max_polyphony = 10
+bus = &"Sounds"
 
 [node name="GunAnimations" type="AnimationPlayer" parent="."]
 libraries = {
@@ -273,9 +275,14 @@ text = "PAUSED"
 layout_mode = 2
 text = "Resume"
 
+[node name="RetryBTN" type="Button" parent="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Retry"
+
 [node name="ReturnBTN" type="Button" parent="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Return to Level Select"
 
 [connection signal="pressed" from="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN" to="." method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/RetryBTN" to="." method="_on_retry_btn_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ReturnBTN" to="." method="_on_return_btn_pressed"]

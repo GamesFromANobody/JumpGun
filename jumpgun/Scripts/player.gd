@@ -59,6 +59,7 @@ var shotCooldown = 0.5
 var slowdown : float
 var allowSlowdown = true
 var isPaused = false
+var isDead = false
 var currentMag : int
 #HUD
 var HUDLayer : CanvasLayer
@@ -81,15 +82,19 @@ func _ready() -> void:
 	$Gun/Color.texture = gun_model_color
 	Engine.time_scale = 1.0
 	bullet_resource = base_bullet_resource
+	$ShotSFX.set_deferred("volume_db", 6 + (MusicController.soundVolume - 50) * 0.5)
+	$ClickSFX.set_deferred("volume_db", (MusicController.soundVolume - 50) * 0.5)
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("Restart"):
+		get_tree().change_scene_to_file(get_tree().current_scene.scene_file_path)
 	TasteTheRainbow()
 	#ATTENTION Max speed, this prevents wall collisions
 	if abs(linear_velocity.length()) > 1000:
 		linear_velocity *= 1000 / linear_velocity.length()
 	$Velocity.target_position = linear_velocity.rotated(-rotation) * 0.25
-	if isPaused:
+	if isPaused or isDead:
 		return
 	shotCooldown -= delta
 	var prevGameSpeed = gameSpeed
@@ -121,6 +126,7 @@ func _physics_process(delta: float) -> void:
 			slowdown = slowdown_seconds
 	if prevGameSpeed != gameSpeed:
 		Engine.time_scale = gameSpeed
+		MusicController.pitch_scale = pow(Engine.time_scale, 0.8)
 		#$GunAnimations.speed_scale = Engine.time_scale
 		var alpha = (gameSpeed - 0.25) / 0.75 #To correct for game speed being 0.25-1.0
 		$Gun/LaserSight.self_modulate = Color(1, 0, 0, 1 - alpha)
@@ -136,7 +142,7 @@ func _physics_process(delta: float) -> void:
 	#print(slowdown)
 
 func _integrate_forces(state):
-	if isPaused:
+	if isPaused or isDead:
 		return
 	var hor = Input.get_axis("controllerLEFT", "controllerRIGHT")
 	var ver = Input.get_axis("controllerUP", "controllerDOWN")
@@ -267,8 +273,15 @@ func ShootLMG():
 func Hit():
 	if god_mode != true:
 		print("Player is Hit!")
-		#TODO, implement game over screen, possibly adding HP?
-		get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/level_select.tscn")
+		$Gun.hide()
+		isPaused = true
+		isDead = true
+		collision_layer = pow(2, 9)
+		collision_mask = 2
+		$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.hide()
+		$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/PauseLBL.text = "GAME OVER"
+		$HUD/PauseMenu.show()
+		#get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/level_select.tscn")
 
 func reloadAmmo():
 	var bReloaded = false as bool
@@ -340,9 +353,14 @@ func updateHUD():
 
 #Pausing/unpausing Functions
 func _on_level_base_pause() -> void:
+	if isDead == true:
+		return
 	isPaused = true
+	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.show()
 	$HUD/PauseMenu.show()
 func _on_level_base_unpause() -> void:
+	if isDead == true:
+		return
 	isPaused = false
 	$HUD/PauseMenu.hide()
 func _on_resume_btn_pressed() -> void:
@@ -350,3 +368,6 @@ func _on_resume_btn_pressed() -> void:
 func _on_return_btn_pressed() -> void:
 	unpause.emit()
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/level_select.tscn")
+
+func _on_retry_btn_pressed() -> void:
+	get_tree().change_scene_to_file(get_tree().current_scene.scene_file_path)
