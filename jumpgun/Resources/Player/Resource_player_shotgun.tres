@@ -1,21 +1,22 @@
-[gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=4 format=3 uid="uid://dgf7220xtb1he"]
+[gd_resource type="Resource" script_class="PlayerGunTypes" load_steps=5 format=3 uid="uid://dgf7220xtb1he"]
 
 [ext_resource type="Resource" uid="uid://6qsf6p0y4grk" path="res://Resources/Bullets/bullet_01.tres" id="1_0epwu"]
 [ext_resource type="Script" path="res://Scripts/ResourceScript/player_gun_types.gd" id="1_lb1lt"]
-[ext_resource type="Texture2D" uid="uid://umclk13rlpwa" path="res://Import/Textures/temp-shotgun.png" id="2_50a0d"]
+[ext_resource type="Texture2D" uid="uid://de553l6q21xqb" path="res://Import/Textures/Characters/Shotguns/shotgun-base.png" id="2_1pscr"]
+[ext_resource type="Texture2D" uid="uid://c2wsg885nf6ks" path="res://Import/Textures/Characters/Shotguns/shotgun-greyscale.png" id="3_tp2t5"]
 
 [resource]
 script = ExtResource("1_lb1lt")
-gun_model_base = ExtResource("2_50a0d")
-gun_model_colors = ExtResource("2_50a0d")
+gun_model_base = ExtResource("2_1pscr")
+gun_model_colors = ExtResource("3_tp2t5")
 gun_color = Color(0.113725, 0.560784, 0.141176, 1)
-gun_hitbox = PackedVector2Array(-27, 6, -30, 0, -31, -5, -20, -6, -17, -5, -10, -7, 32, -7, 32, -4, -3, -4, -13, 2, -18, 2, -25, 6)
-muzzle_location = Vector2(32, -6)
-chamber_location = Vector2(-3, -7)
-sprite_position = Vector2(0, -1)
-sprite_scale = Vector2(1, 1)
-laser_location = Vector2(160, -5)
-frames = Vector2(1, 1)
+gun_hitbox = PackedVector2Array(-28, 6, -31, 1, -31, -5, -22, -6, -20, -5, -15, -5, -12, -7, 32, -7, 32, -2, 25.9506, -2, 26, 0, -5, 0, -13, 2, -18, 2, -25, 6)
+muzzle_location = Vector2(32, -5)
+chamber_location = Vector2(-10, -3)
+sprite_position = Vector2(0, -3)
+sprite_scale = Vector2(0.9, 0.9)
+laser_location = Vector2(163.5, -2)
+frames = Vector2(3, 3)
 gun_type = 1
 full_auto = false
 shot_cooldown = 0.8
