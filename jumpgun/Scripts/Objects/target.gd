@@ -8,4 +8,10 @@ func Hit():
 	if isHit == false:
 		isHit = true
 		targetHit.emit()
-		queue_free()
+		hide()
+		$CollisionShape2D.set_deferred("disabled", true)
+		$PopTargetSFX.play() #note: need to get access to the slowmo modifier
+
+
+func _on_pop_target_sfx_finished() -> void:
+	queue_free()
