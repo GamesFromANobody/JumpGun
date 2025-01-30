@@ -1,5 +1,4 @@
-extends RigidBody2D
-class_name Player
+extends Node2D
 #replace direction to be rotation direction instead.
 #Do we aim with mouse or a/d? LEts try them both
 #Game speed modifier
@@ -28,15 +27,10 @@ var rotation_force : float = 1.0
 #Bullets
 var bullet_model
 var bullet_velocity = 800
-var knockback : float = 1.0
-
-#Aiming
-var max_slowdown : float = 0.25
-var slowdown_seconds : float = 2.5
-var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge than the active duration 
+var knockback : float = 0.0
 
 @export var god_mode = false
-@export var aim_zooming = true
+@export var aim_zooming = false
 @export var gun_resource : PlayerGunTypes
 
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
@@ -52,104 +46,55 @@ var usingController = false
 #controls
 var recoil = Vector2(-10000, 0)
 var torque = 20000
-
+var aimline = 1.0
 #Slowdown
 var gameSpeed = 1.0
 var shotCooldown = 0.5
 var slowdown : float
-var allowSlowdown = true
+var allowSlowdown = false
 var isPaused = false
-var isDead = false
 var currentMag : int
 #HUD
 var HUDLayer : CanvasLayer
 
 func _ready() -> void:
-	contact_monitor = true
 	if GunSelection.gun_resource != null:
 		gun_resource = GunSelection.gun_resource
 	if gun_resource != null:
 		reloadResource()
 	$Gun/LaserSight.self_modulate = Color(1, 0, 0, 0)
-	$HUD/PauseMenu.hide()
-	slowdown = slowdown_seconds
-	currentMag = starting_ammo
-	HUDLayer = get_node("HUD")
-	updateHUD()
 	if $Gun.hframes * $Gun.vframes < 6:
 		$Gun/Color.hide()
 	$Gun.texture = gun_model_base
 	$Gun/Color.texture = gun_model_color
 	Engine.time_scale = 1.0
 	bullet_resource = base_bullet_resource
-	$ShotSFX.set_deferred("volume_db", 6 + (MusicController.soundVolume - 50) * 0.5)
-	$ClickSFX.set_deferred("volume_db", (MusicController.soundVolume - 50) * 0.5)
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("Restart"):
-		get_tree().change_scene_to_file(get_tree().current_scene.scene_file_path)
 	TasteTheRainbow()
-	#ATTENTION Max speed, this prevents wall collisions
-	if abs(linear_velocity.length()) > 1000:
-		linear_velocity *= 1000 / linear_velocity.length()
-	$Velocity.target_position = linear_velocity.rotated(-rotation) * 0.25
-	if isPaused or isDead:
+	if isPaused:
 		return
 	shotCooldown -= delta
 	var prevGameSpeed = gameSpeed
-	if Input.is_action_pressed("aimSlowdown") and allowSlowdown and slowdown > 0:
+	if Input.is_action_pressed("aimSlowdown"):
 		if $GunAnimations.is_playing() == false and $Gun.hframes * $Gun.vframes > 7:
 			$GunAnimations.play("Aim_Generic")
-		gameSpeed -= delta * 2
-		if gameSpeed < max_slowdown:
-			gameSpeed = max_slowdown
-		
-		if usingController == false and aim_zooming == true:
-			moveCamera((get_local_mouse_position() - $Camera2D.position) * 0.6, 0.4)
-		elif aim_zooming == true:
-			var hor = Input.get_axis("controllerLEFT", "controllerRIGHT")
-			var ver = Input.get_axis("controllerDOWN", "controllerUP")
-			var controllerInput = Vector2(hor * 320, ver * 180)
-			print(controllerInput)
-			moveCamera(controllerInput.rotated(rotation), 2)
-	elif gameSpeed < 1.0:
-		gameSpeed += delta * 6
-		if gameSpeed > 1.0:
-			gameSpeed = 1.0
+			aimline -= delta
+			if aimline < 0:
+				aimline = 0
 	else:
+		aimline += delta
+		if aimline > 1:
+			aimline = 1
 		if $GunAnimations.is_playing() == false and $Gun.hframes * $Gun.vframes > 7:
 			$GunAnimations.play("Idle_Generic")
-		moveCamera(Vector2(0, 0), 0.4)
-		slowdown += delta * slowdown_recharge_rate
-		if slowdown > slowdown_seconds:
-			slowdown = slowdown_seconds
-	if prevGameSpeed != gameSpeed:
-		Engine.time_scale = gameSpeed
-		MusicController.pitch_scale = pow(Engine.time_scale, 0.8)
-		#$GunAnimations.speed_scale = Engine.time_scale
-		var alpha = (gameSpeed - 0.25) / 0.75 #To correct for game speed being 0.25-1.0
-		$Gun/LaserSight.self_modulate = Color(1, 0, 0, 1 - alpha)
-	if gameSpeed < 1:
-		slowdown -= delta / gameSpeed
-		if slowdown < 0:
-			allowSlowdown = false
-	if Input.is_action_just_released("aimSlowdown") and slowdown < 0.5:
-		allowSlowdown = false
-	if slowdown > 0.6:
-		allowSlowdown = true
-	
-	#print(slowdown)
-
-func _integrate_forces(state):
-	if isPaused or isDead:
-		return
 	var hor = Input.get_axis("controllerLEFT", "controllerRIGHT")
 	var ver = Input.get_axis("controllerUP", "controllerDOWN")
 	var controllerInput = Vector2(hor, ver) * 100
 	var mouseInput = get_global_mouse_position()
 	var dir = 0.0
-	
+	$Gun/LaserSight.self_modulate = Color(1, 0, 0, 1 - aimline)
 	if hor != 0 or ver != 0:
 		usingController = true
 	if Input.get_last_mouse_velocity() != prevMouseVelocity:
@@ -157,41 +102,19 @@ func _integrate_forces(state):
 	prevMouseVelocity = Input.get_last_mouse_velocity()
 	
 	if usingController:
-		set_angular_velocity((get_angle_to(controllerInput + position)) * -((get_angle_to(controllerInput + position)) -3.14) * 3 * rotation_force)
+		look_at(global_position + controllerInput)
 	else:
-		#ATTENTION: trying out a hybrid of the old aiming (for precision) and a new way using constant_torque.
-		# the old method was good for precise shots, while the new method allows CW and CCW turning
-		# to be more equal.
-		# When dir is high, use torque itself to rotate the gun.
-		# Lets us still fling ourselves, but with "effort".
-		# When dir is low, set the angular velocity as-necessary for more precise aim.
-		# This has lower force, however.
-		dir = transform.y.dot(position.direction_to(mouseInput))
-		if abs(dir) > 0.1:
-			constant_torque = dir * torque * rotation_force
-		else:
-			constant_torque = 0
-			set_angular_velocity(dir * 10 * rotation_force)
-		#NOTE older code: set_angular_velocity((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
-		#older apply_torque suggestion: #state.apply_torque((get_angle_to(mouseInput)) * -((get_angle_to(mouseInput)) -3.14) * 5 * rotation_force)
+		look_at(get_global_mouse_position() + scale * 10)
 	
 	#shoot
 	if (Input.is_action_just_pressed("shoot") and full_auto == false) or \
 	(Input.is_action_pressed("shoot") and full_auto == true): #semi-auto vs full-auto
 		if shotCooldown > 0:
 			return
-		if currentMag > 0:
-			shotCooldown = shot_cooldown
-			#TODO implemet gunshot sound
-			currentMag -= 1
+		else :
 			Shoot()
-			#state.apply_force(recoil.rotated(rotation) / gameSpeed * knockback)
-			ApplyKnockback(state)
-		else:
-			$ClickSFX.pitch_scale = Engine.time_scale
-			$ClickSFX.play()
-		
-	updateHUD()
+
+
 
 func TasteTheRainbow():
 	$Gun/Color.modulate = Color.from_hsv((sin(Time.get_ticks_msec() * 0.002) + 1) * 0.5, 0.74, 0.58, 1.0)
@@ -202,13 +125,6 @@ func moveCamera(localLocation : Vector2, smoothing : float):
 	tween.tween_property($Camera2D, "position", localLocation, smoothing)
 	tween.play()
 
-
-func ApplyKnockback(state : PhysicsDirectBodyState2D):
-	var wallReduction = 1.0
-	if $Back.is_colliding() and get_contact_count() == 0:
-		wallReduction *= ($Back.get_collision_point() - global_position).length() / 100
-		print(wallReduction)
-	state.apply_force(recoil.rotated(rotation) / gameSpeed * knockback * wallReduction)
 
 func Shoot():
 	if $Gun.hframes * $Gun.vframes > 7:
@@ -234,7 +150,7 @@ func spawnCasing():
 	casing.global_position = $Chamber.global_position
 	casing.rotation = rotation
 	casing.scale = $Gun.scale
-	casing.scaleSet = $Gun.scale * 0.8
+	casing.scaleSet = scale * 0.6
 	casing.apply_central_impulse(Vector2(0, 3 * -randf_range(100, 120)))
 	get_parent().call_deferred("add_child", casing)
 
@@ -273,15 +189,8 @@ func ShootLMG():
 func Hit():
 	if god_mode != true:
 		print("Player is Hit!")
-		$Gun.hide()
-		isPaused = true
-		isDead = true
-		collision_layer = pow(2, 9)
-		collision_mask = 2
-		$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.hide()
-		$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/PauseLBL.text = "GAME OVER"
-		$HUD/PauseMenu.show()
-		#get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/level_select.tscn")
+		#TODO, implement game over screen, possibly adding HP?
+		get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/level_select.tscn")
 
 func reloadAmmo():
 	var bReloaded = false as bool
@@ -300,7 +209,6 @@ func reloadResource():
 	gun_model_base = gun_resource.gun_model_base
 	
 	$Gun.texture = gun_model_base
-	$CollisionBox.polygon = gun_resource.gun_hitbox
 	$Muzzle.position = gun_resource.muzzle_location
 	$ShotSmoke.position = $Muzzle.position + Vector2(12, 1)
 	$Chamber.position = gun_resource.chamber_location
@@ -329,45 +237,9 @@ func reloadResource():
 	base_bullet_resource = gun_resource.bullet_resource
 	knockback = gun_resource.knockback
 	
-	max_slowdown = gun_resource.max_slowdown
-	slowdown_seconds = gun_resource.slowdown_seconds
-	if slowdown > slowdown_seconds:
-		slowdown = slowdown_seconds
-	slowdown_recharge_rate = gun_resource.slowdown_recharge_rate
+
 
 func SetBulletResource(resource : BulletTypes, applyToBase : bool):
 	bullet_resource = resource
 	if applyToBase == true:
 		base_bullet_resource = resource
-
-
-
-#Update the HUD at the end of processing physics, or upon _ready().
-#Rather, later on each of these will be updated only when needed.
-func updateHUD():
-	if HUDLayer == null:
-		HUDLayer = get_node("HUD")
-	HUDLayer.updateSlowdown(slowdown, slowdown_seconds)
-	HUDLayer.updateAmmo(currentMag)
-	HUDLayer.updateTargetsLeft(Global.targetsLeft, Global.targetsStarting)
-
-#Pausing/unpausing Functions
-func _on_level_base_pause() -> void:
-	if isDead == true:
-		return
-	isPaused = true
-	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.show()
-	$HUD/PauseMenu.show()
-func _on_level_base_unpause() -> void:
-	if isDead == true:
-		return
-	isPaused = false
-	$HUD/PauseMenu.hide()
-func _on_resume_btn_pressed() -> void:
-	unpause.emit()
-func _on_return_btn_pressed() -> void:
-	unpause.emit()
-	get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/level_select.tscn")
-
-func _on_retry_btn_pressed() -> void:
-	get_tree().change_scene_to_file(get_tree().current_scene.scene_file_path)
