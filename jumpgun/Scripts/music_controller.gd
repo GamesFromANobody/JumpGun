@@ -8,6 +8,13 @@ extends AudioStreamPlayer
 
 var tracks = [ 
 	preload("res://Import/Audio/Music/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav"),
+	preload("res://Import/Audio/Music/Maja Salamon - Layer 1 - Win - Loss - Level Select (LOOP).wav"),
+	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav"),
+	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav"),
+	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav"),
+	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav"),
+	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Win (LOOP).wav"),
+	preload("res://Import/Audio/Music/Maja Salamon - Layer 1 - Win - Loss - Level Select (LOOP).wav"),
 	]
 
 func _ready() -> void:
@@ -28,10 +35,21 @@ func updateVolume():
 	$PauseBeat.volume_db = -21 + (musicVolume - 50) * 0.5
 	#AudioServer.set_bus_volume_db(2, (musicVolume - 50) * 0.5)
 
+func gnome():
+	stop()
+	for child in get_children():
+		child.stop()
+
 func changePitchScale(newScale):
 	pitch_scale = newScale
 	for child in get_children():
 		child.pitch_scale = newScale
+
+func changeTrack(trackID):
+	stream  = tracks[trackID]
+	play()
+	for child in get_children():
+		child.play()
 
 func levelReload():
 	levelUnpaused()
