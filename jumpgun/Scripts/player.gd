@@ -236,7 +236,7 @@ func Shoot():
 	match gun_type:
 		ShotTypes.PISTOL:
 			$ShotSFX.stream = gunShootSounds[0]
-			$ShotSFX.set_deferred("volume_db", 0 + (MusicController.soundVolume - 50) * 0.5)
+			$ShotSFX.set_deferred("volume_db", 12 + (MusicController.soundVolume - 50) * 0.5)
 			ShootPistol()
 		ShotTypes.SHOTGUN:
 			$ShotSFX.stream = gunShootSounds[1]
@@ -401,7 +401,7 @@ func GNOMED():
 	$HUD/VideoStreamPlayer.play()
 	#get_tree().call_deferred("change_scene_to_file", "res://Scenes/Levels/level_gnomed.tscn")
 	$HUD/PauseMenu.hide()
-	MusicController.stop()
+	MusicController.gnome()
 	gun_resource = load("res://Resources/Player/Resource_player_GNOME.tres")
 	call_deferred("reloadResource")
 	
@@ -411,6 +411,7 @@ func _on_level_base_pause() -> void:
 	if isDead == true:
 		return
 	isPaused = true
+	MusicController.levelPaused()
 	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.show()
 	$HUD/PauseMenu.show()
 	Engine.time_scale = 0
@@ -418,6 +419,7 @@ func _on_level_base_unpause() -> void:
 	if isDead == true:
 		return
 	isPaused = false
+	MusicController.levelUnpaused()
 	$HUD/PauseMenu.hide()
 	Engine.time_scale = gameSpeed
 func _on_resume_btn_pressed() -> void:
@@ -432,5 +434,5 @@ func _on_retry_btn_pressed() -> void:
 
 func _on_video_stream_player_finished() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/Levels/level_gnomed.tscn")
-	MusicController.play()
+	MusicController.changeTrack(6)
 	$HUD/PauseMenu.show()
