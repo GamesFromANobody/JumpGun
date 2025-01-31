@@ -223,7 +223,9 @@ func moveCamera(localLocation : Vector2, smoothing : float):
 func ApplyKnockback(state : PhysicsDirectBodyState2D):
 	var wallReduction = 1.0
 	if $Back.is_colliding() and get_contact_count() == 0:
-		wallReduction *= ($Back.get_collision_point() - global_position).length() / 100
+		wallReduction *= ($Back.get_collision_point() - global_position).length() / 50
+		if wallReduction > 1:
+			wallReduction = 1
 		print(wallReduction)
 	state.apply_force(recoil.rotated(rotation) / gameSpeed * knockback * wallReduction)
 
@@ -397,7 +399,9 @@ func GNOMED():
 	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/PauseLBL.text = "YOU'VE BEEN GNOMED"
 	_on_level_base_pause()
 	$HUD/VideoStreamPlayer.play()
+	#get_tree().call_deferred("change_scene_to_file", "res://Scenes/Levels/level_gnomed.tscn")
 	$HUD/PauseMenu.hide()
+	MusicController.stop()
 	gun_resource = load("res://Resources/Player/Resource_player_GNOME.tres")
 	call_deferred("reloadResource")
 	
@@ -428,4 +432,5 @@ func _on_retry_btn_pressed() -> void:
 
 func _on_video_stream_player_finished() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/Levels/level_gnomed.tscn")
+	MusicController.play()
 	$HUD/PauseMenu.show()
