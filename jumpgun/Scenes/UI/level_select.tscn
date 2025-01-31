@@ -20,7 +20,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="LevelSelect" type="HBoxContainer" parent="AspectRatioContainer"]
-visible = false
 layout_mode = 2
 alignment = 1
 
@@ -28,19 +27,36 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Testing" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
+[node name="Lvl01" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
 layout_mode = 2
-text = "Testing"
+text = "Level 1"
 
-[node name="Testing2" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
+[node name="Lvl02" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
 layout_mode = 2
-text = "Testing 2"
+text = "Level 2"
+
+[node name="Lvl03" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
+layout_mode = 2
+text = "Level 3"
+
+[node name="Lvl04" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
+layout_mode = 2
+text = "Level 4"
+
+[node name="Lvl05" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
+layout_mode = 2
+text = "Level 5"
+
+[node name="Lvl06" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
+layout_mode = 2
+text = "Level 6"
 
 [node name="Back" type="Button" parent="AspectRatioContainer/LevelSelect/VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
 [node name="ItemList" type="ItemList" parent="AspectRatioContainer"]
+visible = false
 layout_mode = 2
 item_count = 1
 
@@ -70,20 +86,15 @@ icon_alignment = 1
 layout_mode = 2
 text = "Back"
 
-[node name="Test" type="Button" parent="."]
-layout_mode = 2
-offset_left = 200.0
-offset_right = 241.0
-offset_bottom = 31.0
-text = "Test
-"
-
-[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Testing" to="." method="_on_testing_pressed"]
-[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Testing2" to="." method="_on_testing_2_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Lvl01" to="." method="_on_lvl_01_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Lvl02" to="." method="_on_lvl_02_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Lvl03" to="." method="_on_lvl_03_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Lvl04" to="." method="_on_lvl_04_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Lvl05" to="." method="_on_lvl_05_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Lvl06" to="." method="_on_lvl_06_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="item_clicked" from="AspectRatioContainer/ItemList" to="." method="_on_item_list_item_clicked"]
 [connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/DefaultWeapon" to="." method="_on_default_weapon_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Pistol" to="." method="_on_pistol_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Shotgun" to="." method="_on_shotgun_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Back" to="." method="_on_weapon_back_pressed"]
-[connection signal="pressed" from="Test" to="." method="_on_test_pressed"]

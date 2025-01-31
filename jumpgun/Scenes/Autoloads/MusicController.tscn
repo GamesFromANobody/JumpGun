@@ -13,6 +13,7 @@ stream = ExtResource("1_f2tnv")
 volume_db = -18.0
 autoplay = true
 bus = &"Music"
+playback_type = 1
 script = ExtResource("1_i7po4")
 
 [node name="PauseBeat" type="AudioStreamPlayer" parent="."]
@@ -20,27 +21,32 @@ stream = ExtResource("3_ee6u5")
 volume_db = -21.0
 autoplay = true
 bus = &"Paused"
+playback_type = 1
 
 [node name="PauseBeatLoss" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_23va5")
 volume_db = -18.0
 autoplay = true
 bus = &"PausedLoss"
+playback_type = 1
 
 [node name="PauseLoss" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_mxyq3")
 volume_db = -18.0
 autoplay = true
 bus = &"PausedLoss"
+playback_type = 1
 
 [node name="PauseBeatWin" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_j1bt3")
 volume_db = -18.0
 autoplay = true
 bus = &"PausedWin"
+playback_type = 1
 
 [node name="PauseWin" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_g4wbb")
 volume_db = -18.0
 autoplay = true
 bus = &"PausedWin"
+playback_type = 1
