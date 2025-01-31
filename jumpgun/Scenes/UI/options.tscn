@@ -123,5 +123,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Back"
 
+[connection signal="toggled" from="AspectRatioContainer/HBoxContainer/VBoxContainer/SoundContainer/VBoxContainer/Container/MuteSound" to="." method="_on_mute_sound_toggled"]
+[connection signal="toggled" from="AspectRatioContainer/HBoxContainer/VBoxContainer/MusicContainer/VBoxContainer/Container/MuteMusic" to="." method="_on_mute_music_toggled"]
 [connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Apply" to="." method="_on_apply_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/HBoxContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

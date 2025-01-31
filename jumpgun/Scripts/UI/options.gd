@@ -39,6 +39,18 @@ func _on_apply_pressed() -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	MusicController.musicVolume = $AspectRatioContainer/HBoxContainer/VBoxContainer/MusicContainer/VBoxContainer/MusicSlider.value
-	MusicController.soundVolume = $AspectRatioContainer/HBoxContainer/VBoxContainer/SoundContainer/VBoxContainer/SoundSlider.value
+	MusicController.musicVolume = $AspectRatioContainer/HBoxContainer/VBoxContainer/MusicContainer/VBoxContainer/MusicSlider.value * float(not MusicController.muteMusic)
+	MusicController.soundVolume = $AspectRatioContainer/HBoxContainer/VBoxContainer/SoundContainer/VBoxContainer/SoundSlider.value * float(not MusicController.muteSound)
+	MusicController.updateVolume()
+
+
+func _on_mute_sound_toggled(toggled_on: bool) -> void:
+	MusicController.muteSound = toggled_on
+	MusicController.soundVolume = $AspectRatioContainer/HBoxContainer/VBoxContainer/SoundContainer/VBoxContainer/SoundSlider.value * float(not MusicController.muteSound)
+	MusicController.updateVolume()
+
+
+func _on_mute_music_toggled(toggled_on: bool) -> void:
+	MusicController.muteMusic = toggled_on
+	MusicController.musicVolume = $AspectRatioContainer/HBoxContainer/VBoxContainer/MusicContainer/VBoxContainer/MusicSlider.value * float(not MusicController.muteMusic)
 	MusicController.updateVolume()
