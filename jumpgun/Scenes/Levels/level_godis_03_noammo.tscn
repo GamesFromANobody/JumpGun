@@ -46,7 +46,7 @@ flying = true
 position = Vector2(872, 40)
 
 [node name="Player" parent="Level_Base" index="4"]
-position = Vector2(3963, 176)
+position = Vector2(680, 0)
 gun_resource = ExtResource("2_ax13m")
 
 [node name="ForeGround" parent="Level_Base" index="5"]

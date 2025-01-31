@@ -434,5 +434,5 @@ func _on_retry_btn_pressed() -> void:
 
 func _on_video_stream_player_finished() -> void:
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/Levels/level_gnomed.tscn")
-	MusicController.changeTrack(6)
+	MusicController.changeTrack(7)
 	$HUD/PauseMenu.show()

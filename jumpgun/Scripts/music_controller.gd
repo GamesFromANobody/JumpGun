@@ -15,13 +15,6 @@ var tracks = [
 	preload("res://Import/Audio/Music/Maja Salamon - Blasphemy! (GUNZO OST) (Level 5) (LOOP).wav"),
 	preload("res://Import/Audio/Music/Maja Salamon - Gnumzo (GUNZO OST) (Level 6) (LOOP).wav"),
 	preload("res://Import/Audio/Music/Maja Salamon - Gnomed (GUNZO OST) (Level 6 Easter Egg) (LOOP).wav"),
-	preload("res://Import/Audio/Music/Maja Salamon - Layer 1 - Win - Loss - Level Select (LOOP).wav"),
-	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav"),
-	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav"),
-	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav"),
-	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav"),
-	preload("res://Import/Audio/Music/Maja Salamon - Layer 2 Win (LOOP).wav"),
-	preload("res://Import/Audio/Music/Maja Salamon - Layer 1 - Win - Loss - Level Select (LOOP).wav"),
 	]
 
 func _ready() -> void:

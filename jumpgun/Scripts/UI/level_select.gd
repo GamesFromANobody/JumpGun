@@ -66,29 +66,29 @@ func _on_weapon_back_pressed() -> void:
 
 func _on_lvl_01_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/level_Enzo02.tscn")
-	MusicController.changeTrack(0)
+	MusicController.changeTrack(1)
 
 
 func _on_lvl_02_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/level_Enzo01.tscn")
-	MusicController.changeTrack(1)
+	MusicController.changeTrack(2)
 
 
 func _on_lvl_03_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/FF00FF_01.tscn")
-	MusicController.changeTrack(2)
+	MusicController.changeTrack(3)
 
 
 func _on_lvl_04_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis_02_speed.tscn")
-	MusicController.changeTrack(3)
+	MusicController.changeTrack(4)
 
 
 func _on_lvl_05_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis_01_aim.tscn")
-	MusicController.changeTrack(4)
+	MusicController.changeTrack(5)
 
 
 func _on_lvl_06_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/level_godis_03_noammo.tscn")
-	MusicController.changeTrack(5)
+	MusicController.changeTrack(6)
