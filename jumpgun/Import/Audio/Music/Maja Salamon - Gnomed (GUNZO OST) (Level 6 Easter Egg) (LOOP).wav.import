@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cu06embc70qnm"
+path="res://.godot/imported/Maja Salamon - Gnomed (GUNZO OST) (Level 6 Easter Egg) (LOOP).wav-e0e79f00ddad4d3da1980b2c2edfc5b6.sample"
+
+[deps]
+
+source_file="res://Import/Audio/Music/Maja Salamon - Gnomed (GUNZO OST) (Level 6 Easter Egg) (LOOP).wav"
+dest_files=["res://.godot/imported/Maja Salamon - Gnomed (GUNZO OST) (Level 6 Easter Egg) (LOOP).wav-e0e79f00ddad4d3da1980b2c2edfc5b6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
