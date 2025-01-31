@@ -6,6 +6,7 @@ class_name Player
 #Game over upon touching the ground?
 #add pausing
 
+signal paused()
 signal unpause()
 
 enum ShotTypes {
@@ -14,6 +15,7 @@ enum ShotTypes {
 	SNIPER,
 	SMG,
 	LMG,
+	GNOME,
 }
 #Gun
 var gun_type : ShotTypes = ShotTypes.PISTOL
@@ -42,6 +44,7 @@ var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge tha
 var gunShootSounds = [
 	preload("res://Import/Audio/FX/Pistol/GunshotPistol_BW.56908.wav"),
 	preload("res://Import/Audio/FX/Shotgun/ESM_GW_designed_shotgun_pump_and_reload_full_fire_blast_heavy_shell_bullet_reload_3.wav"),
+	preload("res://Import/Audio/FX/temp/shot.mp3"),
 ]
 
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
@@ -93,6 +96,15 @@ func _ready() -> void:
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
+	if isDead:
+		gameSpeed += delta * 0.5
+		if gameSpeed > 1.0:
+			gameSpeed = 1.0
+		Engine.time_scale = gameSpeed
+		MusicController.changePitchScale(pow(Engine.time_scale, 0.8))
+		return
+	if isPaused:
+		return
 	if Input.is_action_just_pressed("Restart"):
 		get_tree().change_scene_to_file(get_tree().current_scene.scene_file_path)
 	TasteTheRainbow()
@@ -100,14 +112,7 @@ func _physics_process(delta: float) -> void:
 	if abs(linear_velocity.length()) > 1000:
 		linear_velocity *= 1000 / linear_velocity.length()
 	$Velocity.target_position = linear_velocity.rotated(-rotation) * 0.25
-	if isPaused or isDead:
-		if isDead:
-			gameSpeed += delta * 0.5
-		if gameSpeed > 1.0:
-			gameSpeed = 1.0
-		Engine.time_scale = gameSpeed
-		MusicController.changePitchScale(pow(Engine.time_scale, 0.8))
-		return
+
 	shotCooldown -= delta
 	var prevGameSpeed = gameSpeed
 	if Input.is_action_pressed("aimSlowdown") and allowSlowdown and slowdown > 0:
@@ -241,6 +246,10 @@ func Shoot():
 			ShootSMG()
 		ShotTypes.LMG:
 			ShootLMG()
+		ShotTypes.GNOME:
+			$ShotSFX.stream = gunShootSounds[2]
+			$ShotSFX.set_deferred("volume_db", -12 + (MusicController.soundVolume - 50) * 0.5)
+			ShootGNOME()
 	print("Ammo Left: ", str(currentMag))
 
 func spawnCasing():
@@ -283,6 +292,14 @@ func ShootSMG():
 
 func ShootLMG():
 	ShootPistol() #temporary, until we decide if SMG's should have their own bullet models
+
+func ShootGNOME():
+	$GunAnimations.play("shoot_gnome")
+	var b = bullet_scene.instantiate() as Bullet
+	b.transform = $Muzzle.global_transform
+	b.bullet_resource = bullet_resource
+	b.LoadResource(bullet_resource)
+	get_parent().call_deferred("add_child" ,b)
 
 func Win():
 	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.hide()
@@ -347,7 +364,7 @@ func reloadResource():
 	shot_cooldown = gun_resource.shot_cooldown
 	starting_ammo = gun_resource.starting_ammo
 	max_ammo = gun_resource.max_ammo
-	if currentMag > max_ammo:
+	if currentMag < max_ammo:
 		currentMag = max_ammo
 	rotation_force = gun_resource.rotation_force
 	
@@ -376,6 +393,15 @@ func updateHUD():
 	HUDLayer.updateAmmo(currentMag)
 	HUDLayer.updateTargetsLeft(Global.targetsLeft, Global.targetsStarting)
 
+func GNOMED():
+	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/PauseLBL.text = "YOU'VE BEEN GNOMED"
+	_on_level_base_pause()
+	$HUD/VideoStreamPlayer.play()
+	$HUD/PauseMenu.hide()
+	gun_resource = load("res://Resources/Player/Resource_player_GNOME.tres")
+	call_deferred("reloadResource")
+	
+
 #Pausing/unpausing Functions
 func _on_level_base_pause() -> void:
 	if isDead == true:
@@ -383,11 +409,13 @@ func _on_level_base_pause() -> void:
 	isPaused = true
 	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.show()
 	$HUD/PauseMenu.show()
+	Engine.time_scale = 0
 func _on_level_base_unpause() -> void:
 	if isDead == true:
 		return
 	isPaused = false
 	$HUD/PauseMenu.hide()
+	Engine.time_scale = gameSpeed
 func _on_resume_btn_pressed() -> void:
 	unpause.emit()
 func _on_return_btn_pressed() -> void:
@@ -396,3 +424,8 @@ func _on_return_btn_pressed() -> void:
 
 func _on_retry_btn_pressed() -> void:
 	get_tree().change_scene_to_file(get_tree().current_scene.scene_file_path)
+
+
+func _on_video_stream_player_finished() -> void:
+	get_tree().call_deferred("change_scene_to_file", "res://Scenes/Levels/level_gnomed.tscn")
+	$HUD/PauseMenu.show()

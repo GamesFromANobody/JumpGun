@@ -44,3 +44,7 @@ func Unpause():
 
 func ChangeLevel():
 	isPaused = true
+
+
+func _on_player_paused() -> void:
+	isPaused = true

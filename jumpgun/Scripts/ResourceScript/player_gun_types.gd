@@ -7,6 +7,7 @@ enum ShotTypes {
 	TODO_SNIPER,
 	SMG,
 	TODO_LMG,
+	GNOME,
 }
 @export_group("Sprite")
 @export var gun_model_base : Texture2D = preload("res://Import/Textures/Characters/Pistols/glock18-base.png")
@@ -25,8 +26,8 @@ enum ShotTypes {
 @export var gun_type : ShotTypes = ShotTypes.PISTOL
 @export var full_auto = false
 @export_range(0, 3, 0.005) var shot_cooldown = 0.1 #not used in code, shotCooldown is used
-@export_range(0, 200, 1.0) var starting_ammo = 18
-@export_range(0, 200, 1.0) var max_ammo = 18
+@export_range(0, 9001, 1.0) var starting_ammo = 18
+@export_range(0, 9001, 1.0) var max_ammo = 18
 @export_range(0, 10, 0.01) var rotation_force : float = 1.0
 @export_group("")
 

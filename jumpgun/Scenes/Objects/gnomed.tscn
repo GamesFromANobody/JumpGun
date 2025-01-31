@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://blbsogwj5wuaq"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/gnomed.gd" id="1_ps7iq"]
+[ext_resource type="Texture2D" uid="uid://vj742ayovie8" path="res://Import/Textures/temp-objects2.png" id="2_i7xwm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gr77k"]
+size = Vector2(30, 30)
+
+[node name="Gnomed" type="Area2D"]
+script = ExtResource("1_ps7iq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gr77k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_i7xwm")
+hframes = 3
+frame = 2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

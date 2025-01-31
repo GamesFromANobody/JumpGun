@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cbjntngcsfkmj"]
+[gd_scene load_steps=18 format=3 uid="uid://cbjntngcsfkmj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_dvgqa"]
 [ext_resource type="AudioStream" uid="uid://bpmnug1ov7ycy" path="res://Import/Audio/FX/Shotgun/ESM_GW_designed_shotgun_pump_and_reload_full_fire_blast_heavy_shell_bullet_reload_3.wav" id="2_3rbio"]
@@ -7,8 +7,9 @@
 [ext_resource type="AudioStream" uid="uid://dh10vb05ii3hs" path="res://Import/Audio/FX/temp/click.mp3" id="3_v0axf"]
 [ext_resource type="PackedScene" uid="uid://ck8fw6x7e6mjo" path="res://Scenes/UI/hud.tscn" id="4_01w15"]
 [ext_resource type="Texture2D" uid="uid://2qy753ggpfnh" path="res://Import/Textures/Lights/laserSight.png" id="4_y8v18"]
-[ext_resource type="Texture2D" uid="uid://de553l6q21xqb" path="res://Import/Textures/Characters/Shotguns/shotgun-base.png" id="5_tk073"]
+[ext_resource type="Texture2D" uid="uid://b4hgjsxegec0i" path="res://Import/Textures/Characters/gnome.png" id="6_lyd52"]
 [ext_resource type="Texture2D" uid="uid://c2wsg885nf6ks" path="res://Import/Textures/Characters/Shotguns/shotgun-greyscale.png" id="6_nqv5c"]
+[ext_resource type="VideoStream" path="res://Import/GNOMED.ogv" id="10_460tb"]
 
 [sub_resource type="Animation" id="Animation_tesyg"]
 resource_name = "Aim_Generic"
@@ -274,12 +275,39 @@ tracks/5/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_8r5an"]
+resource_name = "shoot_gnome"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShotSmoke:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShotSFX")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_77ow3"]
 _data = {
 "Aim_Generic": SubResource("Animation_tesyg"),
 "Idle_Generic": SubResource("Animation_lptx0"),
 "RESET": SubResource("Animation_tppsa"),
 "Shoot_Generic": SubResource("Animation_ne0a6"),
+"shoot_gnome": SubResource("Animation_8r5an"),
 "shoot_shotgun": SubResource("Animation_1dw3i")
 }
 
@@ -314,16 +342,13 @@ libraries = {
 
 [node name="ShotSmoke" parent="." instance=ExtResource("2_xtojg")]
 self_modulate = Color(0.470076, 0.470076, 0.470076, 1)
-position = Vector2(35, -5)
+position = Vector2(7, -3)
 initial_velocity_min = 600.0
 initial_velocity_max = 700.0
 
 [node name="Gun" type="Sprite2D" parent="."]
 position = Vector2(0, -3)
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("5_tk073")
-hframes = 3
-vframes = 3
+texture = ExtResource("6_lyd52")
 
 [node name="Color" type="Sprite2D" parent="Gun"]
 modulate = Color(0.573394, 0.393294, 0.24761, 1)
@@ -333,20 +358,20 @@ vframes = 3
 
 [node name="LaserSight" type="Sprite2D" parent="Gun"]
 self_modulate = Color(1, 0, 0, 1)
-position = Vector2(163.5, -2)
+position = Vector2(129, -5)
 texture = ExtResource("4_y8v18")
 
 [node name="CollisionBox" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-28, 6, -31, 1, -31, -5, -22, -6, -20, -5, -15, -5, -12, -7, 32, -7, 32, -2, 25.9506, -2, 26, 0, -5, 0, -13, 2, -18, 2, -25, 6)
+polygon = PackedVector2Array(-6, -5, -5, -5, -5, -9, -4, -11, 0, -11, 1, -10, 1, -4, 3, -4, 5, -3, 5, -2, 0, -2, 0, 5, -4, 5, -4, 0, -5, 0, -6, -1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(32, -5)
+position = Vector2(6, -3)
 
 [node name="Chamber" type="Marker2D" parent="."]
-position = Vector2(-10, -3)
+position = Vector2(-5, 0)
 
 [node name="Velocity" type="RayCast2D" parent="."]
 
@@ -355,6 +380,14 @@ target_position = Vector2(-100, 0)
 collision_mask = 2
 
 [node name="HUD" parent="." instance=ExtResource("4_01w15")]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="HUD"]
+custom_minimum_size = Vector2(1280, 720)
+offset_right = 1280.0
+offset_bottom = 720.0
+stream = ExtResource("10_460tb")
+volume_db = -6.0
+expand = true
 
 [node name="PauseMenu" type="Control" parent="HUD"]
 visible = false
@@ -404,6 +437,7 @@ text = "Retry"
 layout_mode = 2
 text = "Return to Level Select"
 
+[connection signal="finished" from="HUD/VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="pressed" from="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN" to="." method="_on_resume_btn_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/RetryBTN" to="." method="_on_retry_btn_pressed"]
 [connection signal="pressed" from="HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ReturnBTN" to="." method="_on_return_btn_pressed"]
