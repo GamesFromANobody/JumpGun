@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cmbde5f55hstr"
+path="res://.godot/imported/Maja Salamon - Layer 3 Win.wav-903c1883cda9b082678c0e9600dd9eee.sample"
+
+[deps]
+
+source_file="res://Import/Audio/Music/Maja Salamon - Layer 3 Win.wav"
+dest_files=["res://.godot/imported/Maja Salamon - Layer 3 Win.wav-903c1883cda9b082678c0e9600dd9eee.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

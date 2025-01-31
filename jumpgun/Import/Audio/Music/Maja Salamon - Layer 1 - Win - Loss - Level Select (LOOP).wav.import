@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://epjl3tob66or"
+path="res://.godot/imported/Maja Salamon - Layer 1 - Win - Loss - Level Select (LOOP).wav-10c3976db3c7e3a776896d397f9a657b.sample"
+
+[deps]
+
+source_file="res://Import/Audio/Music/Maja Salamon - Layer 1 - Win - Loss - Level Select (LOOP).wav"
+dest_files=["res://.godot/imported/Maja Salamon - Layer 1 - Win - Loss - Level Select (LOOP).wav-10c3976db3c7e3a776896d397f9a657b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
