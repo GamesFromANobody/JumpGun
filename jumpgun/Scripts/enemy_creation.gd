@@ -5,7 +5,8 @@ extends TileMapLayer
 var enemies = [
 	preload("res://Scenes/Enemies/mob_enemy.tscn"),
 	preload("res://Scenes/Enemies/mob_enemy.tscn"),
-	preload("res://Scenes/Objects/acid_pit.tscn")
+	preload("res://Scenes/Objects/acid_pit.tscn"),
+	preload("res://Scenes/Objects/acid_pit.tscn"),
 ]
 
 @export var instantiate_enemies = false
@@ -64,6 +65,10 @@ func _ready() -> void:
 		print("Creating enemy1 at " + str(cell)) #create target
 		createObject(2, cell)
 		set_cell(cell, 0, Vector2i(-1, -1))
+	for cell in get_used_cells_by_id(0, Vector2i(3, 0)):
+		print("Creating enemy1 at " + str(cell)) #create target
+		createObject(3, cell)
+		set_cell(cell, 0, Vector2i(-1, -1))
 	
 	#delete all tiles in the set
 	for cell in get_used_cells():
@@ -73,6 +78,8 @@ func _ready() -> void:
 func createObject(index, pos):
 	var newObj = enemies[index].instantiate()
 	newObj.position = pos * 16 + Vector2i(8, 8)
+	if index == 3:
+		newObj.rotate(deg_to_rad(90))
 	
 	add_child(newObj)
 	if Engine.is_editor_hint():

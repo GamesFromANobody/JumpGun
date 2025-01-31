@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://jdyhmku23o7v"
+path="res://.godot/imported/Maja Salamon - Layer 3 Loss.wav-7048adf7de54feb43709420e3d871888.sample"
+
+[deps]
+
+source_file="res://Import/Audio/Music/Maja Salamon - Layer 3 Loss.wav"
+dest_files=["res://.godot/imported/Maja Salamon - Layer 3 Loss.wav-7048adf7de54feb43709420e3d871888.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -11,7 +11,8 @@ var levelList : Array[String] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$AspectRatioContainer/GunSelect.hide()
-	$AspectRatioContainer/ItemList.show()
+	#$AspectRatioContainer/ItemList.show()
+	$AspectRatioContainer/LevelSelect.show()
 	$AspectRatioContainer/ItemList.add_item("Return to Main Menu")
 	for file in DirAccess.open("res://Scenes/Levels/").get_files():
 		print(file)
@@ -29,12 +30,6 @@ func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 
-func _on_testing_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Levels/level_test.tscn")
-
-
-func _on_testing_2_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis1.tscn")
 
 
 
@@ -44,6 +39,8 @@ func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_i
 		get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 	else:
 		fileToLoad = "res://Scenes/Levels/" + levelList[index - 2]
+		#if fileToLoad.ends_with(".remap"):
+		#	fileToLoad.trim_suffix(".remap")
 		print(fileToLoad)
 		$AspectRatioContainer/ItemList.hide()
 		$AspectRatioContainer/GunSelect.show()
@@ -59,7 +56,33 @@ func _on_shotgun_pressed() -> void:
 
 func _on_default_weapon_pressed() -> void:
 	get_tree().change_scene_to_file(fileToLoad)
+	MusicController.levelLoad()
 
 func _on_weapon_back_pressed() -> void:
-	$AspectRatioContainer/ItemList.show()
+	#$AspectRatioContainer/ItemList.show()
+	$AspectRatioContainer/LevelSelect.show()
 	$AspectRatioContainer/GunSelect.hide()
+
+
+func _on_lvl_01_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_Enzo02.tscn")
+
+
+func _on_lvl_02_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/FF00FF_01.tscn")
+
+
+func _on_lvl_03_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_Enzo01.tscn")
+
+
+func _on_lvl_04_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_godis_03_noammo.tscn")
+
+
+func _on_lvl_05_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis_01_aim.tscn")
+
+
+func _on_lvl_06_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis_02_speed.tscn")

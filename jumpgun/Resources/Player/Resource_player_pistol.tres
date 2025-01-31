@@ -26,5 +26,5 @@ rotation_force = 1.0
 bullet_resource = ExtResource("1_8a88x")
 knockback = 1.0
 max_slowdown = 0.25
-slowdown_seconds = 2.5
-slowdown_recharge_rate = 0.25
+slowdown_seconds = 7.5
+slowdown_recharge_rate = 0.5

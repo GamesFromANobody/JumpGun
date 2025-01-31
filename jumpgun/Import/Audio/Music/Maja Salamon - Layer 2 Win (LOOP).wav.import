@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cpklmqfssyyp5"
+path="res://.godot/imported/Maja Salamon - Layer 2 Win (LOOP).wav-ab3b3fafc7b140189776cb43039b8ade.sample"
+
+[deps]
+
+source_file="res://Import/Audio/Music/Maja Salamon - Layer 2 Win (LOOP).wav"
+dest_files=["res://.godot/imported/Maja Salamon - Layer 2 Win (LOOP).wav-ab3b3fafc7b140189776cb43039b8ade.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=1
+edit/loop_end=83457
+compress/mode=0

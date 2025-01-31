@@ -1,11 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://p55p5umav4vx"]
+[gd_scene load_steps=8 format=3 uid="uid://p55p5umav4vx"]
 
-[ext_resource type="AudioStream" uid="uid://xkxp8x15eciy" path="res://Import/Audio/Music/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav" id="1_f2tnv"]
+[ext_resource type="AudioStream" uid="uid://bqsvjb1y1y7fr" path="res://Import/Audio/Music/Maja Salamon - Cute Gun In-Game Music 1 WIP 7 (LOOP).wav" id="1_f2tnv"]
 [ext_resource type="Script" path="res://Scripts/music_controller.gd" id="1_i7po4"]
+[ext_resource type="AudioStream" uid="uid://epjl3tob66or" path="res://Import/Audio/Music/Maja Salamon - Layer 1 - Win - Loss - Level Select (LOOP).wav" id="3_ee6u5"]
+[ext_resource type="AudioStream" uid="uid://bxi02fducncqq" path="res://Import/Audio/Music/Maja Salamon - Layer 2 Loss (LOOP).wav" id="4_23va5"]
+[ext_resource type="AudioStream" uid="uid://jdyhmku23o7v" path="res://Import/Audio/Music/Maja Salamon - Layer 3 Loss.wav" id="5_mxyq3"]
+[ext_resource type="AudioStream" uid="uid://cpklmqfssyyp5" path="res://Import/Audio/Music/Maja Salamon - Layer 2 Win (LOOP).wav" id="6_j1bt3"]
+[ext_resource type="AudioStream" uid="uid://cmbde5f55hstr" path="res://Import/Audio/Music/Maja Salamon - Layer 3 Win.wav" id="7_g4wbb"]
 
 [node name="MusicController" type="AudioStreamPlayer"]
 stream = ExtResource("1_f2tnv")
 volume_db = -18.0
 autoplay = true
 bus = &"Music"
+playback_type = 1
 script = ExtResource("1_i7po4")
+
+[node name="PauseBeat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ee6u5")
+volume_db = -21.0
+autoplay = true
+bus = &"Paused"
+playback_type = 1
+
+[node name="PauseBeatLoss" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_23va5")
+volume_db = -18.0
+autoplay = true
+bus = &"PausedLoss"
+playback_type = 1
+
+[node name="PauseLoss" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_mxyq3")
+volume_db = -18.0
+autoplay = true
+bus = &"PausedLoss"
+playback_type = 1
+
+[node name="PauseBeatWin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_j1bt3")
+volume_db = -18.0
+autoplay = true
+bus = &"PausedWin"
+playback_type = 1
+
+[node name="PauseWin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_g4wbb")
+volume_db = -18.0
+autoplay = true
+bus = &"PausedWin"
+playback_type = 1

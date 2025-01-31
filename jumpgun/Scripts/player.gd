@@ -6,6 +6,7 @@ class_name Player
 #Game over upon touching the ground?
 #add pausing
 
+signal paused()
 signal unpause()
 
 enum ShotTypes {
@@ -14,6 +15,7 @@ enum ShotTypes {
 	SNIPER,
 	SMG,
 	LMG,
+	GNOME,
 }
 #Gun
 var gun_type : ShotTypes = ShotTypes.PISTOL
@@ -38,6 +40,12 @@ var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge tha
 @export var god_mode = false
 @export var aim_zooming = true
 @export var gun_resource : PlayerGunTypes
+
+var gunShootSounds = [
+	preload("res://Import/Audio/FX/Pistol/GunshotPistol_BW.56908.wav"),
+	preload("res://Import/Audio/FX/Shotgun/ESM_GW_designed_shotgun_pump_and_reload_full_fire_blast_heavy_shell_bullet_reload_3.wav"),
+	preload("res://Import/Audio/FX/temp/shot.mp3"),
+]
 
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
 var bullet_resource : BulletTypes
@@ -84,9 +92,19 @@ func _ready() -> void:
 	bullet_resource = base_bullet_resource
 	$ShotSFX.set_deferred("volume_db", 6 + (MusicController.soundVolume - 50) * 0.5)
 	$ClickSFX.set_deferred("volume_db", (MusicController.soundVolume - 50) * 0.5)
+	MusicController.levelReload()
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
+	if isDead:
+		gameSpeed += delta * 0.5
+		if gameSpeed > 1.0:
+			gameSpeed = 1.0
+		Engine.time_scale = gameSpeed
+		MusicController.changePitchScale(pow(Engine.time_scale, 0.8))
+		return
+	if isPaused:
+		return
 	if Input.is_action_just_pressed("Restart"):
 		get_tree().change_scene_to_file(get_tree().current_scene.scene_file_path)
 	TasteTheRainbow()
@@ -94,8 +112,7 @@ func _physics_process(delta: float) -> void:
 	if abs(linear_velocity.length()) > 1000:
 		linear_velocity *= 1000 / linear_velocity.length()
 	$Velocity.target_position = linear_velocity.rotated(-rotation) * 0.25
-	if isPaused or isDead:
-		return
+
 	shotCooldown -= delta
 	var prevGameSpeed = gameSpeed
 	if Input.is_action_pressed("aimSlowdown") and allowSlowdown and slowdown > 0:
@@ -126,7 +143,7 @@ func _physics_process(delta: float) -> void:
 			slowdown = slowdown_seconds
 	if prevGameSpeed != gameSpeed:
 		Engine.time_scale = gameSpeed
-		MusicController.pitch_scale = pow(Engine.time_scale, 0.8)
+		MusicController.changePitchScale(pow(Engine.time_scale, 0.8))
 		#$GunAnimations.speed_scale = Engine.time_scale
 		var alpha = (gameSpeed - 0.25) / 0.75 #To correct for game speed being 0.25-1.0
 		$Gun/LaserSight.self_modulate = Color(1, 0, 0, 1 - alpha)
@@ -212,13 +229,16 @@ func ApplyKnockback(state : PhysicsDirectBodyState2D):
 
 func Shoot():
 	if $Gun.hframes * $Gun.vframes > 7:
-		$GunAnimations.play("Shoot_Generic")
 		$ShotSFX.pitch_scale = pow(Engine.time_scale, 0.8)
-		$ShotSFX.play(0.1)
+		$RackSFX.pitch_scale = pow(Engine.time_scale, 0.8)
 	match gun_type:
 		ShotTypes.PISTOL:
+			$ShotSFX.stream = gunShootSounds[0]
+			$ShotSFX.set_deferred("volume_db", 0 + (MusicController.soundVolume - 50) * 0.5)
 			ShootPistol()
 		ShotTypes.SHOTGUN:
+			$ShotSFX.stream = gunShootSounds[1]
+			$ShotSFX.set_deferred("volume_db", -12 + (MusicController.soundVolume - 50) * 0.5)
 			ShootShotgun()
 		ShotTypes.SNIPER:
 			ShootSniper()
@@ -226,8 +246,11 @@ func Shoot():
 			ShootSMG()
 		ShotTypes.LMG:
 			ShootLMG()
+		ShotTypes.GNOME:
+			$ShotSFX.stream = gunShootSounds[2]
+			$ShotSFX.set_deferred("volume_db", -12 + (MusicController.soundVolume - 50) * 0.5)
+			ShootGNOME()
 	print("Ammo Left: ", str(currentMag))
-	
 
 func spawnCasing():
 	var casing = casing_scene.instantiate()
@@ -239,6 +262,7 @@ func spawnCasing():
 	get_parent().call_deferred("add_child", casing)
 
 func ShootPistol():
+	$GunAnimations.play("Shoot_Generic")
 	var b = bullet_scene.instantiate() as Bullet
 	b.transform = $Muzzle.global_transform
 	b.bullet_resource = bullet_resource
@@ -246,6 +270,7 @@ func ShootPistol():
 	get_parent().call_deferred("add_child" ,b)
 
 func ShootShotgun():
+	$GunAnimations.play("shoot_shotgun")
 	var spreadAngle = 0.2
 	var bArray = [bullet_scene.instantiate() as Bullet,
 	 bullet_scene.instantiate() as Bullet,
@@ -268,7 +293,23 @@ func ShootSMG():
 func ShootLMG():
 	ShootPistol() #temporary, until we decide if SMG's should have their own bullet models
 
+func ShootGNOME():
+	$GunAnimations.play("shoot_gnome")
+	var b = bullet_scene.instantiate() as Bullet
+	b.transform = $Muzzle.global_transform
+	b.bullet_resource = bullet_resource
+	b.LoadResource(bullet_resource)
+	get_parent().call_deferred("add_child" ,b)
 
+func Win():
+	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.hide()
+	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/PauseLBL.text = "VICTORY!"
+	$HUD/PauseMenu.show()
+	god_mode = true
+	isPaused = true
+	collision_layer = pow(2, 9)
+	collision_mask = 2
+	MusicController.levelWon()
 
 func Hit():
 	if god_mode != true:
@@ -276,6 +317,7 @@ func Hit():
 		$Gun.hide()
 		isPaused = true
 		isDead = true
+		MusicController.levelLost()
 		collision_layer = pow(2, 9)
 		collision_mask = 2
 		$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.hide()
@@ -322,7 +364,7 @@ func reloadResource():
 	shot_cooldown = gun_resource.shot_cooldown
 	starting_ammo = gun_resource.starting_ammo
 	max_ammo = gun_resource.max_ammo
-	if currentMag > max_ammo:
+	if currentMag < max_ammo:
 		currentMag = max_ammo
 	rotation_force = gun_resource.rotation_force
 	
@@ -351,6 +393,15 @@ func updateHUD():
 	HUDLayer.updateAmmo(currentMag)
 	HUDLayer.updateTargetsLeft(Global.targetsLeft, Global.targetsStarting)
 
+func GNOMED():
+	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/PauseLBL.text = "YOU'VE BEEN GNOMED"
+	_on_level_base_pause()
+	$HUD/VideoStreamPlayer.play()
+	$HUD/PauseMenu.hide()
+	gun_resource = load("res://Resources/Player/Resource_player_GNOME.tres")
+	call_deferred("reloadResource")
+	
+
 #Pausing/unpausing Functions
 func _on_level_base_pause() -> void:
 	if isDead == true:
@@ -358,11 +409,13 @@ func _on_level_base_pause() -> void:
 	isPaused = true
 	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.show()
 	$HUD/PauseMenu.show()
+	Engine.time_scale = 0
 func _on_level_base_unpause() -> void:
 	if isDead == true:
 		return
 	isPaused = false
 	$HUD/PauseMenu.hide()
+	Engine.time_scale = gameSpeed
 func _on_resume_btn_pressed() -> void:
 	unpause.emit()
 func _on_return_btn_pressed() -> void:
@@ -371,3 +424,8 @@ func _on_return_btn_pressed() -> void:
 
 func _on_retry_btn_pressed() -> void:
 	get_tree().change_scene_to_file(get_tree().current_scene.scene_file_path)
+
+
+func _on_video_stream_player_finished() -> void:
+	get_tree().call_deferred("change_scene_to_file", "res://Scenes/Levels/level_gnomed.tscn")
+	$HUD/PauseMenu.show()

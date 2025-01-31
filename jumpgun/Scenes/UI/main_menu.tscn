@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://brsgfqlu8186t"]
+[gd_scene load_steps=4 format=3 uid="uid://brsgfqlu8186t"]
 
 [ext_resource type="Script" path="res://Scripts/UI/main_menu.gd" id="1_4hpoi"]
+[ext_resource type="Texture2D" uid="uid://cmwxpbdvkiy8u" path="res://Import/Textures/GUNZO2.png" id="2_0wsm7"]
 [ext_resource type="PackedScene" uid="uid://yur1q0frhicc" path="res://Scenes/UI/menu_gun.tscn" id="2_ndr7i"]
 
 [node name="MainMenu" type="Control"]
@@ -20,9 +21,29 @@ script = ExtResource("1_4hpoi")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(637, 117)
+scale = Vector2(2, 2)
+texture = ExtResource("2_0wsm7")
+
 [node name="MenuGun" parent="CanvasLayer" instance=ExtResource("2_ndr7i")]
 position = Vector2(128, 399)
 scale = Vector2(4, 4)
+
+[node name="TheMenuGunSays" type="Label" parent="CanvasLayer/MenuGun"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -48.0
+offset_right = 217.0
+offset_bottom = 35.0
+grow_vertical = 0
+scale = Vector2(0.4, 0.4)
+size_flags_vertical = 1
+text = "\"I'm a gun on the run!\""
+vertical_alignment = 2
+autowrap_mode = 2
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
 custom_minimum_size = Vector2(1280, 720)

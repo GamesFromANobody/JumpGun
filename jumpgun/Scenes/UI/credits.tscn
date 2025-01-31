@@ -25,6 +25,31 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
+[node name="AQUAGON" type="Label" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Maja Salamon | AQUAGON - Music, Sounds, Artwork"
+horizontal_alignment = 1
+
+[node name="Blarget" type="Label" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Blarget - Artwork"
+horizontal_alignment = 1
+
+[node name="CRAZY_ENZO" type="Label" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "CRAZY_ENZO - Programming, Level Design"
+horizontal_alignment = 1
+
+[node name="Grodis" type="Label" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Grodis - Programming, Level Design"
+horizontal_alignment = 1
+
+[node name="Nate" type="Label" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Nate - Game Design, Level Design"
+horizontal_alignment = 1
+
 [node name="Back" type="Button" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
