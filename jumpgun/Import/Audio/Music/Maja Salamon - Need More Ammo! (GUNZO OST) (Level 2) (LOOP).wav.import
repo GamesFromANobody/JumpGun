@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dm4k16ck1qua4"
+path="res://.godot/imported/Maja Salamon - Need More Ammo! (GUNZO OST) (Level 2) (LOOP).wav-b618ed8056c05e49c850fd568d7c428f.sample"
+
+[deps]
+
+source_file="res://Import/Audio/Music/Maja Salamon - Need More Ammo! (GUNZO OST) (Level 2) (LOOP).wav"
+dest_files=["res://.godot/imported/Maja Salamon - Need More Ammo! (GUNZO OST) (Level 2) (LOOP).wav-b618ed8056c05e49c850fd568d7c428f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
