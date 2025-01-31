@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://nsp1nodpt53r"
+path="res://.godot/imported/Maja Salamon - Gnumzo (GUNZO OST) (Level 6) (LOOP).wav-1bfb7b5347e92b307ce495fe324699aa.sample"
+
+[deps]
+
+source_file="res://Import/Audio/Music/Maja Salamon - Gnumzo (GUNZO OST) (Level 6) (LOOP).wav"
+dest_files=["res://.godot/imported/Maja Salamon - Gnumzo (GUNZO OST) (Level 6) (LOOP).wav-1bfb7b5347e92b307ce495fe324699aa.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
