@@ -69,6 +69,8 @@ func _ready() -> void:
 	$Gun/Color.texture = gun_model_color
 	Engine.time_scale = 1.0
 	bullet_resource = base_bullet_resource
+	$ShotSFX.set_deferred("volume_db", 12 + (MusicController.soundVolume - 50) * 0.5)
+	$ClickSFX.set_deferred("volume_db", (MusicController.soundVolume - 50) * 0.5)
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
