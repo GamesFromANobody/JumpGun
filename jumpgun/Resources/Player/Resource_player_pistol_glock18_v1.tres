@@ -26,5 +26,5 @@ rotation_force = 1.0
 bullet_resource = ExtResource("1_g54cv")
 knockback = 0.8
 max_slowdown = 0.25
-slowdown_seconds = 4.0
-slowdown_recharge_rate = 0.35
+slowdown_seconds = 7.5
+slowdown_recharge_rate = 0.5
