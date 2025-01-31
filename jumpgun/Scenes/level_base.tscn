@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_geril"]
 [ext_resource type="Texture2D" uid="uid://dn7ptjt1ldmoa" path="res://Import/Textures/temp-BGtiles.png" id="2_022sy"]
 [ext_resource type="PackedScene" uid="uid://cbjntngcsfkmj" path="res://Scenes/player.tscn" id="2_p20sl"]
-[ext_resource type="Texture2D" uid="uid://b506j667tjrht" path="res://Import/Textures/Tilesets/Tiletest1.png" id="4_4jemg"]
+[ext_resource type="Texture2D" uid="uid://b65jggirt8k63" path="res://Import/Textures/Tilesets/Tiletest.png" id="3_6w5qh"]
 [ext_resource type="Texture2D" uid="uid://e6tslwetn6xb" path="res://Import/Textures/temp-objects.png" id="4_34oqg"]
-[ext_resource type="Texture2D" uid="uid://cv185kyfkbp82" path="res://Import/Textures/temp-enemies.png" id="5_23b1i"]
+[ext_resource type="Texture2D" uid="uid://b2v3fx3kn2hcj" path="res://Import/Textures/temp-enemies.png" id="5_23b1i"]
 [ext_resource type="Script" path="res://Scripts/object_creation.gd" id="5_pixo4"]
 [ext_resource type="Texture2D" uid="uid://dwn6p66vlrwmh" path="res://Import/Textures/temp-FGtiles.png" id="5_v3tyw"]
 [ext_resource type="Script" path="res://Scripts/enemy_creation.gd" id="7_p0tcv"]
@@ -26,13 +26,15 @@ texture = ExtResource("2_022sy")
 2:2/0 = 0
 3:2/0 = 0
 4:2/0 = 0
+1:1/0 = 0
+0:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_54gwe"]
 sources/0 = SubResource("TileSetAtlasSource_yjhyt")
 pattern_0 = SubResource("TileMapPattern_jt5n0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1o7d"]
-texture = ExtResource("4_4jemg")
+texture = ExtResource("3_6w5qh")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -469,6 +471,41 @@ texture = ExtResource("4_4jemg")
 7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:6/0/terrains_peering_bit/left_side = 0
 7:6/0/terrains_peering_bit/top_side = 0
+6:4/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_pgfi7"]
 physics_layer_0/collision_layer = 2
@@ -509,6 +546,7 @@ texture = ExtResource("5_23b1i")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
+3:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_u1vo5"]
 sources/0 = SubResource("TileSetAtlasSource_wqxwj")
@@ -527,6 +565,10 @@ texture = ExtResource("5_v3tyw")
 2:2/0 = 0
 3:2/0 = 0
 4:2/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_5hvw6"]
 sources/0 = SubResource("TileSetAtlasSource_8vw4t")

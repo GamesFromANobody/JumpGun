@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://vgd1xojc04hf"]
 
 [ext_resource type="Script" path="res://Scripts/mob_enemy.gd" id="1_uwn0h"]
-[ext_resource type="Texture2D" uid="uid://cv185kyfkbp82" path="res://Import/Textures/temp-enemies.png" id="2_pigm3"]
+[ext_resource type="Texture2D" uid="uid://b2v3fx3kn2hcj" path="res://Import/Textures/temp-enemies.png" id="2_pigm3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vdhlj"]
-size = Vector2(13, 12)
+size = Vector2(14, 14)
 
 [node name="MobEnemy" type="CharacterBody2D" groups=["Enemies"]]
 collision_layer = 4
@@ -13,10 +13,9 @@ script = ExtResource("1_uwn0h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_pigm3")
-hframes = 3
+hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_vdhlj")
 
 [node name="WanderTimer" type="Timer" parent="."]
