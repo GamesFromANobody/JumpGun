@@ -71,6 +71,8 @@ func CreateObject(index, pos):
 	newObj.position = pos * 16 + Vector2i(8, 8)
 	if index == 0:
 		newObj.targetHit.connect(TargetDestroyed)
+	if index == 2:
+		newObj.position += Vector2(8, -8)
 	add_child(newObj)
 	return newObj
 

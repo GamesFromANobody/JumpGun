@@ -70,6 +70,14 @@ icon_alignment = 1
 layout_mode = 2
 text = "Back"
 
+[node name="Test" type="Button" parent="."]
+layout_mode = 2
+offset_left = 200.0
+offset_right = 241.0
+offset_bottom = 31.0
+text = "Test
+"
+
 [connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Testing" to="." method="_on_testing_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Testing2" to="." method="_on_testing_2_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/LevelSelect/VBoxContainer/Back" to="." method="_on_back_pressed"]
@@ -78,3 +86,4 @@ text = "Back"
 [connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Pistol" to="." method="_on_pistol_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Shotgun" to="." method="_on_shotgun_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/GunSelect/VBoxContainer/Back" to="." method="_on_weapon_back_pressed"]
+[connection signal="pressed" from="Test" to="." method="_on_test_pressed"]

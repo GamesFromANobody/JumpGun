@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cbjntngcsfkmj"]
+[gd_scene load_steps=16 format=3 uid="uid://cbjntngcsfkmj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_dvgqa"]
-[ext_resource type="AudioStream" uid="uid://fh101568713r" path="res://Import/Audio/FX/temp/shot.mp3" id="2_v80sv"]
+[ext_resource type="AudioStream" uid="uid://bpmnug1ov7ycy" path="res://Import/Audio/FX/Shotgun/ESM_GW_designed_shotgun_pump_and_reload_full_fire_blast_heavy_shell_bullet_reload_3.wav" id="2_3rbio"]
 [ext_resource type="PackedScene" uid="uid://counsjax6jdx4" path="res://Scenes/Particles/shotgun_smoke.tscn" id="2_xtojg"]
+[ext_resource type="AudioStream" uid="uid://chx7dekayy2dv" path="res://Import/Audio/FX/Shotgun/GunFoleyShotgun_BW.55958.wav" id="3_1t8tw"]
 [ext_resource type="AudioStream" uid="uid://dh10vb05ii3hs" path="res://Import/Audio/FX/temp/click.mp3" id="3_v0axf"]
 [ext_resource type="PackedScene" uid="uid://ck8fw6x7e6mjo" path="res://Scenes/UI/hud.tscn" id="4_01w15"]
 [ext_resource type="Texture2D" uid="uid://2qy753ggpfnh" path="res://Import/Textures/Lights/laserSight.png" id="4_y8v18"]
@@ -103,6 +104,30 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShotSFX:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RackSFX:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_ne0a6"]
 resource_name = "Shoot_Generic"
@@ -158,6 +183,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ShotSFX:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_1dw3i"]
 resource_name = "shoot_shotgun"
@@ -169,10 +206,72 @@ tracks/0/path = NodePath("Gun:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
+"times": PackedFloat32Array(0, 0.133333, 0.166667, 0.233333, 0.266667, 0.4, 0.433333, 0.466667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": []
+"values": [0, 1, 2, 3, 4, 3, 2, 5, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gun/Color:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.166667, 0.233333, 0.266667, 0.4, 0.433333, 0.466667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 3, 2, 5, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShotSmoke:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawnCasing"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ShotSFX:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RackSFX:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.133333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_77ow3"]
@@ -192,8 +291,14 @@ angular_damp = 10.0
 script = ExtResource("1_dvgqa")
 
 [node name="ShotSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_v80sv")
-volume_db = 6.0
+stream = ExtResource("2_3rbio")
+volume_db = -15.0
+max_polyphony = 10
+bus = &"Sounds"
+
+[node name="RackSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1t8tw")
+volume_db = -12.0
 max_polyphony = 10
 bus = &"Sounds"
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://svdwkte1gs7t"]
 
-[ext_resource type="Texture2D" uid="uid://e6tslwetn6xb" path="res://Import/Textures/temp-objects.png" id="1_e2ali"]
 [ext_resource type="Script" path="res://Scripts/Objects/target.gd" id="1_p3w1s"]
+[ext_resource type="Texture2D" uid="uid://vj742ayovie8" path="res://Import/Textures/temp-objects2.png" id="2_a0dbq"]
 [ext_resource type="AudioStream" uid="uid://13sjeap47tu0" path="res://Import/Audio/FX/temp/pop.ogg" id="3_oe0xl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jwmfy"]
@@ -16,9 +16,9 @@ script = ExtResource("1_p3w1s")
 shape = SubResource("CircleShape2D_jwmfy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_e2ali")
-hframes = 8
-vframes = 8
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_a0dbq")
+hframes = 3
 
 [node name="PopTargetSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_oe0xl")

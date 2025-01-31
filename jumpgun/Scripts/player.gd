@@ -39,6 +39,11 @@ var slowdown_recharge_rate : float = 0.25 #0.25 = 4 times longer to recharge tha
 @export var aim_zooming = true
 @export var gun_resource : PlayerGunTypes
 
+var gunShootSounds = [
+	preload("res://Import/Audio/FX/Pistol/GunshotPistol_BW.56908.wav"),
+	preload("res://Import/Audio/FX/Shotgun/ESM_GW_designed_shotgun_pump_and_reload_full_fire_blast_heavy_shell_bullet_reload_3.wav"),
+]
+
 var bullet_scene = preload("res://Scenes/Projectiles/bullet.tscn")
 var bullet_resource : BulletTypes
 var base_bullet_resource : BulletTypes
@@ -84,6 +89,7 @@ func _ready() -> void:
 	bullet_resource = base_bullet_resource
 	$ShotSFX.set_deferred("volume_db", 6 + (MusicController.soundVolume - 50) * 0.5)
 	$ClickSFX.set_deferred("volume_db", (MusicController.soundVolume - 50) * 0.5)
+	MusicController.levelReload()
 
 #Update the game speed while aiming down sight
 func _physics_process(delta: float) -> void:
@@ -95,6 +101,12 @@ func _physics_process(delta: float) -> void:
 		linear_velocity *= 1000 / linear_velocity.length()
 	$Velocity.target_position = linear_velocity.rotated(-rotation) * 0.25
 	if isPaused or isDead:
+		if isDead:
+			gameSpeed += delta * 0.5
+		if gameSpeed > 1.0:
+			gameSpeed = 1.0
+		Engine.time_scale = gameSpeed
+		MusicController.changePitchScale(pow(Engine.time_scale, 0.8))
 		return
 	shotCooldown -= delta
 	var prevGameSpeed = gameSpeed
@@ -126,7 +138,7 @@ func _physics_process(delta: float) -> void:
 			slowdown = slowdown_seconds
 	if prevGameSpeed != gameSpeed:
 		Engine.time_scale = gameSpeed
-		MusicController.pitch_scale = pow(Engine.time_scale, 0.8)
+		MusicController.changePitchScale(pow(Engine.time_scale, 0.8))
 		#$GunAnimations.speed_scale = Engine.time_scale
 		var alpha = (gameSpeed - 0.25) / 0.75 #To correct for game speed being 0.25-1.0
 		$Gun/LaserSight.self_modulate = Color(1, 0, 0, 1 - alpha)
@@ -212,13 +224,16 @@ func ApplyKnockback(state : PhysicsDirectBodyState2D):
 
 func Shoot():
 	if $Gun.hframes * $Gun.vframes > 7:
-		$GunAnimations.play("Shoot_Generic")
 		$ShotSFX.pitch_scale = pow(Engine.time_scale, 0.8)
-		$ShotSFX.play(0.1)
+		$RackSFX.pitch_scale = pow(Engine.time_scale, 0.8)
 	match gun_type:
 		ShotTypes.PISTOL:
+			$ShotSFX.stream = gunShootSounds[0]
+			$ShotSFX.set_deferred("volume_db", 0 + (MusicController.soundVolume - 50) * 0.5)
 			ShootPistol()
 		ShotTypes.SHOTGUN:
+			$ShotSFX.stream = gunShootSounds[1]
+			$ShotSFX.set_deferred("volume_db", -12 + (MusicController.soundVolume - 50) * 0.5)
 			ShootShotgun()
 		ShotTypes.SNIPER:
 			ShootSniper()
@@ -227,7 +242,6 @@ func Shoot():
 		ShotTypes.LMG:
 			ShootLMG()
 	print("Ammo Left: ", str(currentMag))
-	
 
 func spawnCasing():
 	var casing = casing_scene.instantiate()
@@ -239,6 +253,7 @@ func spawnCasing():
 	get_parent().call_deferred("add_child", casing)
 
 func ShootPistol():
+	$GunAnimations.play("Shoot_Generic")
 	var b = bullet_scene.instantiate() as Bullet
 	b.transform = $Muzzle.global_transform
 	b.bullet_resource = bullet_resource
@@ -246,6 +261,7 @@ func ShootPistol():
 	get_parent().call_deferred("add_child" ,b)
 
 func ShootShotgun():
+	$GunAnimations.play("shoot_shotgun")
 	var spreadAngle = 0.2
 	var bArray = [bullet_scene.instantiate() as Bullet,
 	 bullet_scene.instantiate() as Bullet,
@@ -268,7 +284,15 @@ func ShootSMG():
 func ShootLMG():
 	ShootPistol() #temporary, until we decide if SMG's should have their own bullet models
 
-
+func Win():
+	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.hide()
+	$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/PauseLBL.text = "VICTORY!"
+	$HUD/PauseMenu.show()
+	god_mode = true
+	isPaused = true
+	collision_layer = pow(2, 9)
+	collision_mask = 2
+	MusicController.levelWon()
 
 func Hit():
 	if god_mode != true:
@@ -276,6 +300,7 @@ func Hit():
 		$Gun.hide()
 		isPaused = true
 		isDead = true
+		MusicController.levelLost()
 		collision_layer = pow(2, 9)
 		collision_mask = 2
 		$HUD/PauseMenu/AspectRatioContainer/HBoxContainer/VBoxContainer/ResumeBTN.hide()

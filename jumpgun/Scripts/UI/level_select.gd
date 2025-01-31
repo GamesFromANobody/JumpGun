@@ -29,12 +29,6 @@ func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 
-func _on_testing_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Levels/level_test.tscn")
-
-
-func _on_testing_2_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis1.tscn")
 
 
 
@@ -59,7 +53,12 @@ func _on_shotgun_pressed() -> void:
 
 func _on_default_weapon_pressed() -> void:
 	get_tree().change_scene_to_file(fileToLoad)
+	MusicController.levelLoad()
 
 func _on_weapon_back_pressed() -> void:
 	$AspectRatioContainer/ItemList.show()
 	$AspectRatioContainer/GunSelect.hide()
+
+
+func _on_test_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis_01_aim.tscn")

@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvp0psnsp8o05"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/ammo.gd" id="1_h4kdq"]
-[ext_resource type="Texture2D" uid="uid://e6tslwetn6xb" path="res://Import/Textures/temp-objects.png" id="1_wqmke"]
+[ext_resource type="Texture2D" uid="uid://vj742ayovie8" path="res://Import/Textures/temp-objects2.png" id="2_gefgm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkcu3"]
-size = Vector2(16, 16)
+size = Vector2(8, 16)
 
 [node name="Ammo" type="Area2D"]
 collision_layer = 32
@@ -14,9 +14,10 @@ script = ExtResource("1_h4kdq")
 shape = SubResource("RectangleShape2D_nkcu3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_wqmke")
-hframes = 8
-vframes = 8
+position = Vector2(-1, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gefgm")
+hframes = 3
 frame = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
