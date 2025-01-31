@@ -17,6 +17,104 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="AspectRatioContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Art" type="MarginContainer" parent="AspectRatioContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Art"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Art/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
+text = "Art"
+horizontal_alignment = 1
+
+[node name="desc" type="Label" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Art/VBoxContainer"]
+layout_mode = 2
+text = "Aseprite
+GIMP
+Tiles2D"
+horizontal_alignment = 1
+
+[node name="Programming" type="MarginContainer" parent="AspectRatioContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Programming"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Programming/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
+text = "Programming"
+horizontal_alignment = 1
+
+[node name="desc" type="Label" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Programming/VBoxContainer"]
+layout_mode = 2
+text = "Made in GODOT - GDScript"
+horizontal_alignment = 1
+
+[node name="Music" type="MarginContainer" parent="AspectRatioContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Music"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Music/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
+text = "Music"
+horizontal_alignment = 1
+
+[node name="desc" type="Label" parent="AspectRatioContainer/VBoxContainer/HBoxContainer/Music/VBoxContainer"]
+layout_mode = 2
+text = "FL Studio 24"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Programming" type="MarginContainer" parent="AspectRatioContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/VBoxContainer/HBoxContainer2/Programming"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="AspectRatioContainer/VBoxContainer/HBoxContainer2/Programming/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
+text = "SFX:"
+horizontal_alignment = 1
+
+[node name="desc" type="Label" parent="AspectRatioContainer/VBoxContainer/HBoxContainer2/Programming/VBoxContainer"]
+layout_mode = 2
+text = " Splice & Envato Elements"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="AspectRatioContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
 layout_mode = 2
 alignment = 1
@@ -25,9 +123,24 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
+text = "People"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="AQUAGON" type="Label" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Maja Salamon | AQUAGON - Audio, Artwork, Design"
+text = "Maja Salamon | AQUAGON - Music Composer"
 horizontal_alignment = 1
 
 [node name="Blarget" type="Label" parent="AspectRatioContainer/HBoxContainer/VBoxContainer"]
