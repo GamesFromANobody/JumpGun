@@ -69,15 +69,15 @@ func _on_lvl_01_pressed() -> void:
 
 
 func _on_lvl_02_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Levels/FF00FF_01.tscn")
-
-
-func _on_lvl_03_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/level_Enzo01.tscn")
 
 
+func _on_lvl_03_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Levels/FF00FF_01.tscn")
+
+
 func _on_lvl_04_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Levels/level_godis_03_noammo.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis_02_speed.tscn")
 
 
 func _on_lvl_05_pressed() -> void:
@@ -85,4 +85,4 @@ func _on_lvl_05_pressed() -> void:
 
 
 func _on_lvl_06_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Levels/level_grodis_02_speed.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_godis_03_noammo.tscn")
