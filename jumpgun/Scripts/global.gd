@@ -4,6 +4,7 @@ var levelSelect : String
 var playerSelect : String
 var targetsStarting : int
 var targetsLeft : int
+var justLaunched = true
 
 func set_level(level_select):
 	self.levelSelect = level_select

@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://clytaljuarrl2"]
+[gd_scene load_steps=4 format=4 uid="uid://clytaljuarrl2"]
 
 [ext_resource type="PackedScene" uid="uid://yo74n18pbk7b" path="res://Scenes/level_base.tscn" id="1_x3pqn"]
 [ext_resource type="PackedScene" uid="uid://vgd1xojc04hf" path="res://Scenes/Enemies/mob_enemy.tscn" id="2_3g5gk"]
 [ext_resource type="Resource" uid="uid://ckwf82khe36yc" path="res://Resources/Player/Resource_player_pistol_glock18_v1.tres" id="2_8rh28"]
-[ext_resource type="Script" path="res://Scripts/mob_enemy.gd" id="3_7we4q"]
 
 [node name="LevelEnzo02" type="Node2D"]
 
@@ -30,11 +29,8 @@ flying = true
 position = Vector2(520, -24)
 flying = true
 
-[node name="@CharacterBody2D@24324" type="CharacterBody2D" parent="Level_Base/Enemies" index="2" groups=["Enemies"] instance=ExtResource("2_3g5gk")]
+[node name="@CharacterBody2D@24324" parent="Level_Base/Enemies" index="2" instance=ExtResource("2_3g5gk")]
 position = Vector2(200, -56)
-collision_layer = 4
-collision_mask = 87
-script = ExtResource("3_7we4q")
 flying = true
 
 [node name="Player" parent="Level_Base" index="4"]
