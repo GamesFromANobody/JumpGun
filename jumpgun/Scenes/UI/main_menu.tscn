@@ -30,6 +30,21 @@ texture = ExtResource("2_0wsm7")
 position = Vector2(128, 399)
 scale = Vector2(4, 4)
 
+[node name="TheMenuGunSays" type="Label" parent="CanvasLayer/MenuGun"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -48.0
+offset_right = 217.0
+offset_bottom = 35.0
+grow_vertical = 0
+scale = Vector2(0.4, 0.4)
+size_flags_vertical = 1
+text = "\"I'm a gun on the run!\""
+vertical_alignment = 2
+autowrap_mode = 2
+
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
 custom_minimum_size = Vector2(1280, 720)
 offset_right = 1280.0
