@@ -13,13 +13,14 @@ config_version=5
 config/name="JumpGun"
 run/main_scene="res://Scenes/UI/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/bg_color=Color(0.188235, 0.227451, 0.352941, 1)
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Scripts/global.gd"
 GunSelection="*res://Scripts/gun_selection.gd"
-MusicController="*res://Scripts/music_controller.gd"
+MusicController="*res://Scenes/Autoloads/MusicController.tscn"
 
 [display]
 
@@ -115,3 +116,4 @@ Restart={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.188235, 0.227451, 0.352941, 1)
